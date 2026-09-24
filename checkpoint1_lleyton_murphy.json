@@ -1,0 +1,387 @@
+{
+  "name": "Checkpoint 1 - Agente Base (Tools Agent) - Lleyton Murphy",
+  "nodes": [
+    {
+      "id": "aca9aae4-30d8-45e0-948e-320069b356d4",
+      "name": "Chat Trigger",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        0,
+        112
+      ],
+      "parameters": {
+        "options": {
+          "responseMode": "lastNode"
+        }
+      },
+      "webhookId": "d2c6f2fa-d864-4867-863f-a9a1e4aa7cea"
+    },
+    {
+      "id": "d7f3a162-7f0c-425f-9b9b-faa6a98148d1",
+      "name": "AI Agent (Tools Agent)",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        224,
+        112
+      ],
+      "parameters": {
+        "promptType": "auto",
+        "options": {
+          "maxIterations": 6,
+          "systemMessage": "ROL:\nSos \"Asistente de Busqueda Laboral Remota\" de Lleyton IA Automation. Tu especialidad es ayudar a un candidato a descubrir y evaluar vacantes remotas.\n\nAMBITO:\n- Actuas solo sobre busqueda y calificacion de oportunidades laborales remotas (IA/Automation, Data, Partnerships, Sales).\n- Trabajas dentro de una unica sesion de chat; no tenes acceso a datos personales fuera de lo que el usuario te comparte.\n\nOBJETIVO:\n- Entender el rol o area que busca el usuario y devolver una lista breve, rankeada y accionable de vacantes reales, con empresa, ubicacion, salario (si existe) y link de postulacion.\n- Cuando corresponda, invocar la herramienta buscar_vacantes_remotas para traer datos reales; nunca inventes vacantes.\n\nREGLAS Y RESTRICCIONES:\n- Redacta siempre en espanol neutro y profesional; no uses giros de lenguaje inclusivo (evita terminaciones con -e/-x/@).\n- NO inventes vacantes, empresas, salarios ni URLs: si no tenes datos de la herramienta, decilo con honestidad.\n- NO redactes correos completos ni realices postulaciones (eso corresponde a otro especialista/modulo).\n- NO brindes asesoramiento legal, migratorio ni financiero.\n- Se conciso: maximo 5 vacantes por respuesta.\n\nESCALAMIENTO:\n- Si el pedido es ambiguo, pedi una aclaracion breve (rol, area o tecnologia).\n- Si el pedido queda fuera de tu ambito (por ejemplo, redactar el correo de postulacion o negociar sueldo), indicalo y sugeri derivarlo al especialista correspondiente.\n\nHERRAMIENTAS:\n- buscar_vacantes_remotas: para buscar vacantes reales.\n- registrar_vacante_interesante: solo si el usuario pide explicitamente guardar una vacante concreta."
+        }
+      }
+    },
+    {
+      "id": "01658ce6-286e-44ff-a966-34125dae6a34",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        240,
+        336
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o",
+          "cachedResultName": "gpt-4o"
+        },
+        "responsesApiEnabled": false,
+        "options": {
+          "temperature": 0
+        }
+      }
+    },
+    {
+      "id": "ae20c8bc-ba67-45a7-92fa-616b7c023422",
+      "name": "buscar_vacantes_remotas",
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.5,
+      "position": [
+        368,
+        336
+      ],
+      "parameters": {
+        "toolDescription": "Consulta en tiempo real el board publico de empleos remotos Remotive y devuelve hasta 5 vacantes reales con titulo, empresa, ubicacion, salario (si esta publicado) y URL de postulacion.\nCUANDO USARLA (decision autonoma): siempre que el usuario pida buscar, listar, descubrir, comparar o recomendar vacantes, puestos, trabajos u oportunidades laborales remotas, ya sea por rol (data analyst, automation engineer, sales, partnerships, customer success), por tecnologia (Python, n8n, SQL, Power BI) o por area. Tambien cuando pida 'que hay disponible', 'mostrame ofertas' o quiera actualizar una busqueda anterior.\nPARAMETRO: termino_busqueda = rol o palabra clave principal en ingles (ej: 'data analyst').\nCUANDO NO USARLA: para redactar correos o cartas de presentacion, negociar salario, preguntas de opinion, small talk o consultas que no sean sobre vacantes. Nunca inventes vacantes: si la herramienta no devuelve resultados, decilo y sugeri otro termino.",
+        "method": "GET",
+        "url": "https://remotive.com/api/remote-jobs",
+        "sendQuery": true,
+        "specifyQuery": "keypair",
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "search",
+              "value": "={{ $fromAI('termino_busqueda', 'Rol o palabra clave a buscar, ej: data analyst, automation, sales') }}"
+            },
+            {
+              "name": "limit",
+              "value": "5"
+            }
+          ]
+        },
+        "optimizeResponse": true,
+        "responseType": "json",
+        "dataField": "jobs"
+      }
+    },
+    {
+      "id": "7c1d2e3f-4a5b-4c6d-8e9f-0a1b2c3d4e5f",
+      "name": "registrar_vacante_interesante",
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        1000,
+        420
+      ],
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Registra en la planilla de Google Sheets 'Seguimiento de Vacantes' (pestana 'Vacantes') una vacante que el usuario quiere guardar para postularse o hacer seguimiento. Agrega UNA fila nueva con fecha, puesto, empresa, URL, salario y nota.\nCUANDO USARLA (decision autonoma): solo cuando el usuario exprese de forma explicita que quiere guardar, anotar, registrar, marcar como favorita o hacer seguimiento de una vacante concreta que ya aparecio en la conversacion (ej: 'guardame la de Acme', 'anota la segunda', 'quiero postularme a esa, registrala').\nDATOS: completa puesto, empresa y url exactamente como los devolvio buscar_vacantes_remotas; si falta la URL o la empresa, pedila antes de registrar.\nCUANDO NO USARLA: para buscar vacantes (usa buscar_vacantes_remotas), para registrar vacantes que el usuario no pidio guardar, ni para modificar o borrar filas existentes (no tenes permiso para eso).",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "https://docs.google.com/spreadsheets/d/REEMPLAZAR_ID_PLANILLA/edit"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Vacantes"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "fecha": "={{ $now.toISO() }}",
+            "puesto": "={{ $fromAI('puesto', 'Titulo exacto del puesto de la vacante', 'string') }}",
+            "empresa": "={{ $fromAI('empresa', 'Nombre de la empresa que publica la vacante', 'string') }}",
+            "url": "={{ $fromAI('url', 'URL de postulacion devuelta por buscar_vacantes_remotas', 'string') }}",
+            "salario": "={{ $fromAI('salario', 'Salario publicado o \"no informado\"', 'string') }}",
+            "nota": "={{ $fromAI('nota', 'Motivo breve por el que el usuario la guarda', 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "fecha",
+              "displayName": "fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "puesto",
+              "displayName": "puesto",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "empresa",
+              "displayName": "empresa",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "salario",
+              "displayName": "salario",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "nota",
+              "displayName": "nota",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "c73eff85-0e58-4999-8dea-acc1b4963e21",
+      "name": "Log de Observabilidad",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        576,
+        112
+      ],
+      "parameters": {
+        "resource": "row",
+        "operation": "insert",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "WfBPSRYW6YhkNszG",
+          "cachedResultName": "Log Observabilidad M1"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "fecha": "={{ $now.toISO() }}",
+            "session_id": "={{ $('Chat Trigger').item.json.sessionId }}",
+            "mensaje_usuario": "={{ $('Chat Trigger').item.json.chatInput }}",
+            "respuesta_agente": "={{ $json.output }}",
+            "herramienta_disponible": "buscar_vacantes_remotas"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "fecha",
+              "displayName": "fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "session_id",
+              "displayName": "session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "mensaje_usuario",
+              "displayName": "mensaje_usuario",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "respuesta_agente",
+              "displayName": "respuesta_agente",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "herramienta_disponible",
+              "displayName": "herramienta_disponible",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "bcab0580-8cda-4003-ba12-756821200ba9",
+      "name": "Reporte de Observabilidad (Gmail)",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        800,
+        112
+      ],
+      "onError": "continueRegularOutput",
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "sendTo": "murphylleyton05@gmail.com",
+        "subject": "=Log de observabilidad — Agente IA (sesion {{ $('Chat Trigger').item.json.sessionId }})",
+        "emailType": "html",
+        "message": "=<h3>Reporte de observabilidad del agente</h3><p><b>Mensaje del usuario:</b> {{ $('Chat Trigger').item.json.chatInput }}</p><p><b>Respuesta del agente:</b><br>{{ $('AI Agent (Tools Agent)').item.json.output }}</p><p><b>Herramienta disponible:</b> buscar_vacantes_remotas</p><p><b>Fecha:</b> {{ $now.toISO() }}</p>",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "webhookId": "fd1aa18b-a1bf-4c58-8c49-c18793ceff44"
+    },
+    {
+      "id": "dfcfcee0-95bd-480e-8818-36774c8c6dda",
+      "name": "Respuesta al usuario",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1040,
+        112
+      ],
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ { \"output\": $('AI Agent (Tools Agent)').item.json.output } }}"
+      }
+    }
+  ],
+  "connections": {
+    "Chat Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent (Tools Agent)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent (Tools Agent)": {
+      "main": [
+        [
+          {
+            "node": "Log de Observabilidad",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent (Tools Agent)",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "buscar_vacantes_remotas": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent (Tools Agent)",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log de Observabilidad": {
+      "main": [
+        [
+          {
+            "node": "Reporte de Observabilidad (Gmail)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reporte de Observabilidad (Gmail)": {
+      "main": [
+        [
+          {
+            "node": "Respuesta al usuario",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "registrar_vacante_interesante": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent (Tools Agent)",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateId": "checkpoint1-agente-base"
+  }
+}
