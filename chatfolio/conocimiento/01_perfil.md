@@ -1,31 +1,36 @@
 # Perfil de Lleyton Murphy
 
 ## Quién es Lleyton Murphy
-Soy Lleyton Murphy. Trabajo en IA aplicada y automatización de procesos con mi marca personal **Lleyton IA Automation**. Diseño agentes de IA y flujos automatizados (principalmente en n8n con modelos de OpenAI) que conectan herramientas del día a día como Gmail, Google Sheets y APIs externas.
-[COMPLETAR: 2-3 líneas sobre tu historia: de dónde venís, qué te llevó a la IA y la automatización.]
+Soy Lleyton Murphy, Data Analyst Jr. especializado en Business Intelligence y automatización de procesos con IA. Construyo pipelines ETL con Python y SQL, dashboards en Power BI y Excel, y flujos automatizados con n8n y APIs de IA (Claude y OpenAI).
+Mi proyecto más representativo es Vaca Muerta Analytics: un sistema que procesa, analiza y monitorea solo, cada mes, la producción oficial de más de 2.400 pozos de Vaca Muerta.
+También tengo una marca propia de automatización para PyMEs, Lleyton IA Automation (2025 – actualidad).
 
 ## Qué rol busca Lleyton
-Busco oportunidades **100 % remotas** en estas áreas:
-- IA y automatización (n8n, agentes con LLMs, integraciones)
-- Data
-- Partnerships
-- Sales
-[COMPLETAR: el tipo de empresa o equipo que te interesa, seniority, si aceptás freelance o solo relación de dependencia.]
+Lleyton busca su primera posición como:
+- Data Analyst, BI Analyst, Reporting Analyst u Operations Analyst
+- AI Automation (automatización de procesos con n8n y agentes de IA)
 
-## Disponibilidad y modalidad de trabajo de Lleyton
-- Modalidad: remoto.
-- Ubicación y zona horaria: [COMPLETAR: ciudad, país, zona horaria (ej: GMT-3)].
+Industrias de mayor interés: energía (Oil & Gas), operaciones y consultoría.
+
+## Ubicación, disponibilidad y modalidad de trabajo de Lleyton
+- Ubicación: La Plata (City Bell), Buenos Aires, Argentina. Zona horaria GMT-3.
+- Modalidad: [COMPLETAR: remoto / híbrido / presencial; si podés viajar a CABA].
 - Disponibilidad para empezar: [COMPLETAR: inmediata / en X semanas].
-- Dedicación: [COMPLETAR: full-time / part-time / por proyecto].
 
 ## Idiomas de Lleyton
-- Español: [COMPLETAR: nivel].
-- Inglés: [COMPLETAR: nivel, y si tenés certificación].
+- Español: nativo.
+- Inglés: B2. Tiene el Cambridge B2 First (FCE, 2023) y la certificación ICAO Nivel 5 (operacional extendido).
+
+## Formación de Lleyton Murphy
+- Coderhouse: Certificación en Data Analytics (2024 – 2025).
+- Coderhouse: Certificación en Automatización con IA (2025).
 
 ## Cómo contactar a Lleyton
-- LinkedIn: [COMPLETAR: URL de tu perfil]
-- Email: [COMPLETAR: email público de contacto]
-- Para coordinar una entrevista, el asistente del chatfolio puede tomar nombre, email y mensaje y avisarle a Lleyton por email.
+- Email: murphylleyton05@gmail.com
+- LinkedIn: https://linkedin.com/in/lleyton-murphy-3716093a3
+- GitHub: https://github.com/murphylleyton05-lgtm
+- Portfolio de Oil & Gas: https://murphylleyton05-lgtm.github.io/portfolio/hidrocarburos/
+- Desde este chat también se le puede dejar nombre, email y mensaje: el asistente le avisa a Lleyton por email.
 
 ## Expectativa salarial de Lleyton
-Lleyton prefiere conversar la expectativa salarial o la tarifa directamente, según el rol y el alcance. El asistente no da cifras.
+Lleyton prefiere conversar la expectativa salarial directamente, según el rol y el alcance. El asistente no da cifras.

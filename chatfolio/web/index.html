@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Lleyton Murphy · Chatfolio</title>
-  <meta name="description" content="Portfolio conversacional de Lleyton Murphy: preguntale a su asistente de IA por su experiencia, proyectos y stack en IA y automatización.">
-  <meta property="og:title" content="Lleyton Murphy · IA & Automation">
+  <meta name="description" content="Portfolio conversacional de Lleyton Murphy: preguntale a su asistente de IA por sus proyectos de datos, BI y automatización con IA.">
+  <meta property="og:title" content="Lleyton Murphy · Data, BI y Automatización con IA">
   <meta property="og:description" content="No leas mi CV: preguntale a mi asistente por mi experiencia, proyectos y stack.">
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -252,20 +252,24 @@
     <section class="intro" aria-labelledby="nombre">
       <p class="eyebrow">Portfolio conversacional</p>
       <h1 id="nombre">Lleyton Murphy</h1>
-      <p class="role">IA &amp; Automation · Lleyton IA Automation</p>
+      <p class="role">Data Analyst Jr. · Business Intelligence · Automatización con IA</p>
       <p class="pitch">En vez de leer mi CV, preguntale a mi asistente: te cuenta mi experiencia, mis proyectos y cómo trabajo.</p>
       <ul class="tags">
-        <li>Agentes de IA</li>
+        <li>SQL</li>
+        <li>Python</li>
+        <li>Power BI</li>
         <li>n8n</li>
-        <li>OpenAI</li>
-        <li>RAG</li>
-        <li>Data</li>
-        <li>Partnerships &amp; Sales</li>
+        <li>Agentes de IA</li>
+        <li>Oil &amp; Gas</li>
       </ul>
       <nav class="links" aria-label="Enlaces de contacto">
         <a class="btn primary" data-link="linkedin" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4V21H3V9.75Zm6.5 0h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.6 4.77 6V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4V9.75Z"/></svg>
           LinkedIn
+        </a>
+        <a class="btn" data-link="github" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+          GitHub
         </a>
         <a class="btn" data-link="cv" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M12 17v-6M9 14l3 3 3-3"/></svg>
@@ -292,10 +296,10 @@
       <div class="messages" id="messages" role="log" aria-live="polite"></div>
 
       <div class="suggestions" id="suggestions">
-        <button class="chip" type="button">¿Qué proyectos de IA hizo Lleyton?</button>
+        <button class="chip" type="button">¿Qué hizo con datos de Vaca Muerta?</button>
         <button class="chip" type="button">¿Qué stack maneja?</button>
         <button class="chip" type="button">¿Qué rol está buscando?</button>
-        <button class="chip" type="button">Quiero contactarlo</button>
+        <button class="chip" type="button">Quiero contactar a Lleyton</button>
       </div>
 
       <form class="composer" id="composer">
@@ -317,11 +321,12 @@
     const CONFIG = {
       // URL del Chat Trigger del workflow "Chatfolio · 2. Chat publico" (modo Embedded Chat).
       webhookUrl: "PEGAR_ACA_LA_URL_DEL_CHAT_TRIGGER",
-      linkedin: "",   // ej: "https://www.linkedin.com/in/tu-usuario"
-      cv: "",         // ej: "cv-lleyton-murphy.pdf" (subilo a esta misma carpeta)
-      email: "",      // ej: "tu-email@dominio.com"
+      linkedin: "https://linkedin.com/in/lleyton-murphy-3716093a3",
+      github: "https://github.com/murphylleyton05-lgtm",
+      cv: "",         // opcional, ej: "cv-lleyton-murphy.pdf" (subilo a esta misma carpeta)
+      email: "murphylleyton05@gmail.com",
       bienvenida:
-        "¡Hola! Soy el asistente de **Lleyton Murphy**. Puedo contarte sobre su experiencia, sus proyectos de IA y automatización, su stack y qué tipo de rol busca. ¿Por dónde querés empezar?",
+        "¡Hola! Soy el asistente de **Lleyton Murphy**. Puedo contarte sobre sus proyectos de datos y automatización con IA (como el de Vaca Muerta), su stack y qué rol busca. ¿Por dónde querés empezar?",
     };
     // =========================================================
 

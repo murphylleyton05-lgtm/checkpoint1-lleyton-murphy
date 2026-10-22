@@ -1,12 +1,12 @@
 # Chatfolio · Lleyton Murphy
 
-Portfolio conversacional: en vez de leer el CV, el visitante le pregunta a un asistente de IA por la experiencia, los proyectos y el stack de Lleyton. Si quiere contactarlo, el bot toma sus datos y le avisa a Lleyton por Gmail.
+Portfolio conversacional: en vez de leer el CV, el visitante le pregunta a un asistente de IA por la experiencia, los proyectos y el stack de Lleyton. Si quiere contactar a Lleyton, el bot toma sus datos y le avisa a Lleyton por Gmail.
 
 ## Arquitectura
 
 ```
                     ┌─────────────── Workflow 1 · Ingesta (se corre cuando actualizás tu info) ───────────────┐
- CV.pdf + .md  ──►  │ Form Trigger (con clave) ─► Pinecone (insert, limpia namespace)                         │
+ conocimiento/ ──►  │ Form Trigger (con clave) ─► Pinecone (insert, limpia namespace)                         │
                     │                               ├─ Lector de archivos ─ Divisor de texto (1000 / 150)     │
                     │                               └─ Embeddings OpenAI (text-embedding-3-small)              │
                     └──────────────────────────────────────────────────────────────────────────────────────────┘
@@ -40,8 +40,10 @@ Portfolio conversacional: en vez de leer el CV, el visitante le pregunta a un as
 - **Gmail**: la que ya usás.
 - **Basic Auth**: usuario y clave a tu elección. Protege el formulario de carga para que nadie más pueda reemplazar tu información.
 
-### 3. Completar la base de conocimiento
-Editá los archivos de `conocimiento/` y reemplazá cada `[COMPLETAR: ...]`. Lo que no quieras contar, borralo: no dejes placeholders.
+### 3. Revisar la base de conocimiento
+`conocimiento/` ya tiene todo tu CV, con los links a cada proyecto y escrito para que el RAG lo encuentre bien. Revisalo y completá los pocos `[COMPLETAR: ...]` que quedan (modalidad, disponibilidad, qué estás aprendiendo). Lo que no quieras contar, borralo.
+
+El teléfono quedó afuera a propósito: todo lo que está en estos archivos el bot lo puede decir.
 
 Lo que hace que el bot responda bien (el "desafío del RAG"):
 - **Bloques autocontenidos.** Cada sección se entiende sola y repite el nombre ("Lleyton trabajó en…"). El texto se corta en fragmentos de unos 1000 caracteres y el bot solo ve los fragmentos que encuentra.
@@ -54,14 +56,14 @@ Lo que hace que el bot responda bien (el "desafío del RAG"):
 1. En n8n: *Workflows → Import from File* → `n8n/chatfolio_1_ingesta.json`.
 2. Asigná las credenciales (Basic Auth en el formulario, Pinecone y OpenAI).
 3. Publicá el workflow y abrí la **Production URL** del Form Trigger.
-4. Subí **todos los archivos juntos**: tu CV en PDF y los 5 `.md`.
+4. Subí **los 5 `.md` juntos**. No subas el CV en PDF: su contenido ya está en los `.md`, y el PDF trae tu teléfono.
 
 Cada carga **reemplaza** lo anterior (limpia el namespace `lleyton`). Para actualizar algo, editás el archivo y volvés a subir todo.
 
 ### 5. Workflow 2 · Chat
 1. Creá una Data Table `chatfolio_log` con 4 columnas de tipo texto: `fecha`, `session_id`, `pregunta`, `respuesta`.
 2. Importá `n8n/chatfolio_2_chat.json`, asigná las credenciales y elegí la tabla en el nodo **Log de conversaciones**. Si el log falla, el chat sigue respondiendo igual.
-3. Probalo con el botón de chat de n8n: "¿qué proyectos hizo?", "¿cuánto cobra?", "quiero contactarlo".
+3. Probalo con el botón de chat de n8n: "¿qué proyectos hizo?", "¿cuánto cobra?", "quiero contactar a Lleyton".
 4. Publicá el workflow y copiá la **URL del Chat Trigger** (la de producción, no la de test).
 
 ### 6. La web (GitHub Pages, gratis)

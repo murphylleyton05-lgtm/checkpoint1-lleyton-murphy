@@ -1,31 +1,59 @@
 # Proyectos de Lleyton Murphy
 
-## Proyecto: Agente de Búsqueda Laboral Remota (n8n · Tools Agent)
-- **Problema:** buscar vacantes remotas reales en varios sitios y llevar el seguimiento a mano lleva mucho tiempo.
-- **Solución:** Lleyton construyó en n8n un agente conversacional (AI Agent en modo Tools Agent) que entiende qué rol busca la persona, consulta en tiempo real el board de empleos remotos de Remotive y devuelve hasta 5 vacantes reales, con empresa, ubicación, salario (si está publicado) y link para postularse. Cuando el usuario lo pide, guarda la vacante elegida en una planilla de Google Sheets de seguimiento.
-- **Decisiones de diseño:**
-  - System prompt modular: Rol → Ámbito → Objetivo → Reglas → Escalamiento → Herramientas.
-  - Reglas explícitas para no inventar vacantes ni URLs.
-  - Guardrail de máximo 6 iteraciones del agente.
-  - Descripciones de herramientas que dicen cuándo usarlas y cuándo no.
-- **Observabilidad:** cada conversación queda registrada en una Data Table de n8n y se envía un reporte por Gmail con el mensaje, la respuesta y la herramienta usada.
-- **Stack:** n8n, OpenAI GPT-4o, API HTTP de Remotive, Google Sheets, Gmail, n8n Data Tables.
-- **Resultado:** [COMPLETAR: qué lograste o aprendiste; ej: cuántas vacantes encontraste, feedback de la entrega.]
+## Proyecto de Lleyton: Vaca Muerta Analytics, declinación y reservas de pozos (energía / Oil & Gas)
+- **Problema:** estimar cuánto van a producir los pozos de Vaca Muerta y detectar a tiempo los que se desvían de lo esperado, usando datos públicos que hay que descargar, limpiar y validar.
+- **Qué hizo Lleyton:**
+  - Construyó un pipeline ETL que descarga, limpia y valida la producción oficial de más de 2.400 pozos (Secretaría de Energía, 2006–2026). Se actualiza solo cada mes con GitHub Actions.
+  - Ajustó curvas de declinación de Arps para estimar reservas (EUR) y las validó con backtesting sobre producción que el modelo no había visto: alrededor de 9 % de error en el total de pozos a 36 meses.
+  - Automatizó con n8n un monitoreo mensual que detecta pozos desviados de su curva esperada (posibles fallas o intervenciones) y manda alertas por Telegram.
+- **Stack:** Python, SciPy, Streamlit, GitHub Actions, n8n.
+- **Link:** https://murphylleyton05-lgtm.github.io/portfolio/hidrocarburos/
 
-## Proyecto: Chatfolio, portfolio conversacional con IA
-- **Problema:** un CV en PDF no responde preguntas abiertas y la típica landing personal no muestra cómo trabaja alguien con IA.
-- **Solución:** Lleyton creó este chatfolio: una web donde reclutadores y clientes conversan con un asistente que responde sobre su experiencia, proyectos y stack, y que puede tomar los datos de contacto del visitante y avisarle a Lleyton por email.
-- **Cómo funciona por dentro:**
-  - RAG: el CV y documentos complementarios se dividen en fragmentos, se convierten en embeddings (OpenAI text-embedding-3-small) y se guardan en Pinecone.
-  - Un agente de n8n (OpenAI gpt-4o-mini) busca en esa base antes de responder, con reglas para no inventar.
-  - Memoria de conversación por sesión, log de cada pregunta para ver qué consultan los visitantes, y aviso por Gmail cuando alguien quiere contactar.
-  - Frontend propio en HTML/JS publicado en GitHub Pages.
-- **Desafío principal:** el CV solo no alcanza para preguntas abiertas, así que Lleyton amplió las fuentes (perfil, proyectos, stack con contexto y preguntas frecuentes) y las estructuró en bloques autocontenidos para que la búsqueda encuentre el fragmento correcto.
+## Proyecto de Lleyton: Vaca Muerta Operations Intelligence + Well Performance ML
+- **Qué hizo Lleyton:**
+  - Armó un tablero de producción de petróleo y gas, pozos nuevos y ranking de 38 operadoras, con medidas DAX para Power BI.
+  - Entrenó una regresión ridge y un random forest (train/test 70/30) para medir cuánto del rendimiento de un pozo se explica por el diseño de fractura y cuánto por la geología.
+- **Stack:** Power BI (DAX), Python, machine learning.
+- **Link:** https://murphylleyton05-lgtm.github.io/portfolio/operaciones/
+
+## Proyecto de Lleyton: Frac Sand & Fuel Logistics, supply chain de arena de fractura
+- **Qué hizo Lleyton:** modeló la logística de arena de fractura a partir del consumo real por pozo: política de reposición (s, S), lead time, OTIF, stock de seguridad, quiebres de stock y costo logístico.
+- **Stack:** Python, pandas.
+- **Link:** https://murphylleyton05-lgtm.github.io/portfolio/logistica/
+
+## Proyecto de Lleyton: TechStore, sistema de BI end-to-end (Coderhouse)
+- **Qué hizo Lleyton:**
+  - Diseñó una base de datos relacional en tercera forma normal (PK/FK) y consultas de negocio con CTEs, INNER/LEFT JOIN, GROUP BY/HAVING y CASE.
+  - Desarrolló el ETL en Power Query (duplicados, nulos, tipos de dato, Merge) y un modelo estrella en Power BI con medidas DAX.
+  - Diseñó un dashboard ejecutivo en Excel sobre 2.400 operaciones, con KPIs contra meta, 4 segmentadores y gráfico de cascada.
+  - Automatizó un reporte financiero en Excel con Power Query, macros VBA y análisis de VAN/TIR a 5 años.
+- **Stack:** PostgreSQL, Power Query, Power BI, Excel, VBA.
+- **Código:** https://github.com/murphylleyton05-lgtm/entrega-final-coderhouse
+
+## Proyecto de Lleyton: Calificación de leads con IA y aprobación humana (proyecto final Coderhouse)
+- **Problema:** calificar leads y responder con propuestas personalizadas sin perder control humano sobre lo que se envía.
+- **Qué hizo Lleyton:**
+  - Automatizó el circuito completo: webhook → alta en Airtable → clasificación y propuesta personalizada con Claude → aprobación humana en Slack → envío por Gmail.
+  - Sumó manejo de errores (Error Trigger, log de fallos y protección anti-loop) y validó el flujo con 5 escenarios de prueba.
+- **Stack:** n8n, Claude API, Airtable, Slack, Gmail.
+- **Código:** https://github.com/murphylleyton05-lgtm/entrega-final-coderhouse
+
+## Proyecto de Lleyton: serie de agentes de IA en n8n
+- **Qué hizo Lleyton:** desarrolló un orquestador multi-agente Manager–Worker, un agente con memoria persistente, un agente de soporte con RAG integrado a Gmail, HubSpot y Slack, un agente de voz (Whisper) y un supervisor de calidad AI-as-a-Judge.
+- **Stack:** n8n, OpenAI, Whisper, HubSpot.
+- **Código:** https://github.com/murphylleyton05-lgtm/portfolio
+
+## Proyecto de Lleyton: Agente de Búsqueda Laboral Remota (n8n · Tools Agent)
+- **Problema:** buscar vacantes remotas reales y llevar el seguimiento a mano lleva mucho tiempo.
+- **Qué hizo Lleyton:** construyó en n8n un agente conversacional (AI Agent en modo Tools Agent) que consulta en tiempo real el board de empleos remotos de Remotive y devuelve hasta 5 vacantes reales con empresa, ubicación, salario (si está publicado) y link para postularse. Si el usuario lo pide, guarda la vacante en una planilla de Google Sheets de seguimiento.
+- **Decisiones de diseño:** system prompt modular (Rol → Ámbito → Objetivo → Reglas → Escalamiento → Herramientas), reglas para no inventar vacantes ni URLs, máximo 6 iteraciones del agente y herramientas que dicen cuándo usarlas y cuándo no.
+- **Observabilidad:** cada conversación queda registrada en una Data Table de n8n y se envía un reporte por Gmail.
+- **Stack:** n8n, OpenAI GPT-4o, API de Remotive, Google Sheets, Gmail, n8n Data Tables.
+- **Código:** https://github.com/murphylleyton05-lgtm/checkpoint1-lleyton-murphy
+
+## Proyecto de Lleyton: Chatfolio, este portfolio conversacional
+- **Problema:** un CV en PDF no responde preguntas abiertas.
+- **Qué hizo Lleyton:** una web donde reclutadores y clientes conversan con un asistente que responde sobre su experiencia, proyectos y stack, y que puede tomar los datos de contacto del visitante y avisarle por email.
+- **Cómo funciona:** RAG con embeddings de OpenAI (text-embedding-3-small) guardados en Pinecone, un agente de n8n con gpt-4o-mini y reglas para no inventar, memoria por sesión, log de preguntas y aviso por Gmail.
+- **Desafío principal:** el CV solo no alcanza para preguntas abiertas, así que Lleyton sumó fuentes (perfil, proyectos con contexto, stack y preguntas frecuentes) y las escribió en bloques autocontenidos para que la búsqueda encuentre el fragmento correcto.
 - **Stack:** n8n, OpenAI, Pinecone, HTML/CSS/JavaScript, GitHub Pages.
-
-## Proyecto: [COMPLETAR: nombre]
-- **Problema:** [COMPLETAR]
-- **Solución:** [COMPLETAR]
-- **Stack:** [COMPLETAR]
-- **Resultado:** [COMPLETAR: con números si podés]
-- **Link:** [COMPLETAR: repo, demo o video]
