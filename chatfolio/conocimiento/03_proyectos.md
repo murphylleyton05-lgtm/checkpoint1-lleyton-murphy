@@ -53,7 +53,8 @@
 
 ## Proyecto de Lleyton: Chatfolio, este portfolio conversacional
 - **Problema:** un CV en PDF no responde preguntas abiertas.
-- **Qué hizo Lleyton:** una web donde reclutadores y clientes conversan con un asistente que responde sobre su experiencia, proyectos y stack, y que puede tomar los datos de contacto del visitante y avisarle por email.
-- **Cómo funciona:** RAG con embeddings de OpenAI (text-embedding-3-small) guardados en Pinecone, un agente de n8n con gpt-4o-mini y reglas para no inventar, memoria por sesión, log de preguntas y aviso por Gmail.
+- **Qué hizo Lleyton:** una web donde reclutadores y clientes conversan con un asistente que responde sobre su experiencia, proyectos y stack, analiza si encaja en una búsqueda laboral y toma los datos de contacto del visitante para avisarle por email.
+- **Cómo funciona:** un agente de n8n (gpt-4o-mini, memoria por sesión) con RAG agéntico: elige qué archivo de su base de conocimiento leer y lo trae en vivo desde GitHub, con reglas para no inventar. Si la IA no está disponible, la web busca en la misma base desde el navegador, así nunca queda sin responder.
 - **Desafío principal:** el CV solo no alcanza para preguntas abiertas, así que Lleyton sumó fuentes (perfil, proyectos con contexto, stack y preguntas frecuentes) y las escribió en bloques autocontenidos para que la búsqueda encuentre el fragmento correcto.
-- **Stack:** n8n, OpenAI, Pinecone, HTML/CSS/JavaScript, GitHub Pages.
+- **Stack:** n8n, OpenAI, Gmail, HTML/CSS/JavaScript, GitHub Pages y GitHub Actions.
+- **Link:** https://murphylleyton05-lgtm.github.io/portfolio/chat/

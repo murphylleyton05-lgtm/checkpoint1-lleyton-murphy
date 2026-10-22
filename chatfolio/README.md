@@ -1,90 +1,73 @@
 # Chatfolio · Lleyton Murphy
 
-Portfolio conversacional: en vez de leer el CV, el visitante le pregunta a un asistente de IA por la experiencia, los proyectos y el stack de Lleyton. Si quiere contactar a Lleyton, el bot toma sus datos y le avisa por Gmail.
+Portfolio conversacional: en vez de leer el CV, el visitante le pregunta a un asistente por la experiencia, los proyectos y el stack de Lleyton. Puede pegar una búsqueda laboral y ver qué tanto encaja, y si quiere contactar a Lleyton, el bot toma sus datos y le avisa por Gmail.
 
-## Arquitectura
+**En vivo:** https://murphylleyton05-lgtm.github.io/portfolio/chat/
+
+## Cómo funciona
 
 ```
-                    ┌─────────────── Workflow 1 · Ingesta (se corre cuando actualizás tu info) ───────────────┐
- conocimiento/ ──►  │ Form Trigger (con clave) ─► Pinecone (insert, limpia namespace)                         │
-                    │                               ├─ Lector de archivos ─ Divisor de texto (1000 / 150)     │
-                    │                               └─ Embeddings OpenAI (text-embedding-3-small)              │
-                    └──────────────────────────────────────────────────────────────────────────────────────────┘
-
-                    ┌─────────────── Workflow 2 · Chat público ─────────────────────────────────────────────┐
- web/index.html ──► │ Chat Trigger (Embedded) ─► AI Agent ─► Log (Data Table) ─► Respuesta {output}          │
- (GitHub Pages)     │                             ├─ OpenAI gpt-4o-mini                                      │
-                    │                             ├─ Memoria por sesión (10 mensajes)                        │
-                    │                             ├─ Tool consultar_perfil_lleyton  (RAG en Pinecone)        │
-                    │                             └─ Tool avisar_a_lleyton          (Gmail)                  │
-                    └──────────────────────────────────────────────────────────────────────────────────────────┘
+ Visitante ──► web/index.html (GitHub Pages)
+                  │
+                  ├─ Modo IA ──► n8n: Chat Trigger ─► AI Agent (gpt-4o-mini + memoria por sesión)
+                  │                                    ├─ Tool leer_base_de_conocimiento ─► conocimiento/*.md (GitHub)
+                  │                                    └─ Tool avisar_a_lleyton ─────────► Gmail
+                  │
+                  └─ Modo sin IA (n8n sin conectar o caído) ─► busca en conocimiento/*.md desde el navegador
 ```
 
-| Carpeta | Qué hay |
+- **RAG agéntico, sin base vectorial.** El agente decide qué archivo de la base leer (perfil, experiencia, proyectos, stack o FAQ) y lo trae en vivo desde GitHub. Para actualizar lo que sabe el bot, se edita el `.md` y listo: no hay que reindexar ni volver a subir nada.
+- **Nunca queda muerta.** Si n8n no está conectado o se cae, la página responde igual buscando en la misma base (puntaje tipo BM25, sin IA) y lo avisa.
+- **Análisis de búsquedas.** El reclutador pega la descripción del puesto y recibe coincidencias con evidencia, lo que no figura en el perfil y una conclusión.
+- **Contacto.** El agente pide nombre, email y mensaje, y le manda un email a Lleyton.
+- **Bilingüe.** Si el navegador está en inglés, la interfaz está en inglés y el agente responde en inglés.
+- **Vista previa para LinkedIn.** El deploy genera `og.png` (1200×627) desde `web/og.html`, así el link se comparte con una buena tarjeta de vista previa.
+
+| Archivo | Qué es |
 |---|---|
-| `n8n/chatfolio_1_ingesta.json` | Formulario para subir tus archivos y cargarlos en Pinecone |
-| `n8n/chatfolio_2_chat.json` | Agente público con RAG, memoria, log y aviso de contacto |
-| `conocimiento/` | Base de conocimiento armada desde el CV: perfil, experiencia, proyectos, stack y FAQ |
-| `web/index.html` | La página: presentación + chat propio, sin dependencias |
+| `n8n/chatfolio.json` | El workflow de n8n (un solo archivo para importar) |
+| `conocimiento/` | La base de conocimiento: perfil, experiencia, proyectos, stack y FAQ |
+| `web/index.html` | La página: presentación + chat, sin dependencias |
+| `web/og.html` | Plantilla de la imagen de vista previa |
 
-## Puesta en marcha
+## Conectar la IA (unos 10 minutos)
 
-### 1. Pinecone (base vectorial, plan gratis)
-1. Creá una cuenta en [pinecone.io](https://www.pinecone.io/).
-2. Creá un index llamado **`chatfolio`**: dimensión **1536**, métrica **cosine** (lo que usa `text-embedding-3-small`).
-3. Copiá la API key.
+1. En n8n: *Workflows → Import from File* → `n8n/chatfolio.json`.
+2. Asigná tus credenciales: **OpenAI** en el nodo *OpenAI Chat Model* y **Gmail** en *avisar_a_lleyton*. No hace falta nada más: la base se lee desde GitHub.
+3. Probalo con el botón de chat de n8n: "¿qué hizo con datos de Vaca Muerta?", "¿cuánto cobra?", "quiero contactar a Lleyton".
+4. **Publicá** el workflow, abrí el nodo *Chat Trigger* y copiá la **Production URL** (termina en `/chat`).
+5. En GitHub, abrí `chatfolio/web/index.html`, tocá el lápiz, pegá la URL en `CONFIG.webhookUrl` (al final del archivo) y guardá en `main`. En 2 o 3 minutos el chat pasa a "responde con IA".
 
-### 2. Credenciales en n8n
-- **OpenAI**: la que ya usás en el Checkpoint 1.
-- **Pinecone**: nueva, con la API key del paso 1.
-- **Gmail**: la que ya usás.
-- **Basic Auth**: usuario y clave a tu elección. Protege el formulario de carga para que nadie más pueda reemplazar tu información.
+Opcional: para ver qué preguntan los visitantes, creá una Data Table `chatfolio_log` con las columnas de texto `fecha`, `session_id`, `pregunta` y `respuesta`, elegila en el nodo *Log de conversaciones (opcional)* y activalo.
 
-### 3. Revisar la base de conocimiento
-`conocimiento/` ya tiene todo tu CV, con los links a cada proyecto y escrito para que el RAG lo encuentre bien. Está completo; cuando cambie algo (un proyecto nuevo, otra herramienta), editá el archivo y volvé a correr la ingesta.
+### Antes de compartirlo en LinkedIn
+- En OpenAI, poné un **límite de gasto mensual** (Settings → Limits). Con gpt-4o-mini cada conversación cuesta muy poco, pero un link público puede recibir tráfico inesperado.
+- Probalo desde el celular: la mayoría de las visitas llegan desde la app de LinkedIn.
+- Si la tarjeta del link no muestra la imagen, pasalo por el [Post Inspector de LinkedIn](https://www.linkedin.com/post-inspector/) para que la vuelva a leer.
 
-Lo que hace que el bot responda bien (el "desafío del RAG"):
-- **Bloques autocontenidos.** Cada sección se entiende sola y repite el nombre ("Lleyton trabajó en…"). El texto se corta en fragmentos de unos 1000 caracteres y el bot solo ve los fragmentos que encuentra.
-- **Más allá del CV.** El CV solo no alcanza para preguntas abiertas. Por eso hay archivos de proyectos (problema → solución → resultado), stack con evidencia y preguntas frecuentes.
-- **Formato pregunta-respuesta** en `05_preguntas_frecuentes.md`: es lo que mejor matchea con lo que escribe un reclutador.
-- **Números concretos.** "Ahorró 6 h por semana" se recuerda; "mejoró procesos" no.
-- **Nada sensible.** Nada de DNI, dirección ni teléfono personal: todo lo que esté acá el bot lo puede decir. Por eso el teléfono del CV quedó afuera.
+## Actualizar lo que sabe el bot
 
-### 4. Workflow 1 · Ingesta
-1. En n8n: *Workflows → Import from File* → `n8n/chatfolio_1_ingesta.json`.
-2. Asigná las credenciales (Basic Auth en el formulario, Pinecone y OpenAI).
-3. Publicá el workflow y abrí la **Production URL** del Form Trigger.
-4. Subí **los 5 `.md` juntos**. No subas el CV en PDF: su contenido ya está en los `.md`, y el PDF trae tu teléfono.
+Editá el archivo de `conocimiento/` que corresponda y guardá en `main`. Lo toman los dos modos (GitHub tarda hasta 5 minutos en servir la versión nueva).
 
-Cada carga **reemplaza** lo anterior (limpia el namespace `lleyton`). Para actualizar algo, editás el archivo y volvés a subir todo.
+Lo que hace que el bot responda bien:
+- **Bloques autocontenidos.** Cada sección (`## ...`) se entiende sola y repite el nombre ("Lleyton trabajó en…"). En modo sin IA se muestra la sección entera que mejor coincide.
+- **Títulos específicos.** El título de cada sección pesa mucho en la búsqueda: "Git, GitHub Actions y Docker" funciona mejor que "Herramientas".
+- **Más allá del CV.** Proyectos contados como problema → solución → resultado, stack con evidencia y preguntas frecuentes.
+- **Formato pregunta-respuesta** en `05_preguntas_frecuentes.md`: es lo que mejor coincide con lo que escribe un reclutador.
+- **Nada sensible.** Todo lo que está en la base el bot lo puede decir. Por eso el teléfono del CV quedó afuera.
 
-### 5. Workflow 2 · Chat
-1. Creá una Data Table `chatfolio_log` con 4 columnas de tipo texto: `fecha`, `session_id`, `pregunta`, `respuesta`.
-2. Importá `n8n/chatfolio_2_chat.json`, asigná las credenciales y elegí la tabla en el nodo **Log de conversaciones**. Si el log falla, el chat sigue respondiendo igual.
-3. Probalo con el botón de chat de n8n: "¿qué proyectos hizo?", "¿cuánto cobra?", "quiero contactar a Lleyton".
-4. Publicá el workflow y copiá la **URL del Chat Trigger** (la de producción, no la de test).
-
-### 6. La web (GitHub Pages)
-La web vive en el repo `portfolio` y se publica sola en **https://murphylleyton05-lgtm.github.io/portfolio/chat/**: el workflow `deploy-echonotes.yml` copia `chatfolio/web/index.html` a `site/chat/` en cada push a `main`.
-
-Para conectarla, abrí `chatfolio/web/index.html` (desde GitHub se edita con el lápiz), pegá la URL del paso 5 en `CONFIG.webhookUrl` (al final del archivo) y guardá en `main`. En unos minutos el chat queda andando. LinkedIn, GitHub y email ya están cargados; los links que quedan vacíos se ocultan solos.
-
-### 7. Antes de compartirlo en LinkedIn
-- En el Chat Trigger, cambiá **Allowed Origins (CORS)** de `*` a `https://murphylleyton05-lgtm.github.io`, así solo tu página puede usar el webhook.
-- En OpenAI, poné un **límite de gasto mensual** (Settings → Limits). Un chat público puede recibir tráfico inesperado. Con gpt-4o-mini cada conversación cuesta muy poco, pero el límite te cubre igual.
-- Probá desde el celular: la mayoría de las visitas llegan desde la app de LinkedIn.
+Si agregás un archivo nuevo, sumalo a `CONFIG.kbFiles` en `web/index.html` y a la lista de archivos del system prompt y de la herramienta en el workflow.
 
 ## Problemas comunes
 
 | Síntoma | Causa probable |
 |---|---|
-| `Unsupported mime type` al subir un `.md` | Algunos sistemas mandan el `.md` sin tipo. Renombralo a `.txt` y volvé a subirlo. |
-| La web dice "No pude responder" | La URL es la de test (no la de producción), el workflow no está publicado, o falta tu dominio en Allowed Origins. |
-| El bot dice que no tiene información sobre algo que sí cargaste | Falta correr la ingesta, el namespace no es `lleyton` en los dos workflows, o el dato está mezclado en un bloque muy largo. |
-| El bot se "olvida" de la conversación tras un reinicio de n8n | La memoria simple vive en la RAM de n8n. Para un portfolio alcanza; si querés persistirla, cambiala por Postgres Chat Memory. |
+| La web dice "La IA no está disponible" | La URL es la de test (no la de producción), el workflow no está publicado o n8n está apagado. Mientras tanto, la web responde con la base. |
+| El agente dice que no tiene un dato que sí está | El cambio todavía no está en `main`, o GitHub sigue sirviendo la versión anterior (hasta 5 minutos). |
+| El bot se "olvida" de la conversación tras reiniciar n8n | La memoria simple vive en la RAM de n8n. Para un portfolio alcanza; si querés persistirla, cambiala por Postgres Chat Memory. |
+| La tarjeta de LinkedIn no tiene imagen | LinkedIn guarda la vista previa en caché: usá el Post Inspector. |
 
 ## Ideas para sumar después
-- **Match con una búsqueda:** el reclutador pega la descripción del puesto y el bot explica qué tan bien encaja Lleyton, con evidencia.
-- **Panel de preguntas:** con la Data Table ves qué preguntan los visitantes y qué te falta cargar en la base.
 - **Link de agenda (Calendly)** cuando el visitante quiere una entrevista.
-- **Imagen `og:image`** para que el link se vea con una buena tarjeta de vista previa en LinkedIn.
+- **Panel de preguntas** con la Data Table, para ver qué preguntan y qué falta en la base.
+- **Base vectorial (Pinecone o Supabase)** si la base crece a decenas de documentos; con 5 archivos, leerlos enteros es más preciso y más simple.

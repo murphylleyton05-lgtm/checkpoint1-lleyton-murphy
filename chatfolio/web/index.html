@@ -5,9 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Lleyton Murphy · Chatfolio</title>
   <meta name="description" content="Portfolio conversacional de Lleyton Murphy: preguntale a su asistente de IA por sus proyectos de datos, BI y automatización con IA.">
+  <link rel="canonical" href="https://murphylleyton05-lgtm.github.io/portfolio/chat/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://murphylleyton05-lgtm.github.io/portfolio/chat/">
   <meta property="og:title" content="Lleyton Murphy · Data, BI y Automatización con IA">
   <meta property="og:description" content="No leas mi CV: preguntale a mi asistente por mi experiencia, proyectos y stack.">
-  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://murphylleyton05-lgtm.github.io/portfolio/chat/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="627">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230d7a63'/%3E%3Cpath d='M18 22h28a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H30l-8 6v-6h-4a4 4 0 0 1-4-4V26a4 4 0 0 1 4-4Z' fill='white'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -142,7 +149,6 @@
       overflow-y: auto;
       padding: 20px;
       display: flex; flex-direction: column; gap: 12px;
-      scroll-behavior: smooth;
     }
     .msg {
       max-width: 86%;
@@ -156,13 +162,15 @@
     .msg ul, .msg ol { margin: 0 0 8px; padding-left: 20px; }
     .msg li { margin: 2px 0; }
     .msg a { color: var(--accent); font-weight: 500; }
+    .msg code { font: 13px var(--font-mono); }
     .msg.bot { background: var(--bot-bubble); align-self: flex-start; border-bottom-left-radius: 6px; }
     .msg.user {
       background: var(--user-bubble); color: var(--user-ink);
       align-self: flex-end; border-bottom-right-radius: 6px;
       white-space: pre-wrap;
+      max-height: 220px; overflow-y: auto;
     }
-    .msg.error { background: transparent; border: 1px dashed var(--line); color: var(--ink-2); }
+    .msg.note { background: transparent; border: 1px dashed var(--line); color: var(--ink-2); font-size: 13px; }
     .typing { display: inline-flex; gap: 4px; padding: 4px 0; }
     .typing span {
       width: 7px; height: 7px; border-radius: 50%; background: var(--ink-2);
@@ -175,7 +183,7 @@
       display: flex; gap: 8px; flex-wrap: wrap;
       padding: 0 20px 14px;
     }
-    .suggestions[hidden] { display: none; }
+    .suggestions:empty { display: none; }
     .chip {
       font: 500 13px/1.2 var(--font);
       color: var(--ink);
@@ -187,6 +195,7 @@
       transition: border-color .15s ease, background .15s ease;
     }
     .chip:hover { border-color: var(--accent); background: var(--accent-soft); }
+    .chip.highlight { border-color: var(--accent); color: var(--accent); }
 
     .composer {
       display: flex; align-items: flex-end; gap: 10px;
@@ -203,7 +212,7 @@
       border: 0; outline: 0; background: transparent;
       font: 15px/1.45 var(--font);
       color: var(--ink);
-      max-height: 120px;
+      max-height: 140px;
       padding: 6px 0;
     }
     .composer textarea::placeholder { color: var(--ink-2); }
@@ -230,7 +239,7 @@
     @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
     @keyframes blink { 0%, 80%, 100% { opacity: .25; } 40% { opacity: 1; } }
     @media (prefers-reduced-motion: reduce) {
-      *, *::before { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+      *, *::before { animation: none !important; transition: none !important; }
     }
 
     @media (max-width: 860px) {
@@ -250,10 +259,10 @@
 <body>
   <main class="page">
     <section class="intro" aria-labelledby="nombre">
-      <p class="eyebrow">Portfolio conversacional</p>
+      <p class="eyebrow" data-i18n="eyebrow">Portfolio conversacional</p>
       <h1 id="nombre">Lleyton Murphy</h1>
-      <p class="role">Data Analyst Jr. · Business Intelligence · Automatización con IA</p>
-      <p class="pitch">En vez de leer mi CV, preguntale a mi asistente: te cuenta mi experiencia, mis proyectos y cómo trabajo.</p>
+      <p class="role" data-i18n="role">Data Analyst Jr. · Business Intelligence · Automatización con IA</p>
+      <p class="pitch" data-i18n="pitch">En vez de leer mi CV, preguntale a mi asistente: te cuenta mi experiencia, mis proyectos y cómo trabajo.</p>
       <ul class="tags">
         <li>SQL</li>
         <li>Python</li>
@@ -262,18 +271,22 @@
         <li>Agentes de IA</li>
         <li>Oil &amp; Gas</li>
       </ul>
-      <nav class="links" aria-label="Enlaces de contacto">
+      <nav class="links" aria-label="Links">
         <a class="btn primary" data-link="linkedin" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4V21H3V9.75Zm6.5 0h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.050 4.030 0 4.770 2.600 4.770 6V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4V9.75Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4V21H3V9.75Zm6.5 0h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.6 4.77 6V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4V9.75Z"/></svg>
           LinkedIn
         </a>
         <a class="btn" data-link="github" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
           GitHub
         </a>
+        <a class="btn" data-link="portfolio" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg>
+          Portfolio Oil &amp; Gas
+        </a>
         <a class="btn" data-link="cv" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M12 17v-6M9 14l3 3 3-3"/></svg>
-          CV en PDF
+          CV
         </a>
         <a class="btn" data-link="email">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
@@ -282,76 +295,184 @@
       </nav>
     </section>
 
-    <section class="chat" aria-label="Chat con el asistente de Lleyton">
+    <section class="chat" aria-labelledby="asistente">
       <header class="chat-head">
         <div class="bot-avatar" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="4"/><path d="M12 3v4M9 13h.01M15 13h.01"/></svg>
         </div>
         <div>
-          <strong>Asistente de Lleyton</strong>
-          <span class="status">En línea · responde con IA</span>
+          <strong id="asistente" data-i18n="assistant">Asistente de Lleyton</strong>
+          <span class="status" id="status">En línea</span>
         </div>
       </header>
 
       <div class="messages" id="messages" role="log" aria-live="polite"></div>
 
-      <div class="suggestions" id="suggestions">
-        <button class="chip" type="button">¿Qué hizo con datos de Vaca Muerta?</button>
-        <button class="chip" type="button">¿Qué stack maneja?</button>
-        <button class="chip" type="button">¿Qué rol está buscando?</button>
-        <button class="chip" type="button">Quiero contactar a Lleyton</button>
-      </div>
+      <div class="suggestions" id="suggestions"></div>
 
       <form class="composer" id="composer">
-        <textarea id="input" rows="1" aria-label="Tu pregunta" placeholder="Preguntá lo que quieras saber de Lleyton…" maxlength="1000" autocomplete="off"></textarea>
-        <button class="send" id="send" type="submit" aria-label="Enviar" disabled>
+        <textarea id="input" rows="1" maxlength="6000" autocomplete="off"></textarea>
+        <button class="send" id="send" type="submit" disabled>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </button>
       </form>
-      <p class="disclaimer">Respuestas generadas con IA a partir de información de Lleyton. Puede equivocarse.</p>
+      <p class="disclaimer" id="disclaimer"></p>
     </section>
 
     <footer class="credits">
-      Hecho por Lleyton Murphy con n8n, OpenAI y RAG sobre Pinecone.
+      <span data-i18n="footer">Hecho por Lleyton Murphy con n8n y OpenAI.</span>
+      <a href="https://github.com/murphylleyton05-lgtm/portfolio/tree/main/chatfolio" target="_blank" rel="noopener" data-i18n="code">Ver el código</a>
     </footer>
   </main>
 
   <script>
     // ===== Configuración: lo único que tenés que editar =====
     const CONFIG = {
-      // URL del Chat Trigger del workflow "Chatfolio · 2. Chat publico" (modo Embedded Chat).
+      // URL del Chat Trigger del workflow "Chatfolio · Lleyton Murphy" (modo Embedded Chat).
+      // Mientras no esté, el chat responde igual desde la base de conocimiento (sin IA).
       webhookUrl: "PEGAR_ACA_LA_URL_DEL_CHAT_TRIGGER",
       linkedin: "https://linkedin.com/in/lleyton-murphy-3716093a3",
       github: "https://github.com/murphylleyton05-lgtm",
+      portfolio: "https://murphylleyton05-lgtm.github.io/portfolio/hidrocarburos/",
       cv: "",         // opcional, ej: "cv-lleyton-murphy.pdf" (subilo a esta misma carpeta)
       email: "murphylleyton05@gmail.com",
-      bienvenida:
-        "¡Hola! Soy el asistente de **Lleyton Murphy**. Puedo contarte sobre sus proyectos de datos y automatización con IA (como el de Vaca Muerta), su stack y qué rol busca. ¿Por dónde querés empezar?",
+      // La misma base que lee el agente de n8n: si editás un .md en GitHub, se actualizan los dos modos.
+      kbBase: "https://raw.githubusercontent.com/murphylleyton05-lgtm/portfolio/main/chatfolio/conocimiento/",
+      kbFiles: ["01_perfil.md", "02_experiencia.md", "03_proyectos.md", "04_stack.md", "05_preguntas_frecuentes.md"],
     };
     // =========================================================
+
+    const TEXTS = {
+      es: {
+        eyebrow: "Portfolio conversacional",
+        role: "Data Analyst Jr. · Business Intelligence · Automatización con IA",
+        pitch: "En vez de leer mi CV, preguntale a mi asistente: te cuenta mi experiencia, mis proyectos y cómo trabajo.",
+        assistant: "Asistente de Lleyton",
+        footer: "Hecho por Lleyton Murphy con n8n y OpenAI.",
+        code: "Ver el código",
+        placeholder: "Preguntá lo que quieras saber de Lleyton…",
+        jobPlaceholder: "Pegá acá la descripción del puesto…",
+        send: "Enviar",
+        statusAi: "En línea · responde con IA",
+        statusLocal: "En línea · base de conocimiento",
+        disclaimerAi: "Respuestas generadas con IA a partir de información de Lleyton. Puede equivocarse.",
+        disclaimerLocal: "Respuestas tomadas de la información que cargó Lleyton.",
+        welcome: "¡Hola! Soy el asistente de **Lleyton Murphy**. Puedo contarte sobre sus proyectos de datos y automatización con IA (como el de Vaca Muerta), su stack y qué rol busca. También puedo **analizar una búsqueda laboral** y decirte qué tanto encaja. ¿Por dónde empezamos?",
+        chips: ["¿Qué hizo con datos de Vaca Muerta?", "¿Qué stack maneja?", "¿Qué rol está buscando?", "Quiero contactar a Lleyton"],
+        jobChip: "📋 Analizar una búsqueda",
+        jobIntro: "Dale: pegá la descripción del puesto (requisitos, responsabilidades, herramientas) y te digo qué tanto encaja Lleyton, con evidencia.",
+        jobPrefix: "Analizá si Lleyton encaja en esta búsqueda laboral:\n\n",
+        aiDown: "La IA no está disponible en este momento, así que te respondo con la base de conocimiento de Lleyton.",
+        greet: "¡Hola! Preguntame por los proyectos de Lleyton, su stack, su experiencia o qué rol busca.",
+        contact: (c) => `Podés escribirle a Lleyton a **${c.email}** o por LinkedIn: ${c.linkedin}\n\nTiene disponibilidad inmediata y acepta todas las modalidades.`,
+        notFound: (c) => `No encontré eso en la información de Lleyton. Probá preguntar por sus proyectos, su stack o qué rol busca, o escribile directamente a ${c.email}.`,
+        matchTitle: (n) => `**Coincidencias con la búsqueda (${n})**`,
+        matchNone: "No encontré requisitos técnicos que pueda comparar con el perfil de Lleyton. Probá pegando la lista de requisitos del puesto.",
+        gapsTitle: "**No figura en su perfil:**",
+        verdict: (n) => n >= 6 ? "**Conclusión:** muy buen encaje técnico." : n >= 3 ? "**Conclusión:** encaje parcial, con varias coincidencias concretas." : "**Conclusión:** pocas coincidencias técnicas directas.",
+        matchContact: (c) => `Para coordinar una entrevista, escribile a ${c.email}. (Análisis por palabras clave; con la IA conectada el análisis es más completo.)`,
+        error: (c) => `No pude responder en este momento. Probá de nuevo en unos segundos o escribile a Lleyton a ${c.email}.`,
+      },
+      en: {
+        eyebrow: "Conversational portfolio",
+        role: "Jr. Data Analyst · Business Intelligence · AI Automation",
+        pitch: "Instead of reading my CV, ask my assistant: it'll tell you about my experience, my projects and how I work.",
+        assistant: "Lleyton's assistant",
+        footer: "Built by Lleyton Murphy with n8n and OpenAI.",
+        code: "See the code",
+        placeholder: "Ask anything about Lleyton…",
+        jobPlaceholder: "Paste the job description here…",
+        send: "Send",
+        statusAi: "Online · AI-powered answers",
+        statusLocal: "Online · knowledge base",
+        disclaimerAi: "AI-generated answers based on Lleyton's information. It can make mistakes.",
+        disclaimerLocal: "Answers taken from the information Lleyton provided (in Spanish).",
+        welcome: "Hi! I'm **Lleyton Murphy**'s assistant. Ask me about Lleyton's data and AI automation projects (like the Vaca Muerta one), tech stack, or the role Lleyton is looking for. I can also **match a job description** against Lleyton's profile. Where should we start?",
+        chips: ["What did Lleyton build with Vaca Muerta data?", "What's Lleyton's tech stack?", "What role is Lleyton looking for?", "I want to contact Lleyton"],
+        jobChip: "📋 Match a job description",
+        jobIntro: "Sure: paste the job description (requirements, responsibilities, tools) and I'll tell you how well Lleyton fits, with evidence.",
+        jobPrefix: "Analyze whether Lleyton is a good fit for this job description:\n\n",
+        aiDown: "The AI isn't available right now, so I'm answering from Lleyton's knowledge base.",
+        greet: "Hi! Ask me about Lleyton's projects, tech stack, experience or the role Lleyton is looking for.",
+        contact: (c) => `You can email Lleyton at **${c.email}** or reach out on LinkedIn: ${c.linkedin}\n\nAvailable immediately, open to remote, hybrid or on-site roles.`,
+        notFound: (c) => `I couldn't find that in Lleyton's information. Try asking about projects, tech stack or the role Lleyton is looking for, or email ${c.email}.`,
+        matchTitle: (n) => `**Matches with the job description (${n})**`,
+        matchNone: "I couldn't find technical requirements to compare with Lleyton's profile. Try pasting the list of requirements.",
+        gapsTitle: "**Not in Lleyton's profile:**",
+        verdict: (n) => n >= 6 ? "**Verdict:** strong technical fit." : n >= 3 ? "**Verdict:** partial fit, with several concrete matches." : "**Verdict:** few direct technical matches.",
+        matchContact: (c) => `To schedule an interview, email ${c.email}. (Keyword-based analysis; with the AI connected the analysis is more complete.)`,
+        error: (c) => `I couldn't answer right now. Please try again in a few seconds or email Lleyton at ${c.email}.`,
+      },
+    };
+
+    // Requisitos que el análisis sin IA sabe reconocer en una búsqueda, con la evidencia del perfil.
+    const SKILLS = [
+      ["SQL", /\bsql\b|postgres|mysql|bases? de datos|database/, "TechStore: base relacional en 3FN, CTEs, JOINs y window functions (PostgreSQL)."],
+      ["Python", /python|pandas|numpy/, "Pipeline ETL de +2.400 pozos en Vaca Muerta Analytics (pandas, SciPy, Streamlit)."],
+      ["Power BI / DAX", /power ?bi|\bdax\b|power query/, "Tablero de Vaca Muerta Operations Intelligence con DAX y modelo estrella de TechStore."],
+      ["Tableau", /tableau/, "Figura en su stack de BI y hoy está profundizando en Tableau."],
+      ["Looker Studio", /looker/, "Figura en su stack de BI."],
+      ["Excel avanzado", /excel|vba|macros|hojas de calculo|spreadsheet/, "Dashboard ejecutivo y reporte financiero con Power Query, VBA y VAN/TIR."],
+      ["ETL / pipelines", /\betl\b|\belt\b|pipeline|ingesta de datos|data engineering/, "Pipeline que descarga, limpia, valida y se actualiza solo con GitHub Actions."],
+      ["Automatización (n8n, Make)", /n8n|\bmake\b|zapier|automatiz|automation|\brpa\b|workflow/, "Agentes y flujos en n8n, alertas mensuales de pozos y su marca Lleyton IA Automation."],
+      ["IA generativa / LLMs", /openai|\bgpt|\bllms?\b|claude|generativ|inteligencia artificial|\bia\b|\bai\b|chatbot|prompt/, "Agentes con OpenAI y Claude; calificación de leads con Claude y aprobación humana."],
+      ["Agentes / RAG", /\brag\b|agentes?\b|\bagents?\b|langchain|langgraph|vectorial|vector/, "Orquestador multi-agente, agente de soporte con RAG y este chatfolio."],
+      ["APIs / integraciones", /\bapis?\b|webhook|integraci|integration/, "Integraciones con Gmail, Slack, HubSpot, Airtable y WhatsApp Cloud API."],
+      ["Machine learning / estadística", /machine learning|aprendizaje automatico|\bml\b|regresi|regression|predicti|forecast|pronostic|estadistic|statistic/, "Regresión ridge y random forest sobre pozos; backtesting con ~9 % de error a 36 meses."],
+      ["Git / CI", /\bgit\b|github|gitlab|ci\/cd|\bci\b/, "GitHub Actions para actualizaciones programadas y tests con pytest."],
+      ["Docker", /docker|contenedor|container/, "Stack self-hosted de WhatsApp + CRM + IA con Docker Compose."],
+      ["Inglés", /ingles|english/, "Inglés B2 (Cambridge B2 First, 2023) e ICAO Nivel 5."],
+      ["Oil & Gas / energía", /\boil\b|\bgas\b|petrole|energia|energy|hidrocarbur|upstream|vaca muerta|\bpozos?\b|\bwells?\b/, "4 proyectos del sector: reservas, operaciones, ML de pozos y logística de arena."],
+      ["Supply chain / logística", /logistic|supply chain|cadena de suministro|abastecimiento|inventari|inventory/, "Modelo de logística de arena de fractura: OTIF, lead time y stock de seguridad."],
+      ["Reporting / KPIs", /report|\bkpis?\b|dashboard|tablero|indicadores|visualizaci|visualization/, "Tableros y KPIs en Power BI y Excel."],
+      ["CRM", /\bcrm\b|hubspot|salesforce/, "Integraciones con HubSpot y CRM con Chatwoot."],
+      ["Calidad de datos", /calidad de datos|data quality|limpieza de datos|data cleaning|validacion de datos/, "Validación de datos y tests con pytest en sus pipelines."],
+    ];
+    const GAPS = [
+      ["Spark", /\bspark\b|pyspark/], ["Databricks", /databricks/], ["Snowflake", /snowflake/], ["Airflow", /airflow/],
+      ["dbt", /\bdbt\b/], ["AWS", /\baws\b|amazon web services/], ["Azure", /azure/], ["GCP", /\bgcp\b|google cloud/],
+      ["BigQuery", /bigquery/], ["Redshift", /redshift/], ["SAS", /\bsas\b/], ["Java", /\bjava\b/], ["Scala", /\bscala\b/],
+      ["Kubernetes", /kubernetes|\bk8s\b/], ["Qlik", /qlik/], ["SAP", /\bsap\b/], ["MATLAB", /matlab/],
+    ];
+
+    const lang = (navigator.language || "es").toLowerCase().startsWith("en") ? "en" : "es";
+    const T = TEXTS[lang];
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const messagesEl = document.getElementById("messages");
     const suggestionsEl = document.getElementById("suggestions");
     const form = document.getElementById("composer");
     const input = document.getElementById("input");
     const sendBtn = document.getElementById("send");
-    let busy = false;
+    const statusEl = document.getElementById("status");
+    const disclaimerEl = document.getElementById("disclaimer");
 
-    const isConfigured = /^https?:\/\//.test(CONFIG.webhookUrl);
+    let mode = /^https?:\/\//.test(CONFIG.webhookUrl) ? "ai" : "local";
+    let busy = false;
+    let jobMode = false;
+    let kbPromise = null;
     const sessionId = getSessionId();
 
+    document.documentElement.lang = lang;
+    for (const el of document.querySelectorAll("[data-i18n]")) el.textContent = T[el.dataset.i18n];
+    input.placeholder = T.placeholder;
+    input.setAttribute("aria-label", T.placeholder);
+    sendBtn.setAttribute("aria-label", T.send);
     for (const a of document.querySelectorAll("[data-link]")) {
-      const key = a.dataset.link;
-      const value = CONFIG[key];
+      const value = CONFIG[a.dataset.link];
       if (!value) { a.hidden = true; continue; }
-      a.href = key === "email" ? `mailto:${value}` : value;
+      a.href = a.dataset.link === "email" ? `mailto:${value}` : value;
     }
-
-    addMessage("bot", CONFIG.bienvenida);
+    setMode(mode);
+    addMessage("bot", T.welcome, false);
+    showChips(T.chips, true);
+    if (mode === "local") loadKB().catch(() => {});
 
     suggestionsEl.addEventListener("click", (e) => {
       const chip = e.target.closest(".chip");
-      if (chip) send(chip.textContent.trim());
+      if (!chip || busy) return;
+      if (chip.dataset.action === "job") startJobMode();
+      else send(chip.dataset.question);
     });
 
     form.addEventListener("submit", (e) => {
@@ -372,31 +493,60 @@
       sendBtn.disabled = busy || !input.value.trim();
     });
 
+    function setMode(next) {
+      mode = next;
+      statusEl.textContent = mode === "ai" ? T.statusAi : T.statusLocal;
+      disclaimerEl.textContent = mode === "ai" ? T.disclaimerAi : T.disclaimerLocal;
+    }
+
+    function startJobMode() {
+      jobMode = true;
+      showChips([]);
+      addMessage("bot", T.jobIntro);
+      input.placeholder = T.jobPlaceholder;
+      input.focus();
+    }
+
     async function send(text) {
-      text = text.trim();
+      text = (text || "").trim();
       if (!text || busy) return;
 
-      suggestionsEl.hidden = true;
-      addMessage("user", text);
+      const isJob = jobMode || looksLikeJobPost(text);
+      jobMode = false;
+      input.placeholder = T.placeholder;
+      showChips([]);
+      addMessage("user", text, false);
       input.value = "";
       input.dispatchEvent(new Event("input"));
 
-      if (!isConfigured) {
-        addMessage("error", "Este chatfolio todavía no está conectado a n8n: pegá la URL del Chat Trigger en `CONFIG.webhookUrl` dentro de index.html.");
-        return;
-      }
-
       setBusy(true);
-      const typing = addTyping();
+      let typing = addTyping();
       try {
-        const reply = await askAgent(text);
-        typing.remove();
-        addMessage("bot", reply);
+        let reply = null;
+        if (mode === "ai") {
+          try {
+            reply = await askAgent(isJob ? T.jobPrefix + text : text);
+          } catch (err) {
+            console.error(err);
+            setMode("local");
+            typing.remove();
+            addMessage("note", T.aiDown, false);
+            typing = addTyping();
+          }
+        }
+        if (reply === null) {
+          const [local] = await Promise.all([answerLocally(text, isJob), wait(450)]);
+          typing.remove();
+          await addMessage("bot", local.text);
+          showChips(local.related);
+        } else {
+          typing.remove();
+          await addMessage("bot", reply);
+        }
       } catch (err) {
-        typing.remove();
-        const contacto = CONFIG.email ? ` o escribile a Lleyton a ${CONFIG.email}` : "";
-        addMessage("error", `No pude responder en este momento. Probá de nuevo en unos segundos${contacto}.`);
         console.error(err);
+        typing.remove();
+        addMessage("note", T.error(CONFIG), false);
       } finally {
         setBusy(false);
       }
@@ -404,7 +554,7 @@
 
     async function askAgent(chatInput) {
       const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), 60000);
+      const timer = setTimeout(() => controller.abort(), 30000);
       try {
         const res = await fetch(CONFIG.webhookUrl, {
           method: "POST",
@@ -423,29 +573,221 @@
       }
     }
 
+    // ---------- Modo sin IA: búsqueda en la base de conocimiento ----------
+
+    const STOP = new Set(("a al algo ante como con cual cuales de del donde el ella en era es esa ese eso esta este esto ha hay la las le les lo los mas me mi mis muy no o para pero por porque que quien se si sin sobre su sus te tiene tu un una uno unos y ya yo lleyton murphy sabe saber conoce maneja manejar usa usar uso hace hacer hizo gusta gusto puede podria tienen alguna algun herramientas herramienta tools tool " +
+      "about an and any are as at be can could did do does for from has have how i in is it its me my of on or tell that the this to was what when where which who why will with you your").split(" "));
+    const SYNONYMS = {
+      skills: "stack habilidades", skill: "stack habilidades", tools: "stack herramientas", tech: "stack", herramientas: "stack",
+      projects: "proyecto", project: "proyecto", built: "proyecto", build: "proyecto", hizo: "proyecto",
+      experience: "experiencia", work: "experiencia", trabajo: "experiencia", job: "rol busca", role: "rol busca", position: "rol busca", puesto: "rol busca", looking: "busca", buscando: "busca",
+      education: "formacion", estudios: "formacion", estudio: "formacion", certifications: "formacion certificacion", degree: "formacion",
+      languages: "idiomas", english: "ingles idiomas", spanish: "espanol idiomas", habla: "idiomas",
+      available: "disponibilidad", availability: "disponibilidad", start: "disponibilidad empezar", remote: "remoto modalidad", hybrid: "hibrido modalidad", onsite: "presencial modalidad",
+      location: "ubicacion", based: "ubicacion", live: "ubicacion", vive: "ubicacion",
+      salary: "salarial", sueldo: "salarial", cobra: "salarial", pretension: "salarial", pay: "salarial",
+      strength: "fortaleza", strengths: "fortaleza", strong: "fortaleza", hire: "contratar", contratarlo: "contratar",
+      team: "equipo", teamwork: "equipo", aprende: "aprendiendo", studying: "aprendiendo", ml: "machine learning", machine: "ml",
+      hobbies: "fuera rugby", hobby: "fuera rugby", free: "fuera", sports: "rugby", deporte: "rugby",
+      oil: "oil gas vaca muerta", petroleo: "oil gas", energy: "energia oil", wells: "pozos",
+      automation: "automatizacion n8n", automatizar: "automatizacion n8n", ai: "ia agentes", agents: "agentes", agent: "agentes",
+      dashboard: "tablero dashboard", dashboards: "tablero dashboard", data: "datos",
+      chat: "chatfolio", chatbot: "chatfolio", bot: "chatfolio", asistente: "chatfolio", assistant: "chatfolio",
+    };
+    // Frases que, si aparecen en la pregunta, suman palabras clave de la sección que corresponde.
+    const PHRASES = [[/lleyton ia automation|su marca|su emprendimiento|own business|freelance/, "marca propia pymes"]];
+    const normalize = (s) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const stem = (w) => w.length > 5 ? w.slice(0, 5) : w;
+    function tokenize(text, expand) {
+      let norm = normalize(text);
+      if (expand) {
+        // "experiencia con Docker" pregunta por Docker, no por la experiencia laboral en general.
+        norm = norm.replace(/\b(experiencia|experience|conocimientos?|knowledge)\s+(con|en|de|with|in|of)\b/g, " ");
+        for (const [re, extra] of PHRASES) if (re.test(norm)) norm += " " + extra;
+      }
+      const words = norm.match(/[a-z0-9&+#]+/g) || [];
+      const out = [];
+      for (const w of words) {
+        if (expand && SYNONYMS[w]) for (const s of SYNONYMS[w].split(" ")) out.push(stem(s));
+        if (!STOP.has(w) && w.length >= 2) out.push(stem(w));
+      }
+      return out;
+    }
+
+    function loadKB() {
+      kbPromise ??= Promise.all(CONFIG.kbFiles.map(async (file) => {
+        const res = await fetch(CONFIG.kbBase + file);
+        if (!res.ok) throw new Error(`${file}: HTTP ${res.status}`);
+        return parseSections(await res.text());
+      })).then((parts) => {
+        const sections = parts.flat();
+        const df = new Map();
+        for (const s of sections) for (const t of new Set([...s.head, ...s.body])) df.set(t, (df.get(t) || 0) + 1);
+        const avg = sections.reduce((a, s) => a + s.body.length, 0) / sections.length;
+        return { sections, df, avg };
+      }).catch((err) => { kbPromise = null; throw err; });
+      return kbPromise;
+    }
+
+    function parseSections(md) {
+      const sections = [];
+      let docTitle = "";
+      let current = null;
+      for (const line of md.split("\n")) {
+        if (line.startsWith("# ")) docTitle = line.slice(2).trim();
+        else if (line.startsWith("## ")) {
+          current = { title: line.slice(3).trim(), lines: [] };
+          sections.push(current);
+        } else if (current) {
+          current.lines.push(line);
+        }
+      }
+      const parsed = sections.map((s) => {
+        const title = s.title.replace(/^Proyecto de Lleyton:\s*/, "").replace(/\s*\(habilidades de Lleyton\)$/, "");
+        const text = s.lines.join("\n").trim();
+        return { title, text, head: tokenize(title), body: tokenize(text) };
+      });
+      // Resumen del archivo completo: responde preguntas generales ("¿qué stack maneja?", "¿qué proyectos hizo?").
+      // Solo se busca por el título del archivo, para no tapar a las secciones específicas.
+      const overview = parsed.map((s) => {
+        const first = (s.text.split("\n").find((l) => l.trim()) || "").replace(/^\s*-\s*/, "").trim();
+        const detail = first && !first.startsWith("**") ? `: ${first.length > 120 ? first.slice(0, 117) + "…" : first}` : "";
+        return `- **${s.title}**${detail}`;
+      }).join("\n");
+      return [{ title: docTitle, text: overview, head: tokenize(docTitle), body: [], overview: true }, ...parsed];
+    }
+
+    // Puntaje tipo BM25: frecuencia en el texto + bonus si la palabra está en el título de la sección.
+    // Las palabras raras (ej: "Docker") pesan más, y suma cubrir más palabras de la pregunta.
+    function rank(kb, query) {
+      const terms = [...new Set(tokenize(query, true))];
+      const n = kb.sections.length;
+      return kb.sections.map((s) => {
+        let score = 0;
+        let matched = 0;
+        for (const t of terms) {
+          const tf = s.body.filter((x) => x === t).length;
+          const inHead = s.head.includes(t);
+          if (!tf && !inHead) continue;
+          matched++;
+          const idf = Math.log(1 + n / (kb.df.get(t) || 1));
+          const bodyScore = tf ? (tf * 2.2) / (tf + 1.2 * (0.7 + 0.3 * s.body.length / kb.avg)) : 0;
+          score += idf * idf * (bodyScore + (inHead ? (s.overview ? 3 : 2) : 0));
+        }
+        score *= 0.5 + 0.5 * matched / Math.max(terms.length, 1);
+        return { s, score };
+      }).sort((a, b) => b.score - a.score);
+    }
+
+    async function answerLocally(text, isJob) {
+      const q = normalize(text);
+      if (isJob) return { text: matchJob(q), related: [] };
+      if (/contact|entrevista|interview|reuni|agendar|schedule|hablar con|escribirle|get in touch|reach out|email|mail/.test(q)) {
+        return { text: T.contact(CONFIG), related: [] };
+      }
+      if (/^(hola|buenas|buen dia|hi|hello|hey)\b/.test(q) && q.length < 25) return { text: T.greet, related: T.chips.slice(0, 3) };
+
+      const kb = await loadKB();
+      const exact = kb.sections.find((s) => s.title === text);
+      if (exact) return { text: `**${exact.title}**\n\n${exact.text}`, related: [] };
+      const ranked = rank(kb, text);
+      const best = ranked[0];
+      if (!best || best.score < 2) return { text: T.notFound(CONFIG), related: T.chips.slice(0, 3) };
+      const related = ranked.slice(1).filter((r) => r.score > 0 && r.s.title !== best.s.title).slice(0, 3).map((r) => r.s.title);
+      return { text: `**${best.s.title}**\n\n${best.s.text}`, related: related.length ? related : T.chips.slice(0, 3) };
+    }
+
+    function looksLikeJobPost(text) {
+      const q = normalize(text);
+      return text.length > 350 || /requisitos|responsabilidades|requirements|responsibilities|we are looking|buscamos|excluyente|deseable|nice to have|job description|descripcion del puesto/.test(q);
+    }
+
+    function matchJob(q) {
+      const found = SKILLS.filter(([, re]) => re.test(q));
+      const gaps = GAPS.filter(([, re]) => re.test(q)).map(([label]) => label);
+      if (!found.length) return T.matchNone;
+      const lines = [T.matchTitle(found.length), ...found.map(([label, , evidence]) => `- **${label}:** ${evidence}`)];
+      if (gaps.length) lines.push("", `${T.gapsTitle} ${gaps.join(", ")}.`);
+      lines.push("", T.verdict(found.length), "", T.matchContact(CONFIG));
+      return lines.join("\n");
+    }
+
+    // ---------- UI ----------
+
+    function showChips(questions, withJob) {
+      suggestionsEl.replaceChildren();
+      const items = questions.map((q) => ({ label: q, question: q }));
+      if (withJob) items.splice(3, 0, { label: T.jobChip, action: "job" });
+      for (const item of items) {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "chip" + (item.action ? " highlight" : "");
+        b.textContent = item.label;
+        if (item.action) b.dataset.action = item.action;
+        else b.dataset.question = item.question;
+        suggestionsEl.appendChild(b);
+      }
+    }
+
     function setBusy(value) {
       busy = value;
       sendBtn.disabled = busy || !input.value.trim();
     }
 
-    function addMessage(kind, text) {
+    function addMessage(kind, text, animate = true) {
       const el = document.createElement("div");
       el.className = `msg ${kind}`;
       if (kind === "user") el.textContent = text;
       else el.innerHTML = renderMarkdown(text);
       messagesEl.appendChild(el);
-      messagesEl.scrollTop = messagesEl.scrollHeight;
-      return el;
+      scrollToEnd();
+      return animate && kind === "bot" ? typeOut(el) : Promise.resolve();
     }
 
     function addTyping() {
       const el = document.createElement("div");
       el.className = "msg bot";
-      el.setAttribute("aria-label", "El asistente está escribiendo");
+      el.setAttribute("aria-label", "…");
       el.innerHTML = '<span class="typing"><span></span><span></span><span></span></span>';
       messagesEl.appendChild(el);
-      messagesEl.scrollTop = messagesEl.scrollHeight;
+      scrollToEnd();
       return el;
+    }
+
+    // Efecto de tipeo: revela el texto ya renderizado de a poco (alrededor de 1 segundo).
+    function typeOut(el) {
+      if (reduceMotion) return Promise.resolve();
+      const nodes = [];
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      const full = nodes.map((n) => n.textContent);
+      nodes.forEach((n) => { n.textContent = ""; });
+      const step = Math.max(3, Math.ceil(full.join("").length / 60));
+      let i = 0;
+      return new Promise((resolve) => {
+        const tick = () => {
+          let budget = step;
+          while (budget > 0 && i < nodes.length) {
+            const shown = nodes[i].textContent.length;
+            const take = Math.min(budget, full[i].length - shown);
+            nodes[i].textContent = full[i].slice(0, shown + take);
+            budget -= take;
+            if (nodes[i].textContent.length >= full[i].length) i++;
+          }
+          scrollToEnd();
+          if (i < nodes.length) requestAnimationFrame(tick);
+          else resolve();
+        };
+        requestAnimationFrame(tick);
+      });
+    }
+
+    function scrollToEnd() {
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function wait(ms) {
+      return new Promise((r) => setTimeout(r, ms));
     }
 
     function getSessionId() {

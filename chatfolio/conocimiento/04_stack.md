@@ -25,5 +25,5 @@ Ejemplo: validó con backtesting las estimaciones de reservas de Vaca Muerta (al
 - Integraciones: Gmail, Slack, HubSpot, Airtable, Google Sheets, WhatsApp Cloud API y Telegram.
 - Dónde lo usó: calificación de leads con Claude y aprobación en Slack, stack de WhatsApp + CRM + IA para PyMEs, serie de agentes en n8n (multi-agente, memoria, RAG, voz, AI-as-a-Judge), alertas mensuales de pozos con n8n.
 
-## Herramientas de desarrollo (habilidades de Lleyton)
+## Git, GitHub Actions y Docker (habilidades de Lleyton)
 Git y GitHub, GitHub Actions (CI y actualizaciones programadas), Docker Compose y Google Workspace.

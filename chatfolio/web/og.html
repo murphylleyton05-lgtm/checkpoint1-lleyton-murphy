@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Chatfolio · imagen de vista previa</title>
+  <!-- Plantilla de la imagen que muestran LinkedIn y WhatsApp al compartir el link.
+       El deploy la convierte en og.png (1200x627) con el Chrome del runner de GitHub Actions. -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 1200px; height: 627px; overflow: hidden; }
+    body {
+      background: #f6f5f1;
+      color: #17171b;
+      font: 22px/1.45 "Inter", system-ui, sans-serif;
+      display: grid;
+      grid-template-columns: 560px 1fr;
+      gap: 56px;
+      padding: 64px 72px;
+      position: relative;
+    }
+    body::after {
+      content: "";
+      position: absolute; left: 0; right: 0; bottom: 0; height: 10px;
+      background: #0d7a63;
+    }
+    .eyebrow {
+      font: 500 16px/1 "JetBrains Mono", monospace;
+      letter-spacing: .16em; text-transform: uppercase;
+      color: #0d7a63; margin: 0 0 26px;
+    }
+    h1 {
+      font: 700 84px/1 "Space Grotesk", sans-serif;
+      letter-spacing: -.025em; margin: 0 0 20px;
+    }
+    .role { font-weight: 500; color: #55555f; margin: 0 0 34px; font-size: 24px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
+    .tags li {
+      font: 500 17px/1 "JetBrains Mono", monospace;
+      padding: 11px 14px; border-radius: 999px;
+      border: 1px solid #e3e1d9; background: #fff; color: #55555f;
+    }
+    .url {
+      position: absolute; left: 72px; bottom: 40px;
+      font: 500 17px/1 "JetBrains Mono", monospace; color: #55555f;
+    }
+    .card {
+      align-self: center;
+      background: #fff; border: 1px solid #e3e1d9; border-radius: 28px;
+      box-shadow: 0 1px 2px rgba(23,23,27,.04), 0 24px 48px -20px rgba(23,23,27,.25);
+      padding: 26px; display: flex; flex-direction: column; gap: 16px;
+    }
+    .head { display: flex; align-items: center; gap: 14px; padding-bottom: 18px; border-bottom: 1px solid #e3e1d9; }
+    .avatar { width: 48px; height: 48px; border-radius: 14px; background: #dff2ec; color: #0d7a63; display: grid; place-items: center; }
+    .avatar svg { width: 26px; height: 26px; }
+    .head strong { display: block; font-size: 20px; line-height: 1.2; }
+    .head span { font-size: 16px; color: #55555f; }
+    .bubble { padding: 14px 18px; border-radius: 20px; font-size: 19px; max-width: 92%; }
+    .user { align-self: flex-end; background: #17171b; color: #fff; border-bottom-right-radius: 6px; }
+    .bot { align-self: flex-start; background: #f0efe9; border-bottom-left-radius: 6px; }
+  </style>
+</head>
+<body>
+  <div>
+    <p class="eyebrow">Portfolio conversacional</p>
+    <h1>Lleyton Murphy</h1>
+    <p class="role">Data Analyst Jr. · BI · Automatización con IA</p>
+    <ul class="tags">
+      <li>SQL</li><li>Python</li><li>Power BI</li><li>n8n</li><li>Agentes de IA</li><li>Oil &amp; Gas</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="head">
+      <div class="avatar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="4"/><path d="M12 3v4M9 13h.01M15 13h.01"/></svg>
+      </div>
+      <div><strong>Asistente de Lleyton</strong><span>Preguntale lo que quieras</span></div>
+    </div>
+    <div class="bubble user">¿Qué hizo con datos de Vaca Muerta?</div>
+    <div class="bubble bot">Un pipeline que procesa y monitorea solo, cada mes, <b>+2.400 pozos</b>, con reservas validadas por backtesting.</div>
+  </div>
+  <div class="url">murphylleyton05-lgtm.github.io/portfolio/chat</div>
+</body>
+</html>
