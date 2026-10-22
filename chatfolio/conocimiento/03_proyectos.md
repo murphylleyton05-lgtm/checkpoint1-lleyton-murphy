@@ -14,7 +14,7 @@
   - Armó un tablero de producción de petróleo y gas, pozos nuevos y ranking de 38 operadoras, con medidas DAX para Power BI.
   - Entrenó una regresión ridge y un random forest (train/test 70/30) para medir cuánto del rendimiento de un pozo se explica por el diseño de fractura y cuánto por la geología.
 - **Stack:** Power BI (DAX), Python, machine learning.
-- **Link:** https://murphylleyton05-lgtm.github.io/portfolio/operaciones/
+- **Links:** tablero de operaciones https://murphylleyton05-lgtm.github.io/portfolio/operaciones/ · modelo de Well Performance https://murphylleyton05-lgtm.github.io/portfolio/performance/
 
 ## Proyecto de Lleyton: Frac Sand & Fuel Logistics, supply chain de arena de fractura
 - **Qué hizo Lleyton:** modeló la logística de arena de fractura a partir del consumo real por pozo: política de reposición (s, S), lead time, OTIF, stock de seguridad, quiebres de stock y costo logístico.
