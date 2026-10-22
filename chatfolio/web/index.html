@@ -3,46 +3,43 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0a0c10">
+  <meta name="theme-color" content="#f3efe6">
   <title>Lleyton Murphy · Chatfolio</title>
-  <meta name="description" content="No leas mi CV: preguntale a mi IA. Portfolio conversacional de Lleyton Murphy, Data Analyst Jr. con proyectos de datos, BI y automatización con IA.">
+  <meta name="description" content="Mi CV, pero le podés hacer preguntas. Portfolio conversacional de Lleyton Murphy, Data Analyst Jr. con proyectos de datos de Vaca Muerta, BI y automatización con IA.">
   <link rel="canonical" href="https://murphylleyton05-lgtm.github.io/portfolio/chat/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://murphylleyton05-lgtm.github.io/portfolio/chat/">
-  <meta property="og:title" content="No leas mi CV. Preguntale a mi IA. · Lleyton Murphy">
-  <meta property="og:description" content="Data Analyst Jr. · BI · Automatización con IA. Preguntale a mi asistente por mis proyectos o pegale tu búsqueda laboral.">
+  <meta property="og:title" content="Lleyton Murphy · Mi CV, pero le podés hacer preguntas">
+  <meta property="og:description" content="Data Analyst Jr. · BI y automatización con IA. Preguntale por mis proyectos o pegá tu búsqueda y te dice si encajo.">
   <meta property="og:image" content="https://murphylleyton05-lgtm.github.io/portfolio/chat/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="627">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff7a1a'/%3E%3Cstop offset='1' stop-color='%232dd4bf'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M18 22h28a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H30l-8 6v-6h-4a4 4 0 0 1-4-4V26a4 4 0 0 1 4-4Z' fill='%230a0c10'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%2319170f'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='28' text-anchor='middle' fill='%23f3efe6'%3ELM%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0a0c10;
-      --surface: #12161d;
-      --surface-2: #181d26;
-      --line: rgba(255, 255, 255, .08);
-      --line-2: rgba(255, 255, 255, .14);
-      --ink: #f3f1ec;
-      --ink-2: #a3a8b1;
-      --accent: #ff7a1a;
-      --accent-2: #ffb36b;
-      --teal: #2dd4bf;
-      --on-accent: #170b02;
-      --grad: linear-gradient(100deg, #ff7a1a 0%, #ffb36b 45%, #2dd4bf 100%);
-      --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-      --font-display: "Space Grotesk", var(--font);
-      --font-mono: "JetBrains Mono", ui-monospace, monospace;
-      color-scheme: dark;
+      --paper: #f3efe6;
+      --card: #fbf9f4;
+      --ink: #19170f;
+      --ink-2: #5f5a4e;
+      --ink-3: #8a8474;
+      --line: #ddd6c6;
+      --line-2: #cbc2ae;
+      --bubble: #ebe5d8;
+      --accent: #b8461b;
+      --font: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+      --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+      color-scheme: light;
     }
 
     * { box-sizing: border-box; }
     html, body { margin: 0; }
     body {
-      background: var(--bg);
+      background: var(--paper);
       color: var(--ink);
       font: 15px/1.55 var(--font);
       -webkit-font-smoothing: antialiased;
@@ -51,199 +48,144 @@
     a { color: inherit; }
     button { font: inherit; color: inherit; }
 
-    /* ---------- Fondo: curvas de nivel (guiño geológico a Vaca Muerta) ---------- */
-    .bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
-    .topo {
-      position: absolute; inset: -6%;
-      width: 112%; height: 112%;
-      animation: drift 70s ease-in-out infinite alternate;
-    }
-    .topo path { fill: none; stroke: rgba(255, 255, 255, .05); stroke-width: 1; }
-    .topo path.i { stroke: rgba(255, 179, 107, .12); }
-    .glow { position: absolute; border-radius: 50%; filter: blur(90px); }
-    .glow.g1 { width: 560px; height: 560px; top: -220px; left: -180px; background: var(--accent); opacity: .17; }
-    .glow.g2 { width: 600px; height: 600px; bottom: -260px; right: -200px; background: var(--teal); opacity: .12; }
-
     .app {
-      position: relative; z-index: 1;
-      max-width: 1200px;
+      max-width: 1240px;
       min-height: 100dvh;
       margin: 0 auto;
-      padding: 32px 28px;
+      padding: 40px 40px;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-      gap: 56px;
-      align-items: center;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 64px;
+      align-items: start;
     }
 
     /* ---------- Presentación ---------- */
-    .id { display: flex; align-items: center; gap: 14px; margin-bottom: 30px; }
+    .hero { padding-top: 8px; }
+    .id { display: flex; align-items: center; gap: 14px; padding-bottom: 18px; border-bottom: 1px solid var(--line); margin-bottom: 30px; }
     .avatar {
-      position: relative; flex: none;
-      width: 52px; height: 52px; border-radius: 50%;
+      flex: none;
+      width: 44px; height: 44px; border-radius: 50%;
       display: grid; place-items: center;
-      background: var(--grad);
-      color: var(--bg);
-      font: 700 18px/1 var(--font-display);
+      background: var(--ink); color: var(--paper);
+      font: 20px/1 var(--font-serif);
     }
     .avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-    .avatar::after {
-      content: ""; position: absolute; right: 0; bottom: 1px;
-      width: 13px; height: 13px; border-radius: 50%;
-      background: #22c55e; border: 2.5px solid var(--bg);
-    }
-    .who strong { display: block; font-size: 16px; line-height: 1.25; }
-    .who span { display: block; color: var(--ink-2); font-size: 13px; }
-    .icons { margin-left: auto; display: none; gap: 8px; }
+    .who strong { display: block; font-size: 15px; font-weight: 600; line-height: 1.3; }
+    .who > span { display: block; color: var(--ink-2); font-size: 13.5px; line-height: 1.35; }
+    .icons { margin-left: auto; display: flex; gap: 4px; }
     .icon {
-      width: 38px; height: 38px; border-radius: 50%;
+      width: 36px; height: 36px; border-radius: 50%;
       display: grid; place-items: center;
-      border: 1px solid var(--line-2);
-      background: rgba(255, 255, 255, .03);
+      color: var(--ink-2);
+      transition: color .15s ease, background .15s ease;
     }
-    .icon svg { width: 16px; height: 16px; }
+    .icon:hover { color: var(--ink); background: var(--bubble); }
+    .icon svg { width: 17px; height: 17px; }
     .icon[hidden] { display: none; }
 
-    .eyebrow {
-      font: 500 12px/1 var(--font-mono);
-      letter-spacing: .16em; text-transform: uppercase;
-      color: var(--accent-2);
-      margin: 0 0 16px;
-    }
     h1 {
-      font: 700 clamp(38px, 3.9vw, 58px)/1 var(--font-display);
-      letter-spacing: -.035em;
-      margin: 0 0 20px;
+      font: 400 clamp(46px, 5vw, 70px)/.98 var(--font-serif);
+      letter-spacing: -.015em;
+      margin: 0 0 22px;
     }
-    h1 span { white-space: nowrap; }
-    .grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .pitch { color: var(--ink-2); font-size: 17px; max-width: 42ch; margin: 0 0 30px; }
+    h1 em { font-style: italic; color: var(--accent); }
+    .pitch { color: var(--ink-2); font-size: 17px; line-height: 1.55; max-width: 47ch; margin: 0 0 30px; }
 
-    .stats { display: flex; gap: 34px; margin: 0 0 34px; padding: 0; list-style: none; }
-    .stats b { display: block; font: 700 32px/1 var(--font-display); letter-spacing: -.02em; }
-    .stats span { display: block; margin-top: 6px; color: var(--ink-2); font-size: 12.5px; line-height: 1.3; }
+    .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0 0 32px; padding: 0; list-style: none; border-top: 1px solid var(--ink); }
+    .facts li { padding: 12px 16px 0 0; }
+    .facts li + li { padding-left: 16px; border-left: 1px solid var(--line); }
+    .facts b { display: block; font: 400 38px/1 var(--font-serif); }
+    .facts span { display: block; margin-top: 6px; color: var(--ink-2); font-size: 13px; line-height: 1.35; }
 
-    .showcase-title { font: 500 11.5px/1 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); margin: 0 0 12px; }
-    .showcase { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 28px; }
-    .thumb {
-      position: relative; padding: 0; cursor: pointer;
-      aspect-ratio: 4 / 3; overflow: hidden;
-      border-radius: 14px; border: 1px solid var(--line-2);
-      background: var(--surface);
-      transition: transform .2s ease, border-color .2s ease;
+    .label { font: 500 12px/1 var(--font-mono); color: var(--ink-3); margin: 0 0 4px; }
+    .work { margin: 0 0 32px; }
+    .work-item {
+      width: 100%;
+      display: grid; grid-template-columns: 28px 76px minmax(0, 1fr) auto; gap: 14px; align-items: center;
+      padding: 10px 0; text-align: left; cursor: pointer;
+      background: none; border: 0; border-bottom: 1px solid var(--line);
     }
-    .thumb img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: top left; opacity: .85; transition: opacity .2s ease; }
-    .thumb span {
-      position: absolute; left: 0; right: 0; bottom: 0;
-      padding: 22px 9px 8px;
-      font-size: 11.5px; font-weight: 600; line-height: 1.25; text-align: left;
-      background: linear-gradient(transparent, rgba(0, 0, 0, .88));
-    }
-    .thumb:hover { transform: translateY(-3px); border-color: var(--accent); }
-    .thumb:hover img { opacity: 1; }
+    .work-item .n { font: 500 12px/1 var(--font-mono); color: var(--ink-3); }
+    .work-item img { width: 76px; height: 48px; object-fit: cover; object-position: top left; border-radius: 4px; border: 1px solid var(--line); background: var(--ink); filter: grayscale(.35); transition: filter .2s ease; }
+    .work-item strong { display: block; font-size: 15px; font-weight: 600; line-height: 1.3; }
+    .work-item small { display: block; color: var(--ink-2); font-size: 13px; line-height: 1.35; }
+    .work-item .go { font-size: 13px; color: var(--ink-3); white-space: nowrap; transition: color .15s ease; }
+    .work-item:hover img { filter: none; }
+    .work-item:hover .go { color: var(--accent); }
 
-    .links { display: flex; flex-wrap: wrap; gap: 10px; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 11px 16px; border-radius: 999px;
-      border: 1px solid var(--line-2);
-      background: rgba(255, 255, 255, .03);
-      font: 600 14px/1 var(--font); text-decoration: none;
-      transition: transform .15s ease, border-color .15s ease;
-    }
-    .btn:hover { transform: translateY(-1px); border-color: var(--accent-2); }
-    .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
-    .btn svg { width: 16px; height: 16px; }
-    .btn[hidden] { display: none; }
+    .links { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 14.5px; }
+    .links a { text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 4px; transition: text-decoration-color .15s ease; }
+    .links a:hover { text-decoration-color: var(--ink); }
+    .links a[hidden] { display: none; }
 
     /* ---------- Chat ---------- */
     .chat {
-      position: relative;
+      position: sticky; top: 40px;
       display: flex; flex-direction: column;
-      height: min(800px, calc(100dvh - 64px));
-      background: rgba(16, 20, 27, .82);
-      -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
-      border: 1px solid var(--line-2);
-      border-radius: 28px;
-      box-shadow: 0 40px 90px -40px rgba(0, 0, 0, .9), 0 0 70px -30px rgba(255, 122, 26, .35);
+      height: min(780px, calc(100dvh - 80px));
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: 0 1px 0 rgba(25, 23, 15, .04), 0 24px 48px -32px rgba(25, 23, 15, .25);
       overflow: hidden;
     }
-    .chat::before {
-      content: ""; position: absolute; top: 0; left: 12%; right: 12%; height: 1px;
-      background: var(--grad); opacity: .7;
-    }
-    .chat-head { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--line); }
-    .bot-avatar {
-      flex: none; width: 40px; height: 40px; border-radius: 12px;
-      display: grid; place-items: center;
-      background: linear-gradient(135deg, rgba(255, 122, 26, .22), rgba(45, 212, 191, .18));
-      color: var(--accent-2);
-    }
-    .bot-avatar svg { width: 22px; height: 22px; }
-    .chat-head strong { display: block; font: 600 15px/1.2 var(--font); }
-    .status { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--ink-2); }
-    .status::before {
-      content: ""; width: 7px; height: 7px; border-radius: 50%;
-      background: #22c55e; box-shadow: 0 0 0 0 rgba(34, 197, 94, .6);
-      animation: pulse 2s infinite;
-    }
+    .chat-head { display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+    .chat-head .avatar { width: 34px; height: 34px; font-size: 16px; }
+    .chat-head strong { display: block; font: 600 14.5px/1.25 var(--font); }
+    .status { display: block; font-size: 12.5px; color: var(--ink-2); }
 
     .messages {
       flex: 1;
       position: relative;
       overflow-y: auto;
       overscroll-behavior: contain;
-      padding: 20px;
-      display: flex; flex-direction: column; gap: 12px;
+      padding: 22px 18px;
+      display: flex; flex-direction: column; gap: 10px;
     }
     .msg {
-      max-width: 88%;
-      padding: 12px 15px;
-      border-radius: 18px;
+      max-width: 86%;
+      padding: 10px 14px;
+      border-radius: 16px;
       overflow-wrap: anywhere;
-      animation: rise .25s ease both;
+      animation: rise .2s ease both;
     }
     .msg p { margin: 0 0 8px; }
     .msg p:last-child, .msg ul:last-child, .msg ol:last-child { margin-bottom: 0; }
     .msg ul, .msg ol { margin: 0 0 8px; padding-left: 20px; }
     .msg li { margin: 2px 0; }
-    .msg a { color: var(--accent-2); font-weight: 500; }
+    .msg a { color: var(--accent); }
     .msg code { font: 13px var(--font-mono); }
-    .msg.bot { align-self: flex-start; background: var(--surface-2); border: 1px solid var(--line); border-bottom-left-radius: 6px; }
+    .msg.bot { align-self: flex-start; background: var(--bubble); border-bottom-left-radius: 4px; }
     .msg.user {
       align-self: flex-end;
-      background: var(--accent); color: var(--on-accent); font-weight: 500;
-      border-bottom-right-radius: 6px;
+      background: var(--ink); color: var(--paper);
+      border-bottom-right-radius: 4px;
       white-space: pre-wrap;
       max-height: 220px; overflow-y: auto;
     }
     .msg.note { background: transparent; border: 1px dashed var(--line-2); color: var(--ink-2); font-size: 13px; }
-    .typing { display: inline-flex; gap: 4px; padding: 4px 0; }
-    .typing span { width: 7px; height: 7px; border-radius: 50%; background: var(--ink-2); animation: blink 1.2s infinite ease-in-out; }
+    .typing { display: inline-flex; gap: 4px; padding: 5px 0; }
+    .typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-3); animation: blink 1.2s infinite ease-in-out; }
     .typing span:nth-child(2) { animation-delay: .15s; }
     .typing span:nth-child(3) { animation-delay: .3s; }
 
-    /* Opciones para arrancar sin escribir */
-    .starters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    /* Preguntas para arrancar: se ven como mensajes que podés mandar */
+    .starters { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; margin-top: 4px; }
     .starter {
-      display: flex; align-items: flex-start; gap: 10px;
-      padding: 12px 13px; text-align: left; cursor: pointer;
-      border-radius: 16px; border: 1px solid var(--line-2);
-      background: rgba(255, 255, 255, .03);
-      transition: transform .15s ease, border-color .15s ease, background .15s ease;
-      animation: rise .4s ease both;
-      animation-delay: calc(var(--i) * 70ms);
+      max-width: 86%;
+      padding: 9px 14px; cursor: pointer; text-align: left;
+      border-radius: 16px; border-bottom-right-radius: 4px;
+      border: 1px solid var(--line-2);
+      background: var(--card);
+      font-size: 14.5px; line-height: 1.35;
+      transition: background .15s ease, border-color .15s ease, color .15s ease;
+      animation: rise .25s ease both;
+      animation-delay: calc(var(--i) * 40ms);
     }
-    .starter .ic { font-size: 20px; line-height: 1.2; }
-    .starter strong { display: block; font-size: 14px; line-height: 1.3; }
-    .starter small { display: block; margin-top: 2px; color: var(--ink-2); font-size: 12px; line-height: 1.35; }
-    .starter:hover { transform: translateY(-2px); border-color: var(--accent); background: rgba(255, 122, 26, .08); }
-    .starter.hot {
-      border-color: rgba(255, 122, 26, .55);
-      background: linear-gradient(100deg, rgba(255, 122, 26, .18), rgba(45, 212, 191, .08));
-      animation: rise .4s ease both, glowing 2.8s ease-in-out 1s infinite;
-      animation-delay: calc(var(--i) * 70ms), 1s;
-    }
+    .starter small { display: block; margin-top: 1px; color: var(--ink-2); font-size: 12.5px; }
+    .starter:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+    .starter:hover small { color: var(--line-2); }
+    .starter.hot { border-color: var(--accent); }
 
     /* Tarjetas de proyectos */
     .cards {
@@ -251,115 +193,99 @@
       display: flex; gap: 10px;
       overflow-x: auto; scroll-snap-type: x mandatory;
       padding: 2px 2px 6px;
-      animation: rise .3s ease both;
+      animation: rise .25s ease both;
     }
     .card {
-      flex: none; width: 230px;
+      flex: none; width: 224px;
       display: flex; flex-direction: column;
       scroll-snap-align: start;
       overflow: hidden;
-      border: 1px solid var(--line-2); border-radius: 16px;
-      background: var(--surface);
+      border: 1px solid var(--line); border-radius: 10px;
+      background: var(--card);
       color: var(--ink); text-decoration: none;
-      transition: transform .15s ease, border-color .15s ease;
+      transition: border-color .15s ease;
     }
-    .card:hover { transform: translateY(-2px); border-color: var(--accent); }
-    .card img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top left; background: #000; }
+    .card:hover { border-color: var(--ink); }
+    .card img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top left; background: var(--ink); }
     .card-body { display: flex; flex-direction: column; gap: 3px; padding: 10px 12px 12px; }
     .card-body strong { font-size: 14px; line-height: 1.3; }
     .card-body span { font-size: 12.5px; line-height: 1.4; color: var(--ink-2); }
-    .card-body .card-cta { margin-top: 4px; color: var(--accent-2); font-weight: 600; }
+    .card-body .card-cta { margin-top: 4px; color: var(--accent); font-weight: 500; }
 
-    .suggestions { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 20px 12px; }
+    .suggestions { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 18px 12px; }
     .suggestions:empty { display: none; }
     .chip {
-      padding: 9px 13px; cursor: pointer;
+      padding: 7px 12px; cursor: pointer;
       border-radius: 999px; border: 1px solid var(--line-2);
-      background: rgba(255, 255, 255, .03);
-      font: 500 13px/1.2 var(--font);
-      transition: border-color .15s ease, background .15s ease;
+      background: var(--card);
+      font: 13px/1.2 var(--font);
+      transition: background .15s ease, color .15s ease, border-color .15s ease;
     }
-    .chip:hover { border-color: var(--accent); background: rgba(255, 122, 26, .08); }
+    .chip:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 
     .composer {
-      display: flex; align-items: flex-end; gap: 10px;
-      margin: 0 16px; padding: 10px 10px 10px 16px;
-      border: 1px solid var(--line-2); border-radius: 18px;
-      background: var(--surface-2);
-      transition: border-color .15s ease, box-shadow .15s ease;
+      display: flex; align-items: flex-end; gap: 8px;
+      margin: 0 14px; padding: 7px 7px 7px 14px;
+      border: 1px solid var(--line-2); border-radius: 12px;
+      background: #fff;
+      transition: border-color .15s ease;
     }
-    .composer:focus-within { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(255, 122, 26, .12); }
+    .composer:focus-within { border-color: var(--ink); }
     .composer textarea {
       flex: 1; resize: none;
       max-height: 140px; padding: 7px 0;
       border: 0; outline: 0; background: transparent;
       color: var(--ink); font: 15px/1.45 var(--font);
     }
-    .composer textarea::placeholder { color: var(--ink-2); }
+    .composer textarea::placeholder { color: var(--ink-3); }
     .send {
-      flex: none; width: 42px; height: 42px;
+      flex: none; width: 38px; height: 38px;
       display: grid; place-items: center; cursor: pointer;
-      border: 0; border-radius: 13px;
-      background: var(--grad); color: var(--on-accent);
-      transition: opacity .15s ease, transform .15s ease;
+      border: 0; border-radius: 9px;
+      background: var(--ink); color: var(--paper);
+      transition: opacity .15s ease;
     }
-    .send:not(:disabled):hover { transform: scale(1.05); }
-    .send:disabled { opacity: .35; cursor: default; }
-    .send svg { width: 18px; height: 18px; }
-    .disclaimer { margin: 9px 16px 13px; text-align: center; color: var(--ink-2); font-size: 11.5px; }
+    .send:disabled { opacity: .25; cursor: default; }
+    .send svg { width: 17px; height: 17px; }
+    .disclaimer { margin: 8px 14px 12px; text-align: center; color: var(--ink-3); font-size: 11.5px; }
 
     button, a, textarea { touch-action: manipulation; }
-    :focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-    @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
     @keyframes blink { 0%, 80%, 100% { opacity: .25; } 40% { opacity: 1; } }
-    @keyframes drift { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-3%, 2%, 0); } }
-    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, .55); } 70% { box-shadow: 0 0 0 7px rgba(34, 197, 94, 0); } 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); } }
-    @keyframes glowing { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 122, 26, 0); } 50% { box-shadow: 0 0 22px -4px rgba(255, 122, 26, .55); } }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
 
-    /* ---------- Celular: el chat es la protagonista ---------- */
+    /* ---------- Celular: una sola pantalla, el chat es la protagonista ---------- */
     @media (max-width: 900px) {
-      /* Una sola pantalla, como una app: el chat ocupa lo que queda y scrollea por dentro. */
       .app {
         display: flex; flex-direction: column; gap: 14px;
         height: 100vh; height: 100dvh; min-height: 0;
         padding: 14px 14px max(12px, env(safe-area-inset-bottom));
       }
-      .id { margin-bottom: 14px; }
-      .avatar { width: 46px; height: 46px; font-size: 16px; }
-      .icons { display: flex; }
-      .eyebrow, .pitch, .showcase-title, .showcase, .links { display: none; }
-      h1 { font-size: clamp(26px, 8.4vw, 38px); margin-bottom: 14px; }
-      .stats { gap: 0; margin: 0; justify-content: space-between; }
-      .stats li { flex: 1; }
-      .stats li + li { padding-left: 12px; border-left: 1px solid var(--line-2); }
-      .stats b { font-size: 21px; }
-      .stats span { font-size: 11px; margin-top: 4px; }
-      .chat { flex: 1 1 0; height: auto; min-height: 360px; border-radius: 22px; }
-      .messages { padding: 16px; }
-      .suggestions { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding: 0 16px 10px; }
+      .hero { padding-top: 0; }
+      .id { padding-bottom: 12px; margin-bottom: 14px; }
+      .avatar { width: 40px; height: 40px; font-size: 18px; }
+      .pitch, .facts, .label, .work, .links, .loc { display: none; }
+      h1 { font-size: clamp(32px, 9.4vw, 44px); margin: 0; }
+      .chat { position: static; flex: 1 1 0; height: auto; min-height: 340px; border-radius: 12px; }
+      .messages { padding: 16px 14px; }
+      .suggestions { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding: 0 14px 10px; }
       .chip { flex: none; }
-      .composer { margin: 0 12px; }
+      .composer { margin: 0 10px; }
     }
   </style>
 </head>
 <body>
-  <div class="bg" aria-hidden="true">
-    <svg class="topo" id="topo" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice"></svg>
-    <div class="glow g1"></div>
-    <div class="glow g2"></div>
-  </div>
-
   <main class="app">
     <section class="hero" aria-labelledby="titulo">
       <div class="id">
         <div class="avatar" id="avatar" aria-hidden="true">LM</div>
         <div class="who">
           <strong>Lleyton Murphy</strong>
-          <span data-i18n="role">Data Analyst Jr. · BI · Automatización con IA</span>
+          <span><span data-i18n="role">Data Analyst Jr.</span><span class="loc"> · La Plata, Argentina</span></span>
         </div>
         <nav class="icons" aria-label="Links">
           <a class="icon" data-link="linkedin" target="_blank" rel="noopener" aria-label="LinkedIn">
@@ -369,53 +295,38 @@
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
           </a>
           <a class="icon" data-link="email" aria-label="Email">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
           </a>
         </nav>
       </div>
 
-      <p class="eyebrow" data-i18n="eyebrow">Portfolio conversacional</p>
-      <h1 id="titulo"><span data-i18n="h1a">No leas mi CV.</span><br><span class="grad" data-i18n="h1b">Preguntale a mi IA.</span></h1>
-      <p class="pitch" data-i18n="pitch">Te cuenta mis proyectos de datos e IA, te dice si encajo en tu búsqueda y, si te interesa, me avisa al toque.</p>
+      <h1 id="titulo"><span data-i18n="h1a">Mi CV, pero le podés</span> <em data-i18n="h1b">hacer preguntas.</em></h1>
+      <p class="pitch" data-i18n="pitch">Analizo datos de Vaca Muerta y automatizo procesos con IA. El chat responde con mi experiencia y mis proyectos reales; si algo no lo sabe, te lo dice y me podés escribir directo.</p>
 
-      <ul class="stats">
-        <li><b data-count="2400" data-prefix="+">+2.400</b><span data-i18n="stat1">pozos analizados</span></li>
-        <li><b>~9 %</b><span data-i18n="stat2">de error en reservas</span></li>
-        <li><b data-count="8">8</b><span data-i18n="stat3">proyectos publicados</span></li>
+      <ul class="facts">
+        <li><b>2.400+</b><span data-i18n="fact1">pozos de Vaca Muerta procesados cada mes</span></li>
+        <li><b>~9 %</b><span data-i18n="fact2">de error en el pronóstico a 36 meses</span></li>
+        <li><b>8</b><span data-i18n="fact3">proyectos publicados</span></li>
       </ul>
 
-      <p class="showcase-title" data-i18n="showcaseTitle">Proyectos destacados · tocá uno y te lo cuento</p>
-      <div class="showcase" id="showcase"></div>
+      <p class="label" data-i18n="workTitle">Proyectos · tocá uno y el chat te lo cuenta</p>
+      <div class="work" id="work"></div>
 
       <nav class="links" aria-label="Links">
-        <a class="btn primary" data-link="linkedin" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4V21H3V9.75Zm6.5 0h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.6 4.77 6V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4V9.75Z"/></svg>
-          LinkedIn
-        </a>
-        <a class="btn" data-link="github" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
-          GitHub
-        </a>
-        <a class="btn" data-link="portfolio" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg>
-          Portfolio Oil &amp; Gas
-        </a>
-        <a class="btn" data-link="cv" target="_blank" rel="noopener">CV</a>
-        <a class="btn" data-link="email">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-          Email
-        </a>
+        <a data-link="linkedin" target="_blank" rel="noopener">LinkedIn</a>
+        <a data-link="github" target="_blank" rel="noopener">GitHub</a>
+        <a data-link="portfolio" target="_blank" rel="noopener" data-i18n="portfolioLink">Tableros de Oil &amp; Gas</a>
+        <a data-link="cv" target="_blank" rel="noopener">CV</a>
+        <a data-link="email" id="emailLink"></a>
       </nav>
     </section>
 
     <section class="chat" aria-labelledby="asistente">
       <header class="chat-head">
-        <div class="bot-avatar" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="4"/><path d="M12 3v4M9 13h.01M15 13h.01"/></svg>
-        </div>
+        <div class="avatar" aria-hidden="true">LM</div>
         <div>
-          <strong id="asistente" data-i18n="assistant">IA de Lleyton</strong>
-          <span class="status" id="status">En línea</span>
+          <strong id="asistente" data-i18n="assistant">Asistente de Lleyton</strong>
+          <span class="status" id="status"></span>
         </div>
       </header>
 
@@ -426,7 +337,7 @@
       <form class="composer" id="composer">
         <textarea id="input" rows="1" maxlength="6000" autocomplete="off"></textarea>
         <button class="send" id="send" type="submit" disabled>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
         </button>
       </form>
       <p class="disclaimer" id="disclaimer"></p>
@@ -454,33 +365,33 @@
 
     const TEXTS = {
       es: {
-        role: "Data Analyst Jr. · BI · Automatización con IA",
-        eyebrow: "Portfolio conversacional",
-        h1a: "No leas mi CV.",
-        h1b: "Preguntale a mi IA.",
-        pitch: "Te cuenta mis proyectos de datos e IA, te dice si encajo en tu búsqueda y, si te interesa, me avisa al toque.",
-        stat1: "pozos analizados",
-        stat2: "de error en reservas",
-        stat3: "proyectos publicados",
-        showcaseTitle: "Proyectos destacados · tocá uno y te lo cuento",
+        role: "Data Analyst Jr.",
+        h1a: "Mi CV, pero le podés",
+        h1b: "hacer preguntas.",
+        pitch: "Analizo datos de Vaca Muerta y automatizo procesos con IA. El chat responde con mi experiencia y mis proyectos reales; si algo no lo sabe, te lo dice y me podés escribir directo.",
+        fact1: "pozos de Vaca Muerta procesados cada mes",
+        fact2: "de error en el pronóstico a 36 meses",
+        fact3: "proyectos publicados",
+        workTitle: "Proyectos · tocá uno y el chat te lo cuenta",
+        portfolioLink: "Tableros de Oil & Gas",
+        askProject: "Preguntar",
         aboutProject: (title) => `Contame del proyecto ${title}`,
-        assistant: "IA de Lleyton",
-        placeholders: ["Preguntá lo que quieras…", "¿Sabe Power BI?", "¿Puede empezar ya?", "¿Por qué contratarlo?", "Pegá tu búsqueda laboral…"],
+        assistant: "Asistente de Lleyton",
+        placeholders: ["Escribí tu pregunta…", "¿Sabe Power BI?", "¿Puede empezar ya?", "¿Por qué contratarlo?", "Pegá tu búsqueda laboral…"],
         jobPlaceholder: "Pegá el puesto acá…",
         send: "Enviar",
-        statusAi: "En línea · responde con IA",
-        statusLocal: "En línea · base de conocimiento",
-        statusChecking: "En línea",
+        statusAi: "Responde con IA, a partir de su CV",
+        statusLocal: "Responde con su CV y sus proyectos",
+        statusChecking: "Responde con su CV y sus proyectos",
         disclaimerAi: "Respuestas generadas con IA a partir de información de Lleyton. Puede equivocarse.",
         disclaimerLocal: "Respuestas tomadas de la información que cargó Lleyton.",
-        welcome: "¡Hola! 👋 Soy la IA de Lleyton. Preguntame lo que quieras o arrancá por acá:",
+        welcome: "Hola. Conozco la experiencia de Lleyton, sus proyectos y qué está buscando. Preguntame lo que quieras, o elegí una de estas:",
         starters: [
-          { icon: "📋", title: "¿Encaja en tu búsqueda?", sub: "Pegá el puesto y te digo", action: "job" },
-          { icon: "🛢️", title: "Vaca Muerta", sub: "+2.400 pozos, datos e IA", q: "¿Qué hizo con datos de Vaca Muerta?" },
-          { icon: "🧰", title: "Su stack", sub: "SQL, Python, Power BI, n8n", q: "¿Qué stack maneja?" },
-          { icon: "🤖", title: "Agentes de IA", sub: "Automatizaciones con n8n", q: "¿Qué agentes de IA hizo con n8n?" },
-          { icon: "🎯", title: "Qué busca", sub: "Rol, modalidad, disponibilidad", q: "¿Qué rol está buscando?" },
-          { icon: "✉️", title: "Contactarlo", sub: "Dejale un mensaje", q: "Quiero contactar a Lleyton" },
+          { title: "¿Encaja en mi búsqueda?", sub: "Pegás el aviso y lo comparo con su perfil", action: "job" },
+          { title: "¿Qué hizo con datos de Vaca Muerta?" },
+          { title: "¿Qué stack maneja?" },
+          { title: "¿Qué agentes de IA hizo con n8n?" },
+          { title: "¿Qué rol está buscando?" },
         ],
         chips: ["¿Qué hizo con datos de Vaca Muerta?", "¿Qué stack maneja?", "¿Qué rol está buscando?"],
         jobIntro: "Dale: pegá la descripción del puesto (requisitos, responsabilidades, herramientas) y te digo qué tanto encaja Lleyton, con evidencia.",
@@ -498,33 +409,33 @@
         viewProject: "Ver proyecto →",
       },
       en: {
-        role: "Jr. Data Analyst · BI · AI Automation",
-        eyebrow: "Conversational portfolio",
-        h1a: "Don't read my CV.",
-        h1b: "Ask my AI.",
-        pitch: "It walks you through my data & AI projects, tells you whether I fit your role and, if you're interested, pings me right away.",
-        stat1: "wells analyzed",
-        stat2: "error on reserves",
-        stat3: "published projects",
-        showcaseTitle: "Featured projects · tap one to learn more",
+        role: "Jr. Data Analyst",
+        h1a: "My CV, but you can",
+        h1b: "ask it questions.",
+        pitch: "I analyze Vaca Muerta oil & gas data and automate processes with AI. The chat answers with my real experience and projects; if it doesn't know something, it says so and you can email me directly.",
+        fact1: "Vaca Muerta wells processed every month",
+        fact2: "error on the 36-month forecast",
+        fact3: "published projects",
+        workTitle: "Projects · pick one and the chat walks you through it",
+        portfolioLink: "Oil & Gas dashboards",
+        askProject: "Ask",
         aboutProject: (title) => `Tell me about the ${title} project`,
-        assistant: "Lleyton's AI",
-        placeholders: ["Ask anything…", "Does Lleyton know Power BI?", "Can Lleyton start now?", "Why hire Lleyton?", "Paste your job description…"],
+        assistant: "Lleyton's assistant",
+        placeholders: ["Type your question…", "Does Lleyton know Power BI?", "Can Lleyton start now?", "Why hire Lleyton?", "Paste your job description…"],
         jobPlaceholder: "Paste the job here…",
         send: "Send",
-        statusAi: "Online · AI-powered answers",
-        statusLocal: "Online · knowledge base",
-        statusChecking: "Online",
+        statusAi: "AI answers, based on Lleyton's CV",
+        statusLocal: "Answers from Lleyton's CV and projects",
+        statusChecking: "Answers from Lleyton's CV and projects",
         disclaimerAi: "AI-generated answers based on Lleyton's information. It can make mistakes.",
         disclaimerLocal: "Answers taken from the information Lleyton provided (in Spanish).",
-        welcome: "Hi! 👋 I'm Lleyton's AI. Ask me anything or start here:",
+        welcome: "Hi. I know Lleyton's experience, projects and what Lleyton is looking for. Ask me anything, or pick one of these:",
         starters: [
-          { icon: "📋", title: "A fit for your role?", sub: "Paste the job, get a match", action: "job" },
-          { icon: "🛢️", title: "Vaca Muerta", sub: "2,400+ wells, data & AI", q: "What did Lleyton build with Vaca Muerta data?" },
-          { icon: "🧰", title: "Tech stack", sub: "SQL, Python, Power BI, n8n", q: "What's Lleyton's tech stack?" },
-          { icon: "🤖", title: "AI agents", sub: "Automations with n8n", q: "What AI agents did Lleyton build with n8n?" },
-          { icon: "🎯", title: "What Lleyton wants", sub: "Role, location, availability", q: "What role is Lleyton looking for?" },
-          { icon: "✉️", title: "Get in touch", sub: "Leave a message", q: "I want to contact Lleyton" },
+          { title: "Is Lleyton a fit for my role?", sub: "Paste the job post and I'll compare it", action: "job" },
+          { title: "What did Lleyton build with Vaca Muerta data?" },
+          { title: "What's Lleyton's tech stack?" },
+          { title: "What AI agents did Lleyton build with n8n?" },
+          { title: "What role is Lleyton looking for?" },
         ],
         chips: ["What did Lleyton build with Vaca Muerta data?", "What's Lleyton's tech stack?", "What role is Lleyton looking for?"],
         jobIntro: "Sure: paste the job description (requirements, responsibilities, tools) and I'll tell you how well Lleyton fits, with evidence.",
@@ -543,7 +454,7 @@
       },
     };
 
-    // Proyectos con tablero publicado: aparecen en la vitrina y, cuando una respuesta los menciona, como tarjeta.
+    // Proyectos con tablero publicado: aparecen en la lista de proyectos y, cuando una respuesta los menciona, como tarjeta.
     const SITE = "https://murphylleyton05-lgtm.github.io/portfolio/";
     const PROJECTS = [
       {
@@ -644,22 +555,16 @@
       img.alt = "";
       document.getElementById("avatar").replaceChildren(img);
     }
+    document.getElementById("emailLink").textContent = CONFIG.email;
     if (aiCheck) statusEl.textContent = T.statusChecking;
     else setMode("local");
 
-    drawTopo(document.getElementById("topo"));
-    buildShowcase();
-    countUp();
+    buildWork();
     rotatePlaceholder();
     // Se carga apenas abre la página: así la primera respuesta sale al instante (y sirve de respaldo si la IA falla).
     loadKB().catch(() => {});
 
-    // Bienvenida: la IA "escribe" un instante y saluda, y las opciones entran en cascada.
-    if (reduceMotion) showWelcome();
-    else {
-      const typing = addTyping();
-      setTimeout(() => { typing.remove(); showWelcome(); }, 650);
-    }
+    showWelcome();
 
     suggestionsEl.addEventListener("click", (e) => {
       const chip = e.target.closest(".chip");
@@ -687,7 +592,6 @@
     function showWelcome() {
       if (welcomed) return;
       welcomed = true;
-      messagesEl.querySelector(".typing")?.closest(".msg")?.remove();
       addMessage("bot", T.welcome);
       startersEl = document.createElement("div");
       startersEl.className = "starters";
@@ -696,20 +600,16 @@
         b.type = "button";
         b.className = "starter" + (s.action ? " hot" : "");
         b.style.setProperty("--i", i);
-        const icon = document.createElement("span");
-        icon.className = "ic";
-        icon.textContent = s.icon;
-        const text = document.createElement("span");
-        const title = document.createElement("strong");
-        title.textContent = s.title;
-        const sub = document.createElement("small");
-        sub.textContent = s.sub;
-        text.append(title, sub);
-        b.append(icon, text);
+        b.textContent = s.title;
+        if (s.sub) {
+          const sub = document.createElement("small");
+          sub.textContent = s.sub;
+          b.appendChild(sub);
+        }
         b.addEventListener("click", () => {
           if (busy) return;
           if (s.action === "job") startJobMode();
-          else send(s.q);
+          else send(s.title);
         });
         startersEl.appendChild(b);
       });
@@ -1029,41 +929,33 @@
       messagesEl.appendChild(row);
     }
 
-    // Vitrina de proyectos (en compu): tocás uno y el chat te lo cuenta.
-    function buildShowcase() {
-      const box = document.getElementById("showcase");
-      for (const p of PROJECTS) {
+    // Lista de proyectos (en compu): tocás uno y el chat te lo cuenta.
+    function buildWork() {
+      const box = document.getElementById("work");
+      PROJECTS.forEach((p, i) => {
         const b = document.createElement("button");
         b.type = "button";
-        b.className = "thumb";
+        b.className = "work-item";
+        const n = document.createElement("span");
+        n.className = "n";
+        n.textContent = String(i + 1).padStart(2, "0");
         const img = document.createElement("img");
         img.src = p.img;
         img.alt = "";
         img.loading = "lazy";
-        const label = document.createElement("span");
-        label.textContent = p.title;
-        b.append(img, label);
+        const text = document.createElement("span");
+        const title = document.createElement("strong");
+        title.textContent = p.title;
+        const desc = document.createElement("small");
+        desc.textContent = p.desc[lang];
+        text.append(title, desc);
+        const go = document.createElement("span");
+        go.className = "go";
+        go.textContent = T.askProject + " →";
+        b.append(n, img, text, go);
         b.addEventListener("click", () => send(T.aboutProject(p.title)));
         box.appendChild(b);
-      }
-    }
-
-    // Los números del encabezado cuentan hacia arriba al abrir la página.
-    function countUp() {
-      const fmt = new Intl.NumberFormat(lang === "en" ? "en-US" : "es-AR");
-      for (const el of document.querySelectorAll("[data-count]")) {
-        const target = Number(el.dataset.count);
-        const prefix = el.dataset.prefix || "";
-        const render = (v) => { el.textContent = prefix + fmt.format(v); };
-        if (reduceMotion) { render(target); continue; }
-        const start = performance.now();
-        const tick = (now) => {
-          const p = Math.min(1, (now - start) / 1100);
-          render(Math.round(target * (1 - Math.pow(1 - p, 3))));
-          if (p < 1) requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
-      }
+      });
     }
 
     // El placeholder va mostrando ejemplos de preguntas mientras el campo está vacío.
@@ -1076,31 +968,6 @@
         i = (i + 1) % T.placeholders.length;
         input.placeholder = T.placeholders[i];
       }, 2600);
-    }
-
-    // Curvas de nivel del fondo, generadas acá para no cargar una imagen.
-    function drawTopo(svg) {
-      const ns = "http://www.w3.org/2000/svg";
-      const centers = [[260, 230, 15, 34, 0.4, 2.1, 4.3, 1.2], [1180, 700, 14, 36, 3.1, 0.7, 5.2, 2.8], [900, 120, 7, 30, 1.9, 4.4, 0.3, 5.9]];
-      for (const [cx, cy, rings, step, a, b, c, d] of centers) {
-        for (let k = 1; k <= rings; k++) {
-          const n = 40;
-          const drift = k * 0.07;
-          const pts = [];
-          for (let i = 0; i < n; i++) {
-            const t = (2 * Math.PI * i) / n;
-            const r = k * step * (1 + 0.1 * Math.sin(3 * t + a + drift) + 0.06 * Math.sin(5 * t + b - drift) + 0.035 * Math.sin(7 * t + c) + 0.02 * Math.sin(2 * t + d + 2 * drift));
-            pts.push([cx + r * Math.cos(t), cy + r * 0.78 * Math.sin(t)]);
-          }
-          const mid = (i) => [(pts[i][0] + pts[(i + 1) % n][0]) / 2, (pts[i][1] + pts[(i + 1) % n][1]) / 2].map(Math.round);
-          let path = `M${mid(n - 1).join(" ")}`;
-          for (let i = 0; i < n; i++) path += `Q${pts[i].map(Math.round).join(" ")} ${mid(i).join(" ")}`;
-          const el = document.createElementNS(ns, "path");
-          el.setAttribute("d", path + "Z");
-          if (k % 4 === 0) el.setAttribute("class", "i");
-          svg.appendChild(el);
-        }
-      }
     }
 
     function setBusy(value) {
