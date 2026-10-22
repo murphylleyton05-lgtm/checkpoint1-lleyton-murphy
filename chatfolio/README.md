@@ -41,7 +41,7 @@ Portfolio conversacional: en vez de leer el CV, el visitante le pregunta a un as
 - **Basic Auth**: usuario y clave a tu elección. Protege el formulario de carga para que nadie más pueda reemplazar tu información.
 
 ### 3. Revisar la base de conocimiento
-`conocimiento/` ya tiene todo tu CV, con los links a cada proyecto y escrito para que el RAG lo encuentre bien. Revisalo y completá los pocos `[COMPLETAR: ...]` que quedan (modalidad, disponibilidad, qué estás aprendiendo). Lo que no quieras contar, borralo.
+`conocimiento/` ya tiene todo tu CV, con los links a cada proyecto y escrito para que el RAG lo encuentre bien. Está completo; cuando cambie algo (un proyecto nuevo, otra herramienta), editá el archivo y volvé a correr la ingesta.
 
 El teléfono quedó afuera a propósito: todo lo que está en estos archivos el bot lo puede decir.
 

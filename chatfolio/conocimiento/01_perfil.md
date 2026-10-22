@@ -14,8 +14,8 @@ Industrias de mayor interés: energía (Oil & Gas), operaciones y consultoría.
 
 ## Ubicación, disponibilidad y modalidad de trabajo de Lleyton
 - Ubicación: La Plata (City Bell), Buenos Aires, Argentina. Zona horaria GMT-3.
-- Modalidad: [COMPLETAR: remoto / híbrido / presencial; si podés viajar a CABA].
-- Disponibilidad para empezar: [COMPLETAR: inmediata / en X semanas].
+- Modalidad: acepta todas las modalidades (remoto, híbrido o presencial). También le interesa trabajar de forma remota para empresas del exterior.
+- Disponibilidad para empezar: inmediata.
 
 ## Idiomas de Lleyton
 - Español: nativo.

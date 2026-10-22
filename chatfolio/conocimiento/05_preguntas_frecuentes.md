@@ -12,6 +12,9 @@ Lleyton busca su primera posición formal en Data, BI u Operations, o en AI Auto
 ## ¿Lleyton sabe de Oil & Gas?
 Sí, es la industria en la que más trabajó en su portfolio: declinación y reservas de más de 2.400 pozos de Vaca Muerta, un tablero de producción con ranking de 38 operadoras, modelos de machine learning sobre diseño de fractura vs. geología y un modelo de logística de arena de fractura.
 
+## ¿Cuándo puede empezar Lleyton y en qué modalidad?
+Lleyton tiene disponibilidad inmediata y acepta todas las modalidades: remoto, híbrido o presencial.
+
 ## ¿Qué tipo de problemas le gusta resolver a Lleyton?
 Procesos repetitivos que se pueden automatizar, datos dispersos que hay que limpiar y unificar, y reportes que hoy se arman a mano y podrían actualizarse solos.
 
@@ -19,11 +22,13 @@ Procesos repetitivos que se pueden automatizar, datos dispersos que hay que limp
 Sí. Lleyton diseña automatizaciones y agentes de IA en n8n que conectan herramientas como Gmail, Slack, HubSpot, Airtable, Google Sheets y WhatsApp. Lo ideal es contarle el proceso actual (qué se hace a mano, con qué herramientas y cuánto tiempo lleva). Para eso se le puede dejar un mensaje desde este chat.
 
 ## ¿Lleyton trabaja con equipos de otros países?
-Lleyton tiene inglés B2 (Cambridge B2 First, 2023) e ICAO Nivel 5, y vive en Argentina (GMT-3).
-[COMPLETAR: si te interesa trabajar remoto para empresas del exterior y si ya lo hiciste.]
+Todavía no trabajó para empresas del exterior, pero le interesa y está disponible para hacerlo de forma remota. Tiene inglés B2 (Cambridge B2 First, 2023) e ICAO Nivel 5, y vive en Argentina (GMT-3).
 
 ## ¿Qué está aprendiendo Lleyton ahora?
-[COMPLETAR: ej: evaluación de agentes, RAG avanzado, otra herramienta de BI.]
+Lleyton sigue fortaleciendo sus conocimientos de BI y ahora está profundizando en Tableau, para sumarlo a lo que ya hace con Power BI y Looker Studio.
+
+## ¿Cómo trabaja Lleyton en equipo?
+Lleyton juega al rugby, un deporte donde nadie gana solo, y de ahí viene su forma de trabajar en equipo.
 
 ## ¿Qué hace Lleyton fuera del trabajo?
-[COMPLETAR, opcional: 1-2 líneas que ayuden a romper el hielo.]
+Juega al rugby.

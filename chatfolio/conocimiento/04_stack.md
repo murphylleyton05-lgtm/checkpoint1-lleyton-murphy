@@ -6,7 +6,7 @@
 - Dónde lo usó: TechStore (base relacional en 3FN y consultas de negocio).
 
 ## BI y Excel (habilidades de Lleyton)
-- Power BI (Power Query y DAX), Tableau y Looker Studio.
+- Power BI (Power Query y DAX), Tableau y Looker Studio. Actualmente está profundizando en Tableau.
 - Excel avanzado: tablas dinámicas, XLOOKUP y macros VBA.
 - Dónde lo usó: tablero de Vaca Muerta Operations Intelligence (DAX, ranking de 38 operadoras), modelo estrella y dashboard ejecutivo de TechStore, reporte financiero automatizado con VAN/TIR.
 
