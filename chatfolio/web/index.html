@@ -596,7 +596,7 @@
     };
     // Frases que, si aparecen en la pregunta, suman palabras clave de la sección que corresponde.
     const PHRASES = [[/lleyton ia automation|su marca|su emprendimiento|own business|freelance/, "marca propia pymes"]];
-    const normalize = (s) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const normalize = (s) => s.toLowerCase().normalize("NFD").replace(/\p{M}/gu, "");
     const stem = (w) => w.length > 5 ? w.slice(0, 5) : w;
     function tokenize(text, expand) {
       let norm = normalize(text);
