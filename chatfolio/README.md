@@ -1,6 +1,6 @@
 # Chatfolio · Lleyton Murphy
 
-Portfolio conversacional: en vez de leer el CV, el visitante le pregunta a un asistente de IA por la experiencia, los proyectos y el stack de Lleyton. Si quiere contactar a Lleyton, el bot toma sus datos y le avisa a Lleyton por Gmail.
+Portfolio conversacional: en vez de leer el CV, el visitante le pregunta a un asistente de IA por la experiencia, los proyectos y el stack de Lleyton. Si quiere contactar a Lleyton, el bot toma sus datos y le avisa por Gmail.
 
 ## Arquitectura
 
@@ -24,7 +24,7 @@ Portfolio conversacional: en vez de leer el CV, el visitante le pregunta a un as
 |---|---|
 | `n8n/chatfolio_1_ingesta.json` | Formulario para subir tus archivos y cargarlos en Pinecone |
 | `n8n/chatfolio_2_chat.json` | Agente público con RAG, memoria, log y aviso de contacto |
-| `conocimiento/` | Plantillas de la base de conocimiento (perfil, experiencia, proyectos, stack, FAQ) |
+| `conocimiento/` | Base de conocimiento armada desde el CV: perfil, experiencia, proyectos, stack y FAQ |
 | `web/index.html` | La página: presentación + chat propio, sin dependencias |
 
 ## Puesta en marcha
@@ -43,14 +43,12 @@ Portfolio conversacional: en vez de leer el CV, el visitante le pregunta a un as
 ### 3. Revisar la base de conocimiento
 `conocimiento/` ya tiene todo tu CV, con los links a cada proyecto y escrito para que el RAG lo encuentre bien. Está completo; cuando cambie algo (un proyecto nuevo, otra herramienta), editá el archivo y volvé a correr la ingesta.
 
-El teléfono quedó afuera a propósito: todo lo que está en estos archivos el bot lo puede decir.
-
 Lo que hace que el bot responda bien (el "desafío del RAG"):
 - **Bloques autocontenidos.** Cada sección se entiende sola y repite el nombre ("Lleyton trabajó en…"). El texto se corta en fragmentos de unos 1000 caracteres y el bot solo ve los fragmentos que encuentra.
 - **Más allá del CV.** El CV solo no alcanza para preguntas abiertas. Por eso hay archivos de proyectos (problema → solución → resultado), stack con evidencia y preguntas frecuentes.
 - **Formato pregunta-respuesta** en `05_preguntas_frecuentes.md`: es lo que mejor matchea con lo que escribe un reclutador.
 - **Números concretos.** "Ahorró 6 h por semana" se recuerda; "mejoró procesos" no.
-- **Nada sensible.** Nada de DNI, dirección ni teléfono personal: todo lo que esté acá el bot lo puede decir.
+- **Nada sensible.** Nada de DNI, dirección ni teléfono personal: todo lo que esté acá el bot lo puede decir. Por eso el teléfono del CV quedó afuera.
 
 ### 4. Workflow 1 · Ingesta
 1. En n8n: *Workflows → Import from File* → `n8n/chatfolio_1_ingesta.json`.
@@ -66,13 +64,13 @@ Cada carga **reemplaza** lo anterior (limpia el namespace `lleyton`). Para actua
 3. Probalo con el botón de chat de n8n: "¿qué proyectos hizo?", "¿cuánto cobra?", "quiero contactar a Lleyton".
 4. Publicá el workflow y copiá la **URL del Chat Trigger** (la de producción, no la de test).
 
-### 6. La web (GitHub Pages, gratis)
-1. En `web/index.html`, completá el bloque `CONFIG` (al final del archivo): `webhookUrl` (la URL del paso 5), `linkedin`, `email` y `cv`. Los links que quedan vacíos se ocultan solos.
-2. Creá un repo público (por ejemplo `chatfolio`) y subí `index.html` y, si querés, tu CV en PDF.
-3. En el repo: *Settings → Pages → Deploy from a branch → main / root*. Queda en `https://TU-USUARIO.github.io/chatfolio/`.
+### 6. La web (GitHub Pages)
+La web vive en el repo `portfolio` y se publica sola en **https://murphylleyton05-lgtm.github.io/portfolio/chat/**: el workflow `deploy-echonotes.yml` copia `chatfolio/web/index.html` a `site/chat/` en cada push a `main`.
+
+Para conectarla, abrí `chatfolio/web/index.html` (desde GitHub se edita con el lápiz), pegá la URL del paso 5 en `CONFIG.webhookUrl` (al final del archivo) y guardá en `main`. En unos minutos el chat queda andando. LinkedIn, GitHub y email ya están cargados; los links que quedan vacíos se ocultan solos.
 
 ### 7. Antes de compartirlo en LinkedIn
-- En el Chat Trigger, cambiá **Allowed Origins (CORS)** de `*` a `https://TU-USUARIO.github.io`, así solo tu página puede usar el webhook.
+- En el Chat Trigger, cambiá **Allowed Origins (CORS)** de `*` a `https://murphylleyton05-lgtm.github.io`, así solo tu página puede usar el webhook.
 - En OpenAI, poné un **límite de gasto mensual** (Settings → Limits). Un chat público puede recibir tráfico inesperado. Con gpt-4o-mini cada conversación cuesta muy poco, pero el límite te cubre igual.
 - Probá desde el celular: la mayoría de las visitas llegan desde la app de LinkedIn.
 

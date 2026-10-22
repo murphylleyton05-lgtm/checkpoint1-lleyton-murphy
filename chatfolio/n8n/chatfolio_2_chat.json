@@ -116,6 +116,8 @@
       "parameters": {
         "descriptionType": "manual",
         "toolDescription": "Envia a Lleyton un email con los datos de un visitante que quiere contactar a Lleyton (entrevista, propuesta laboral, proyecto o consulta profesional).\nCUANDO USARLA: solo cuando el visitante pidio explicitamente contactar a Lleyton Y ya te dio nombre, email valido y un mensaje. Usala una sola vez por pedido.\nCUANDO NO USARLA: si faltan datos (pedilos primero), si el visitante solo esta haciendo preguntas, o para enviar cualquier otra cosa.",
+        "resource": "message",
+        "operation": "send",
         "sendTo": "murphylleyton05@gmail.com",
         "subject": "=Chatfolio: {{ $fromAI('nombre', 'Nombre completo del visitante', 'string') }} quiere contactarte",
         "emailType": "text",

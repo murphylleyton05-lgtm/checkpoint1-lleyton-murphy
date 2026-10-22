@@ -5,7 +5,7 @@
       "parameters": {
         "authentication": "basicAuth",
         "formTitle": "Chatfolio · Base de conocimiento",
-        "formDescription": "Subí TODOS los archivos juntos (CV en PDF + los .md de la carpeta conocimiento). Cada carga reemplaza por completo lo que el bot sabía antes.",
+        "formDescription": "Subí los 5 archivos .md de la carpeta conocimiento, todos juntos. Cada carga reemplaza por completo lo que el bot sabía antes.",
         "formFields": {
           "values": [
             {
