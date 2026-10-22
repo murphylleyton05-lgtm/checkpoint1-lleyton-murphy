@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lleyton Murphy · Chatfolio</title>
+  <meta name="description" content="Portfolio conversacional de Lleyton Murphy: preguntale a su asistente de IA por su experiencia, proyectos y stack en IA y automatización.">
+  <meta property="og:title" content="Lleyton Murphy · IA & Automation">
+  <meta property="og:description" content="No leas mi CV: preguntale a mi asistente por mi experiencia, proyectos y stack.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f5f1;
+      --surface: #ffffff;
+      --surface-2: #f0efe9;
+      --ink: #17171b;
+      --ink-2: #55555f;
+      --line: #e3e1d9;
+      --accent: #0d7a63;
+      --accent-ink: #ffffff;
+      --accent-soft: #dff2ec;
+      --bot-bubble: #f0efe9;
+      --user-bubble: #17171b;
+      --user-ink: #ffffff;
+      --shadow: 0 1px 2px rgba(23, 23, 27, .04), 0 12px 32px -12px rgba(23, 23, 27, .18);
+      --radius: 18px;
+      --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --font-display: "Space Grotesk", var(--font);
+      --font-mono: "JetBrains Mono", ui-monospace, monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111114;
+        --surface: #19191e;
+        --surface-2: #222228;
+        --ink: #f1f0ec;
+        --ink-2: #a3a3ad;
+        --line: #2c2c33;
+        --accent: #3fc6a2;
+        --accent-ink: #0b2a22;
+        --accent-soft: #163a31;
+        --bot-bubble: #222228;
+        --user-bubble: #f1f0ec;
+        --user-ink: #111114;
+        --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 12px 32px -12px rgba(0, 0, 0, .6);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font: 15px/1.55 var(--font);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 40px 24px;
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: 48px;
+      align-items: start;
+      min-height: 100dvh;
+    }
+
+    /* ---------- Perfil ---------- */
+    .intro { position: sticky; top: 40px; padding-top: 12px; }
+    .eyebrow {
+      font: 500 11px/1 var(--font-mono);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 18px;
+    }
+    h1 {
+      font: 700 clamp(36px, 5vw, 54px)/1.02 var(--font-display);
+      letter-spacing: -.02em;
+      margin: 0 0 12px;
+    }
+    .role { font-weight: 500; color: var(--ink-2); margin: 0 0 22px; }
+    .pitch { font-size: 17px; margin: 0 0 24px; max-width: 34ch; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 28px; padding: 0; list-style: none; }
+    .tags li {
+      font: 500 12px/1 var(--font-mono);
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--ink-2);
+      background: var(--surface);
+    }
+    .links { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font: 600 14px/1 var(--font);
+      text-decoration: none;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      transition: transform .15s ease, border-color .15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); border-color: var(--ink-2); }
+    .btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+    .btn svg { width: 16px; height: 16px; }
+    .btn[hidden] { display: none; }
+
+    /* ---------- Chat ---------- */
+    .chat {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      height: min(760px, calc(100dvh - 80px));
+      overflow: hidden;
+    }
+    .chat-head {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--line);
+    }
+    .bot-avatar {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: var(--accent-soft); color: var(--accent);
+      display: grid; place-items: center; flex: none;
+    }
+    .bot-avatar svg { width: 22px; height: 22px; }
+    .chat-head strong { display: block; font: 600 15px/1.2 var(--font); }
+    .status { font-size: 13px; color: var(--ink-2); display: flex; align-items: center; gap: 6px; }
+    .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex; flex-direction: column; gap: 12px;
+      scroll-behavior: smooth;
+    }
+    .msg {
+      max-width: 86%;
+      padding: 12px 15px;
+      border-radius: var(--radius);
+      overflow-wrap: anywhere;
+      animation: rise .25s ease both;
+    }
+    .msg p { margin: 0 0 8px; }
+    .msg p:last-child, .msg ul:last-child, .msg ol:last-child { margin-bottom: 0; }
+    .msg ul, .msg ol { margin: 0 0 8px; padding-left: 20px; }
+    .msg li { margin: 2px 0; }
+    .msg a { color: var(--accent); font-weight: 500; }
+    .msg.bot { background: var(--bot-bubble); align-self: flex-start; border-bottom-left-radius: 6px; }
+    .msg.user {
+      background: var(--user-bubble); color: var(--user-ink);
+      align-self: flex-end; border-bottom-right-radius: 6px;
+      white-space: pre-wrap;
+    }
+    .msg.error { background: transparent; border: 1px dashed var(--line); color: var(--ink-2); }
+    .typing { display: inline-flex; gap: 4px; padding: 4px 0; }
+    .typing span {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--ink-2);
+      animation: blink 1.2s infinite ease-in-out;
+    }
+    .typing span:nth-child(2) { animation-delay: .15s; }
+    .typing span:nth-child(3) { animation-delay: .3s; }
+
+    .suggestions {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      padding: 0 20px 14px;
+    }
+    .suggestions[hidden] { display: none; }
+    .chip {
+      font: 500 13px/1.2 var(--font);
+      color: var(--ink);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 13px;
+      cursor: pointer;
+      transition: border-color .15s ease, background .15s ease;
+    }
+    .chip:hover { border-color: var(--accent); background: var(--accent-soft); }
+
+    .composer {
+      display: flex; align-items: flex-end; gap: 10px;
+      padding: 12px 12px 12px 16px;
+      margin: 0 16px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--surface-2);
+    }
+    .composer:focus-within { border-color: var(--accent); }
+    .composer textarea {
+      flex: 1;
+      resize: none;
+      border: 0; outline: 0; background: transparent;
+      font: 15px/1.45 var(--font);
+      color: var(--ink);
+      max-height: 120px;
+      padding: 6px 0;
+    }
+    .composer textarea::placeholder { color: var(--ink-2); }
+    .send {
+      flex: none;
+      width: 40px; height: 40px; border-radius: 12px; border: 0;
+      background: var(--accent); color: var(--accent-ink);
+      display: grid; place-items: center; cursor: pointer;
+      transition: opacity .15s ease;
+    }
+    .send:disabled { opacity: .4; cursor: default; }
+    .send svg { width: 18px; height: 18px; }
+    .disclaimer { font-size: 12px; color: var(--ink-2); text-align: center; margin: 10px 16px 14px; }
+
+    footer.credits {
+      grid-column: 1 / -1;
+      font-size: 13px; color: var(--ink-2);
+      border-top: 1px solid var(--line);
+      padding-top: 20px;
+    }
+
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    @keyframes blink { 0%, 80%, 100% { opacity: .25; } 40% { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
+
+    @media (max-width: 860px) {
+      .page { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 20px 16px; }
+      .intro { position: static; padding-top: 0; }
+      .eyebrow { margin-bottom: 12px; }
+      .role { margin-bottom: 14px; }
+      .pitch { max-width: none; font-size: 16px; margin-bottom: 16px; }
+      .tags, .suggestions { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+      .tags { margin-bottom: 18px; }
+      .tags li, .chip { flex: none; }
+      .btn { padding: 10px 14px; }
+      .chat { height: min(680px, calc(100dvh - 32px)); }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="intro" aria-labelledby="nombre">
+      <p class="eyebrow">Portfolio conversacional</p>
+      <h1 id="nombre">Lleyton Murphy</h1>
+      <p class="role">IA &amp; Automation · Lleyton IA Automation</p>
+      <p class="pitch">En vez de leer mi CV, preguntale a mi asistente: te cuenta mi experiencia, mis proyectos y cómo trabajo.</p>
+      <ul class="tags">
+        <li>Agentes de IA</li>
+        <li>n8n</li>
+        <li>OpenAI</li>
+        <li>RAG</li>
+        <li>Data</li>
+        <li>Partnerships &amp; Sales</li>
+      </ul>
+      <nav class="links" aria-label="Enlaces de contacto">
+        <a class="btn primary" data-link="linkedin" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4V21H3V9.75Zm6.5 0h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.6 4.77 6V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4V9.75Z"/></svg>
+          LinkedIn
+        </a>
+        <a class="btn" data-link="cv" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M12 17v-6M9 14l3 3 3-3"/></svg>
+          CV en PDF
+        </a>
+        <a class="btn" data-link="email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          Email
+        </a>
+      </nav>
+    </section>
+
+    <section class="chat" aria-label="Chat con el asistente de Lleyton">
+      <header class="chat-head">
+        <div class="bot-avatar" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="4"/><path d="M12 3v4M9 13h.01M15 13h.01"/></svg>
+        </div>
+        <div>
+          <strong>Asistente de Lleyton</strong>
+          <span class="status">En línea · responde con IA</span>
+        </div>
+      </header>
+
+      <div class="messages" id="messages" role="log" aria-live="polite"></div>
+
+      <div class="suggestions" id="suggestions">
+        <button class="chip" type="button">¿Qué proyectos de IA hizo Lleyton?</button>
+        <button class="chip" type="button">¿Qué stack maneja?</button>
+        <button class="chip" type="button">¿Qué rol está buscando?</button>
+        <button class="chip" type="button">Quiero contactarlo</button>
+      </div>
+
+      <form class="composer" id="composer">
+        <textarea id="input" rows="1" aria-label="Tu pregunta" placeholder="Preguntá lo que quieras saber de Lleyton…" maxlength="1000" autocomplete="off"></textarea>
+        <button class="send" id="send" type="submit" aria-label="Enviar" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </form>
+      <p class="disclaimer">Respuestas generadas con IA a partir de información de Lleyton. Puede equivocarse.</p>
+    </section>
+
+    <footer class="credits">
+      Hecho por Lleyton Murphy con n8n, OpenAI y RAG sobre Pinecone.
+    </footer>
+  </main>
+
+  <script>
+    // ===== Configuración: lo único que tenés que editar =====
+    const CONFIG = {
+      // URL del Chat Trigger del workflow "Chatfolio · 2. Chat publico" (modo Embedded Chat).
+      webhookUrl: "PEGAR_ACA_LA_URL_DEL_CHAT_TRIGGER",
+      linkedin: "",   // ej: "https://www.linkedin.com/in/tu-usuario"
+      cv: "",         // ej: "cv-lleyton-murphy.pdf" (subilo a esta misma carpeta)
+      email: "",      // ej: "tu-email@dominio.com"
+      bienvenida:
+        "¡Hola! Soy el asistente de **Lleyton Murphy**. Puedo contarte sobre su experiencia, sus proyectos de IA y automatización, su stack y qué tipo de rol busca. ¿Por dónde querés empezar?",
+    };
+    // =========================================================
+
+    const messagesEl = document.getElementById("messages");
+    const suggestionsEl = document.getElementById("suggestions");
+    const form = document.getElementById("composer");
+    const input = document.getElementById("input");
+    const sendBtn = document.getElementById("send");
+    let busy = false;
+
+    const isConfigured = /^https?:\/\//.test(CONFIG.webhookUrl);
+    const sessionId = getSessionId();
+
+    for (const a of document.querySelectorAll("[data-link]")) {
+      const key = a.dataset.link;
+      const value = CONFIG[key];
+      if (!value) { a.hidden = true; continue; }
+      a.href = key === "email" ? `mailto:${value}` : value;
+    }
+
+    addMessage("bot", CONFIG.bienvenida);
+
+    suggestionsEl.addEventListener("click", (e) => {
+      const chip = e.target.closest(".chip");
+      if (chip) send(chip.textContent.trim());
+    });
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      send(input.value);
+    });
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey && !e.isComposing) {
+        e.preventDefault();
+        form.requestSubmit();
+      }
+    });
+
+    input.addEventListener("input", () => {
+      input.style.height = "auto";
+      input.style.height = `${input.scrollHeight}px`;
+      sendBtn.disabled = busy || !input.value.trim();
+    });
+
+    async function send(text) {
+      text = text.trim();
+      if (!text || busy) return;
+
+      suggestionsEl.hidden = true;
+      addMessage("user", text);
+      input.value = "";
+      input.dispatchEvent(new Event("input"));
+
+      if (!isConfigured) {
+        addMessage("error", "Este chatfolio todavía no está conectado a n8n: pegá la URL del Chat Trigger en `CONFIG.webhookUrl` dentro de index.html.");
+        return;
+      }
+
+      setBusy(true);
+      const typing = addTyping();
+      try {
+        const reply = await askAgent(text);
+        typing.remove();
+        addMessage("bot", reply);
+      } catch (err) {
+        typing.remove();
+        const contacto = CONFIG.email ? ` o escribile a Lleyton a ${CONFIG.email}` : "";
+        addMessage("error", `No pude responder en este momento. Probá de nuevo en unos segundos${contacto}.`);
+        console.error(err);
+      } finally {
+        setBusy(false);
+      }
+    }
+
+    async function askAgent(chatInput) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 60000);
+      try {
+        const res = await fetch(CONFIG.webhookUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action: "sendMessage", sessionId, chatInput }),
+          signal: controller.signal,
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        let data = await res.json();
+        if (Array.isArray(data)) data = data[0];
+        const reply = data && (data.output ?? data.text);
+        if (typeof reply !== "string" || !reply.trim()) throw new Error("Respuesta vacía");
+        return reply;
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
+    function setBusy(value) {
+      busy = value;
+      sendBtn.disabled = busy || !input.value.trim();
+    }
+
+    function addMessage(kind, text) {
+      const el = document.createElement("div");
+      el.className = `msg ${kind}`;
+      if (kind === "user") el.textContent = text;
+      else el.innerHTML = renderMarkdown(text);
+      messagesEl.appendChild(el);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+      return el;
+    }
+
+    function addTyping() {
+      const el = document.createElement("div");
+      el.className = "msg bot";
+      el.setAttribute("aria-label", "El asistente está escribiendo");
+      el.innerHTML = '<span class="typing"><span></span><span></span><span></span></span>';
+      messagesEl.appendChild(el);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+      return el;
+    }
+
+    function getSessionId() {
+      const key = "chatfolio-session";
+      try {
+        const saved = sessionStorage.getItem(key);
+        if (saved) return saved;
+        const id = crypto.randomUUID();
+        sessionStorage.setItem(key, id);
+        return id;
+      } catch {
+        return `s-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      }
+    }
+
+    // Markdown mínimo y seguro: escapa todo el HTML y solo agrega negrita, código, links http(s) y listas.
+    function renderMarkdown(text) {
+      const escape = (s) => s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+      const inline = (s) => escape(s)
+        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+        .replace(/`([^`]+)`/g, "<code>$1</code>")
+        .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+        .replace(/(^|[\s(])(https?:\/\/[^\s<)]+)/g, '$1<a href="$2" target="_blank" rel="noopener">$2</a>');
+
+      const html = [];
+      let list = null;
+      let para = [];
+      const flushPara = () => { if (para.length) { html.push(`<p>${para.map(inline).join("<br>")}</p>`); para = []; } };
+      const flushList = () => { if (list) { html.push(`<${list.tag}>${list.items.map((i) => `<li>${inline(i)}</li>`).join("")}</${list.tag}>`); list = null; } };
+
+      for (const raw of text.split("\n")) {
+        const line = raw.trim();
+        const bullet = line.match(/^(?:[-*•])\s+(.*)$/);
+        const numbered = line.match(/^\d+[.)]\s+(.*)$/);
+        if (bullet || numbered) {
+          flushPara();
+          const tag = bullet ? "ul" : "ol";
+          if (!list || list.tag !== tag) { flushList(); list = { tag, items: [] }; }
+          list.items.push((bullet || numbered)[1]);
+        } else if (!line) {
+          flushPara();
+          flushList();
+        } else {
+          flushList();
+          para.push(line);
+        }
+      }
+      flushPara();
+      flushList();
+      return html.join("");
+    }
+  </script>
+</body>
+</html>
