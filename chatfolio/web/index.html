@@ -146,7 +146,9 @@
 
     .messages {
       flex: 1;
+      position: relative;
       overflow-y: auto;
+      overscroll-behavior: contain;
       padding: 20px;
       display: flex; flex-direction: column; gap: 12px;
     }
@@ -262,6 +264,7 @@
       padding-top: 20px;
     }
 
+    button, a, textarea { touch-action: manipulation; }
     :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
     @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
@@ -356,9 +359,10 @@
   <script>
     // ===== Configuración: lo único que tenés que editar =====
     const CONFIG = {
-      // URL del Chat Trigger del workflow "Chatfolio · Lleyton Murphy" (modo Embedded Chat).
-      // Mientras no esté, el chat responde igual desde la base de conocimiento (sin IA).
-      webhookUrl: "PEGAR_ACA_LA_URL_DEL_CHAT_TRIGGER",
+      // URL de producción del Chat Trigger del workflow "Chatfolio · Lleyton Murphy".
+      // Al abrir la página se chequea si responde: si sí, el chat usa la IA; si no (workflow sin publicar,
+      // n8n apagado), responde desde la base de conocimiento sin mostrar errores.
+      webhookUrl: "https://lleytoncito.app.n8n.cloud/webhook/453644ca-7626-58ca-95d4-7882f97fe442/chat",
       linkedin: "https://linkedin.com/in/lleyton-murphy-3716093a3",
       github: "https://github.com/murphylleyton05-lgtm",
       portfolio: "https://murphylleyton05-lgtm.github.io/portfolio/hidrocarburos/",
@@ -383,6 +387,7 @@
         send: "Enviar",
         statusAi: "En línea · responde con IA",
         statusLocal: "En línea · base de conocimiento",
+        statusChecking: "En línea",
         disclaimerAi: "Respuestas generadas con IA a partir de información de Lleyton. Puede equivocarse.",
         disclaimerLocal: "Respuestas tomadas de la información que cargó Lleyton.",
         welcome: "¡Hola! Soy el asistente de **Lleyton Murphy**. Puedo contarte sobre sus proyectos de datos y automatización con IA (como el de Vaca Muerta), su stack y qué rol busca. También puedo **analizar una búsqueda laboral** y decirte qué tanto encaja. ¿Por dónde empezamos?",
@@ -414,6 +419,7 @@
         send: "Send",
         statusAi: "Online · AI-powered answers",
         statusLocal: "Online · knowledge base",
+        statusChecking: "Online",
         disclaimerAi: "AI-generated answers based on Lleyton's information. It can make mistakes.",
         disclaimerLocal: "Answers taken from the information Lleyton provided (in Spanish).",
         welcome: "Hi! I'm **Lleyton Murphy**'s assistant. Ask me about Lleyton's data and AI automation projects (like the Vaca Muerta one), tech stack, or the role Lleyton is looking for. I can also **match a job description** against Lleyton's profile. Where should we start?",
@@ -500,7 +506,7 @@
 
     const lang = (navigator.language || "es").toLowerCase().startsWith("en") ? "en" : "es";
     const T = TEXTS[lang];
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
 
     const messagesEl = document.getElementById("messages");
     const suggestionsEl = document.getElementById("suggestions");
@@ -510,11 +516,13 @@
     const statusEl = document.getElementById("status");
     const disclaimerEl = document.getElementById("disclaimer");
 
-    let mode = /^https?:\/\//.test(CONFIG.webhookUrl) ? "ai" : "local";
+    let mode = "local";
     let busy = false;
     let jobMode = false;
     let kbPromise = null;
+    let kbReady = false;
     const sessionId = getSessionId();
+    let aiCheck = /^https?:\/\//.test(CONFIG.webhookUrl) ? checkAi() : null;
 
     document.documentElement.lang = lang;
     for (const el of document.querySelectorAll("[data-i18n]")) el.textContent = T[el.dataset.i18n];
@@ -526,10 +534,12 @@
       if (!value) { a.hidden = true; continue; }
       a.href = a.dataset.link === "email" ? `mailto:${value}` : value;
     }
-    setMode(mode);
-    addMessage("bot", T.welcome, false);
+    if (aiCheck) statusEl.textContent = T.statusChecking;
+    else setMode("local");
+    addMessage("bot", T.welcome);
     showChips(T.chips, true);
-    if (mode === "local") loadKB().catch(() => {});
+    // Se carga apenas abre la página: así la primera respuesta sale al instante (y sirve de respaldo si la IA falla).
+    loadKB().catch(() => {});
 
     suggestionsEl.addEventListener("click", (e) => {
       const chip = e.target.closest(".chip");
@@ -566,6 +576,7 @@
       jobMode = true;
       showChips([]);
       addMessage("bot", T.jobIntro);
+      scrollToEnd();
       input.placeholder = T.jobPlaceholder;
       input.focus();
     }
@@ -578,13 +589,18 @@
       jobMode = false;
       input.placeholder = T.placeholder;
       showChips([]);
-      addMessage("user", text, false);
+      addMessage("user", text);
+      scrollToEnd();
       input.value = "";
       input.dispatchEvent(new Event("input"));
 
+      if (coarsePointer) input.blur();
+
       setBusy(true);
-      let typing = addTyping();
+      // Los puntitos de "escribiendo" solo aparecen si de verdad hay que esperar (la IA o la primera carga de la base).
+      let typing = mode === "ai" || aiCheck || !kbReady ? addTyping() : null;
       try {
+        await aiCheck;
         let reply = null;
         if (mode === "ai") {
           try {
@@ -593,27 +609,46 @@
             console.error(err);
             setMode("local");
             typing.remove();
-            addMessage("note", T.aiDown, false);
-            typing = addTyping();
+            addMessage("note", T.aiDown);
+            typing = kbReady ? null : addTyping();
           }
         }
         if (reply === null) {
-          const [local] = await Promise.all([answerLocally(text, isJob), wait(450)]);
-          typing.remove();
-          await addMessage("bot", local.text);
-          addProjectCards(local.text);
+          const local = await answerLocally(text, isJob);
+          typing?.remove();
+          showAnswer(local.text);
           showChips(local.related);
         } else {
           typing.remove();
-          await addMessage("bot", reply);
-          addProjectCards(reply);
+          showAnswer(reply);
         }
       } catch (err) {
         console.error(err);
-        typing.remove();
-        addMessage("note", T.error(CONFIG), false);
+        typing?.remove();
+        addMessage("note", T.error(CONFIG));
       } finally {
         setBusy(false);
+      }
+    }
+
+    // Chequeo liviano al abrir la página: pide el historial de la sesión, que el Chat Trigger contesta
+    // al instante sin ejecutar el agente (no gasta OpenAI).
+    async function checkAi() {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 6000);
+      try {
+        const res = await fetch(CONFIG.webhookUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action: "loadPreviousSession", sessionId }),
+          signal: controller.signal,
+        });
+        setMode(res.ok ? "ai" : "local");
+      } catch {
+        setMode("local");
+      } finally {
+        clearTimeout(timer);
+        aiCheck = null;
       }
     }
 
@@ -680,18 +715,27 @@
     }
 
     function loadKB() {
-      kbPromise ??= Promise.all(CONFIG.kbFiles.map(async (file) => {
-        const res = await fetch(CONFIG.kbBase + file);
-        if (!res.ok) throw new Error(`${file}: HTTP ${res.status}`);
-        return parseSections(await res.text());
-      })).then((parts) => {
+      kbPromise ??= Promise.all(CONFIG.kbFiles.map(async (file) => parseSections(await fetchKbFile(file)))).then((parts) => {
         const sections = parts.flat();
         const df = new Map();
         for (const s of sections) for (const t of new Set([...s.head, ...s.body])) df.set(t, (df.get(t) || 0) + 1);
         const avg = sections.reduce((a, s) => a + s.body.length, 0) / sections.length;
+        kbReady = true;
         return { sections, df, avg };
       }).catch((err) => { kbPromise = null; throw err; });
       return kbPromise;
+    }
+
+    // Primero la copia que el deploy publica al lado de la página (mismo dominio, rápida y sin bloqueos);
+    // si no está, la de GitHub.
+    async function fetchKbFile(file) {
+      for (const base of [new URL("conocimiento/", location.href).href, CONFIG.kbBase]) {
+        try {
+          const res = await fetch(base + file);
+          if (res.ok) return await res.text();
+        } catch {}
+      }
+      throw new Error(`No se pudo leer ${file}`);
     }
 
     function parseSections(md) {
@@ -710,7 +754,8 @@
       const parsed = sections.map((s) => {
         const title = s.title.replace(/^Proyecto de Lleyton:\s*/, "").replace(/\s*\(habilidades de Lleyton\)$/, "");
         const text = s.lines.join("\n").trim();
-        return { title, text, head: tokenize(title), body: tokenize(text) };
+        const project = docTitle.startsWith("Proyectos");
+        return { title, text, project, head: tokenize(title), body: tokenize(text) };
       });
       // Resumen del archivo completo: responde preguntas generales ("¿qué stack maneja?", "¿qué proyectos hizo?").
       // Solo se busca por el título del archivo, para no tapar a las secciones específicas.
@@ -754,12 +799,19 @@
 
       const kb = await loadKB();
       const exact = kb.sections.find((s) => s.title === text);
-      if (exact) return { text: `**${exact.title}**\n\n${exact.text}`, related: [] };
+      if (exact) return { text: formatSection(exact), related: [] };
       const ranked = rank(kb, text);
       const best = ranked[0];
       if (!best || best.score < 2) return { text: T.notFound(CONFIG), related: T.chips.slice(0, 3) };
       const related = ranked.slice(1).filter((r) => r.score > 0 && r.s.title !== best.s.title).slice(0, 3).map((r) => r.s.title);
-      return { text: `**${best.s.title}**\n\n${best.s.text}`, related: related.length ? related : T.chips.slice(0, 3) };
+      return { text: formatSection(best.s), related: related.length ? related : T.chips.slice(0, 3) };
+    }
+
+    // La respuesta va directo al contenido: sin repetir la pregunta ni el título de la sección.
+    // Solo los proyectos arrancan con su nombre, para saber de cuál se habla.
+    function formatSection(s) {
+      if (s.project) return `**${s.title.split(/,\s|\s\(/)[0]}**\n\n${s.text}`;
+      return s.text;
     }
 
     function looksLikeJobPost(text) {
@@ -825,7 +877,6 @@
         row.appendChild(card);
       }
       messagesEl.appendChild(row);
-      scrollToEnd();
     }
 
     function setBusy(value) {
@@ -833,14 +884,20 @@
       sendBtn.disabled = busy || !input.value.trim();
     }
 
-    function addMessage(kind, text, animate = true) {
+    function addMessage(kind, text) {
       const el = document.createElement("div");
       el.className = `msg ${kind}`;
       if (kind === "user") el.textContent = text;
       else el.innerHTML = renderMarkdown(text);
       messagesEl.appendChild(el);
-      scrollToEnd();
-      return animate && kind === "bot" ? typeOut(el) : Promise.resolve();
+      return el;
+    }
+
+    // Muestra la respuesta desde su primera línea (y las tarjetas debajo), aunque sea larga.
+    function showAnswer(text) {
+      const el = addMessage("bot", text);
+      addProjectCards(text);
+      messagesEl.scrollTop = Math.max(0, el.offsetTop - 4);
     }
 
     function addTyping() {
@@ -853,40 +910,8 @@
       return el;
     }
 
-    // Efecto de tipeo: revela el texto ya renderizado de a poco (alrededor de 1 segundo).
-    function typeOut(el) {
-      if (reduceMotion) return Promise.resolve();
-      const nodes = [];
-      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
-      while (walker.nextNode()) nodes.push(walker.currentNode);
-      const full = nodes.map((n) => n.textContent);
-      nodes.forEach((n) => { n.textContent = ""; });
-      const step = Math.max(3, Math.ceil(full.join("").length / 60));
-      let i = 0;
-      return new Promise((resolve) => {
-        const tick = () => {
-          let budget = step;
-          while (budget > 0 && i < nodes.length) {
-            const shown = nodes[i].textContent.length;
-            const take = Math.min(budget, full[i].length - shown);
-            nodes[i].textContent = full[i].slice(0, shown + take);
-            budget -= take;
-            if (nodes[i].textContent.length >= full[i].length) i++;
-          }
-          scrollToEnd();
-          if (i < nodes.length) requestAnimationFrame(tick);
-          else resolve();
-        };
-        requestAnimationFrame(tick);
-      });
-    }
-
     function scrollToEnd() {
       messagesEl.scrollTop = messagesEl.scrollHeight;
-    }
-
-    function wait(ms) {
-      return new Promise((r) => setTimeout(r, ms));
     }
 
     function getSessionId() {
