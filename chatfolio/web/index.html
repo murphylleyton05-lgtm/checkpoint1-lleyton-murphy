@@ -179,6 +179,34 @@
     .typing span:nth-child(2) { animation-delay: .15s; }
     .typing span:nth-child(3) { animation-delay: .3s; }
 
+    .cards {
+      display: flex; gap: 10px;
+      overflow-x: auto; scroll-snap-type: x mandatory;
+      padding: 2px 2px 6px;
+      flex: none;
+      animation: rise .3s ease both;
+    }
+    .card {
+      flex: none; width: 230px;
+      scroll-snap-align: start;
+      display: flex; flex-direction: column;
+      border: 1px solid var(--line); border-radius: 16px;
+      overflow: hidden;
+      background: var(--surface);
+      color: var(--ink); text-decoration: none;
+      transition: transform .15s ease, border-color .15s ease;
+    }
+    .card:hover { transform: translateY(-2px); border-color: var(--accent); }
+    .card img {
+      display: block; width: 100%; aspect-ratio: 16 / 10;
+      object-fit: cover; object-position: top left;
+      background: #111114;
+    }
+    .card-body { display: flex; flex-direction: column; gap: 3px; padding: 10px 12px 12px; }
+    .card-body strong { font-size: 14px; line-height: 1.3; }
+    .card-body span { font-size: 12.5px; line-height: 1.4; color: var(--ink-2); }
+    .card-body .card-cta { margin-top: 4px; color: var(--accent); font-weight: 600; }
+
     .suggestions {
       display: flex; gap: 8px; flex-wrap: wrap;
       padding: 0 20px 14px;
@@ -372,6 +400,7 @@
         verdict: (n) => n >= 6 ? "**Conclusión:** muy buen encaje técnico." : n >= 3 ? "**Conclusión:** encaje parcial, con varias coincidencias concretas." : "**Conclusión:** pocas coincidencias técnicas directas.",
         matchContact: (c) => `Para coordinar una entrevista, escribile a ${c.email}. (Análisis por palabras clave; con la IA conectada el análisis es más completo.)`,
         error: (c) => `No pude responder en este momento. Probá de nuevo en unos segundos o escribile a Lleyton a ${c.email}.`,
+        viewProject: "Ver proyecto →",
       },
       en: {
         eyebrow: "Conversational portfolio",
@@ -402,8 +431,42 @@
         verdict: (n) => n >= 6 ? "**Verdict:** strong technical fit." : n >= 3 ? "**Verdict:** partial fit, with several concrete matches." : "**Verdict:** few direct technical matches.",
         matchContact: (c) => `To schedule an interview, email ${c.email}. (Keyword-based analysis; with the AI connected the analysis is more complete.)`,
         error: (c) => `I couldn't answer right now. Please try again in a few seconds or email Lleyton at ${c.email}.`,
+        viewProject: "View project →",
       },
     };
+
+    // Proyectos con tablero publicado: cuando una respuesta los menciona, se muestran como tarjeta con su captura.
+    const SITE = "https://murphylleyton05-lgtm.github.io/portfolio/";
+    const PROJECTS = [
+      {
+        title: "Vaca Muerta Analytics",
+        desc: { es: "Declinación y reservas de +2.400 pozos, validado con backtesting.", en: "Decline curves and reserves for 2,400+ wells, backtested." },
+        img: SITE + "hidrocarburos/img/declinacion.png",
+        url: SITE + "hidrocarburos/",
+        re: /vaca muerta analytics|declinacion|curvas? de arps|\beur\b|2\.400 pozos/,
+      },
+      {
+        title: "Operations Intelligence",
+        desc: { es: "Producción, actividad y ranking de 38 operadoras, con DAX para Power BI.", en: "Production, activity and a 38-operator ranking, with Power BI DAX." },
+        img: SITE + "hidrocarburos/img/operaciones.png",
+        url: SITE + "operaciones/",
+        re: /operations intelligence|38 operadoras|tablero de (produccion|operaciones)/,
+      },
+      {
+        title: "Well Performance ML",
+        desc: { es: "Machine learning: cuánto explica el diseño de fractura vs. la geología.", en: "Machine learning: frac design vs. geology in well performance." },
+        img: SITE + "hidrocarburos/img/performance.png",
+        url: SITE + "performance/",
+        re: /well performance|random forest|regresion ridge|diseno de fractura/,
+      },
+      {
+        title: "Frac Sand & Fuel Logistics",
+        desc: { es: "Logística de arena de fractura: OTIF, lead time y stock de seguridad.", en: "Frac sand logistics: OTIF, lead time and safety stock." },
+        img: SITE + "hidrocarburos/img/logistica.png",
+        url: SITE + "logistica/",
+        re: /frac sand|logistica de arena|arena de fractura/,
+      },
+    ];
 
     // Requisitos que el análisis sin IA sabe reconocer en una búsqueda, con la evidencia del perfil.
     const SKILLS = [
@@ -538,10 +601,12 @@
           const [local] = await Promise.all([answerLocally(text, isJob), wait(450)]);
           typing.remove();
           await addMessage("bot", local.text);
+          addProjectCards(local.text);
           showChips(local.related);
         } else {
           typing.remove();
           await addMessage("bot", reply);
+          addProjectCards(reply);
         }
       } catch (err) {
         console.error(err);
@@ -727,6 +792,40 @@
         else b.dataset.question = item.question;
         suggestionsEl.appendChild(b);
       }
+    }
+
+    function addProjectCards(text) {
+      const q = normalize(text);
+      const found = PROJECTS.filter((p) => p.re.test(q));
+      if (!found.length) return;
+      const row = document.createElement("div");
+      row.className = "cards";
+      for (const p of found) {
+        const card = document.createElement("a");
+        card.className = "card";
+        card.href = p.url;
+        card.target = "_blank";
+        card.rel = "noopener";
+        const img = document.createElement("img");
+        img.src = p.img;
+        img.alt = p.title;
+        img.loading = "lazy";
+        img.addEventListener("error", () => img.remove());
+        const body = document.createElement("span");
+        body.className = "card-body";
+        const title = document.createElement("strong");
+        title.textContent = p.title;
+        const desc = document.createElement("span");
+        desc.textContent = p.desc[lang];
+        const cta = document.createElement("span");
+        cta.className = "card-cta";
+        cta.textContent = T.viewProject;
+        body.append(title, desc, cta);
+        card.append(img, body);
+        row.appendChild(card);
+      }
+      messagesEl.appendChild(row);
+      scrollToEnd();
     }
 
     function setBusy(value) {
