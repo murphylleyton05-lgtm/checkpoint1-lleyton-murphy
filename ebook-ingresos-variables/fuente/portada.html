@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Ingresos variables, sueldo fijo — Portada</title>
+<link rel="stylesheet" href="estilos.css">
+<style>
+  @page { size: A4; margin: 0; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #0b2f3c; }
+  .portada {
+    width: 210mm; height: 297mm; position: relative; overflow: hidden;
+    background:
+      radial-gradient(120mm 90mm at 85% 8%, rgba(42,127,181,0.35), rgba(42,127,181,0) 70%),
+      linear-gradient(180deg, #0e3a4a 0%, #0b2f3c 62%, #082631 100%);
+    color: #f4efe6;
+    font-family: var(--sans);
+  }
+  .p-top { position: absolute; top: 22mm; left: 22mm; right: 22mm; display: flex; justify-content: space-between; align-items: center; }
+  .p-sello { font-size: 8.6pt; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: #9fd0ea; }
+  .p-linea { flex: 1; height: 1px; background: rgba(159,208,234,0.35); margin: 0 6mm; }
+  .p-ed { font-size: 8.6pt; letter-spacing: 0.12em; color: #9fd0ea; text-transform: uppercase; }
+  .p-titulo { position: absolute; top: 46mm; left: 22mm; right: 22mm; }
+  .p-titulo h1 { font-family: var(--display); font-weight: 800; color: #fbf6ee; font-size: 58pt; line-height: 0.98; letter-spacing: -0.025em; margin: 0; }
+  .p-titulo h1 em { font-style: italic; font-weight: 400; color: #f2b77a; }
+  .p-sub { margin-top: 9mm; max-width: 150mm; font-family: var(--serif); font-size: 14.2pt; line-height: 1.45; color: #dbe9ef; }
+  .p-ilus { position: absolute; left: 0; right: 0; top: 152mm; height: 92mm; }
+  .p-ilus svg { width: 100%; height: 100%; display: block; }
+  .p-pie { position: absolute; left: 22mm; right: 22mm; bottom: 20mm; display: flex; justify-content: space-between; align-items: flex-end; }
+  .p-incluye { font-size: 9.2pt; line-height: 1.55; color: #cfe4f1; border-left: 2px solid #f2b77a; padding-left: 4mm; max-width: 98mm; }
+  .p-incluye b { color: #fbf6ee; }
+  .p-autor { font-family: var(--display); font-size: 15pt; font-weight: 600; color: #fbf6ee; letter-spacing: 0.01em; text-align: right; }
+  .p-autor small { display: block; font-family: var(--sans); font-size: 8pt; letter-spacing: 0.16em; text-transform: uppercase; color: #9fd0ea; font-weight: 600; margin-bottom: 1.5mm; }
+</style>
+</head>
+<body>
+<div class="portada">
+  <div class="p-top">
+    <span class="p-sello">Guía práctica · Método Embalse</span>
+    <span class="p-linea"></span>
+    <span class="p-ed">Edición 2026</span>
+  </div>
+
+  <div class="p-titulo">
+    <h1>Ingresos variables,<br><em>sueldo fijo.</em></h1>
+    <p class="p-sub">El sistema paso a paso para que freelancers e independientes se paguen un sueldo estable, reserven sus impuestos y dejen de vivir de cobro en cobro.</p>
+  </div>
+
+  <div class="p-ilus" aria-hidden="true">
+    <svg viewBox="0 0 840 368" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="agua" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#3a9ad0"/>
+          <stop offset="1" stop-color="#145f8a"/>
+        </linearGradient>
+        <linearGradient id="barra" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#8cc9ea"/>
+          <stop offset="1" stop-color="#3a9ad0"/>
+        </linearGradient>
+      </defs>
+      <!-- línea base -->
+      <line x1="40" y1="300" x2="800" y2="300" stroke="#2c5b6b" stroke-width="2"/>
+      <!-- ingresos irregulares (barras) -->
+      <g fill="url(#barra)" opacity="0.95">
+        <path d="M70 300 V196 a6 6 0 0 1 6 -6 h12 a6 6 0 0 1 6 6 V300 Z"/>
+        <path d="M104 300 V240 a6 6 0 0 1 6 -6 h12 a6 6 0 0 1 6 6 V300 Z"/>
+        <path d="M138 300 V132 a6 6 0 0 1 6 -6 h12 a6 6 0 0 1 6 6 V300 Z"/>
+        <path d="M172 300 V222 a6 6 0 0 1 6 -6 h12 a6 6 0 0 1 6 6 V300 Z"/>
+        <path d="M206 300 V158 a6 6 0 0 1 6 -6 h12 a6 6 0 0 1 6 6 V300 Z"/>
+        <path d="M240 300 V256 a6 6 0 0 1 6 -6 h12 a6 6 0 0 1 6 6 V300 Z"/>
+        <path d="M274 300 V204 a6 6 0 0 1 6 -6 h12 a6 6 0 0 1 6 6 V300 Z"/>
+        <path d="M308 300 V146 a6 6 0 0 1 6 -6 h12 a6 6 0 0 1 6 6 V300 Z"/>
+      </g>
+      <!-- flujo hacia el embalse -->
+      <path d="M346 214 C 372 214, 380 236, 404 236" fill="none" stroke="#8cc9ea" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 9"/>
+      <!-- embalse -->
+      <path d="M404 132 L404 300 L640 300 L640 132" fill="none" stroke="#2c5b6b" stroke-width="2"/>
+      <path d="M406 196 C 436 186, 466 206, 496 196 S 556 186, 586 196 S 626 204, 638 198 L638 298 L406 298 Z" fill="url(#agua)"/>
+      <path d="M406 196 C 436 186, 466 206, 496 196 S 556 186, 586 196 S 626 204, 638 198" fill="none" stroke="#bfe3f5" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- muro / compuerta -->
+      <rect x="640" y="112" width="20" height="190" rx="3" fill="#f2e7d5"/>
+      <rect x="640" y="262" width="20" height="16" fill="#f2b77a"/>
+      <!-- sueldo estable -->
+      <line x1="660" y1="270" x2="792" y2="270" stroke="#f2b77a" stroke-width="7" stroke-linecap="round"/>
+      <g fill="#f2b77a" stroke="#0b2f3c" stroke-width="3">
+        <circle cx="706" cy="270" r="8"/><circle cx="748" cy="270" r="8"/><circle cx="790" cy="270" r="8"/>
+      </g>
+      <!-- rótulos -->
+      <g font-family="Inter, Arial, sans-serif" font-size="15" font-weight="600" fill="#9fd0ea" letter-spacing="1.5">
+        <text x="70" y="334">INGRESOS IRREGULARES</text>
+        <text x="430" y="334">EMBALSE</text>
+        <text x="664" y="334">SUELDO FIJO</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="p-pie">
+    <div class="p-incluye"><b>Incluye:</b> plantilla de cálculo editable, hojas de trabajo imprimibles, protocolos para meses buenos y malos, guía fiscal orientativa para 6 países y plan de implementación de 30 días.</div>
+    <div class="p-autor"><small>Por</small>Lleyton Murphy</div>
+  </div>
+</div>
+</body>
+</html>

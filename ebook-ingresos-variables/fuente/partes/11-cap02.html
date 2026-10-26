@@ -1,0 +1,197 @@
+<section class="capitulo" id="cap-2" data-marca="Parte I · Diagnóstico 02 Radiografía de tus ingresos" data-titulo="2. Radiografía de tus ingresos" data-nivel="1">
+  <header class="apertura">
+    <p class="parte">Parte I · Diagnóstico</p>
+    <p class="num">02</p>
+    <h1>Radiografía de tus ingresos</h1>
+    <p class="bajada">Doce meses de historia, cinco números y un indicador de variabilidad. Con eso vas a saber más sobre tu dinero que con años de mirar el saldo de la cuenta.</p>
+  </header>
+
+  <div class="resumen-cap">
+    <p class="etiqueta">En este capítulo</p>
+    <ul>
+      <li>Cómo reunir tu historial de cobros de los últimos 12 meses, aunque sea desordenado.</li>
+      <li>La diferencia entre ingreso bruto e ingreso disponible, y por qué solo el segundo sirve para vivir.</li>
+      <li>Los cinco números de tu radiografía: promedio, mediana, mínimo, piso y máximo.</li>
+      <li>Cómo medir qué tan variable es tu ingreso con el coeficiente de variación.</li>
+      <li>Estacionalidad, concentración de clientes y plazos de cobro: los tres riesgos que el promedio esconde.</li>
+    </ul>
+  </div>
+
+  <p>Este capítulo es el más mecánico del libro y, a la vez, uno de los más reveladores. Muchas personas que trabajan por su cuenta nunca miraron sus ingresos como una serie de doce números; los recuerdan por episodios («marzo fue buenísimo», «el invierno fue durísimo»). La memoria es mala contadora: exagera los picos, olvida los meses mediocres y casi nunca registra cuánto se fue en gastos del trabajo. Vamos a reemplazar los recuerdos por datos.</p>
+
+  <h2>Paso 1. Reúne doce meses de cobros</h2>
+  <p>Necesitas saber cuánto dinero <b>entró efectivamente</b> en cada uno de los últimos doce meses. No cuánto facturaste ni cuánto te deben: cuánto llegó a tus cuentas. Este criterio se llama «de caja» y es el que importa para pagar tus gastos, porque una factura emitida en marzo y cobrada en mayo es dinero de mayo.</p>
+
+  <p>Las fuentes habituales son:</p>
+  <ul>
+    <li><b>Extractos bancarios</b> de todas las cuentas donde recibes pagos.</li>
+    <li><b>Historial de plataformas</b> de cobro o de trabajo (procesadores de pago, billeteras digitales, plataformas de freelance, aplicaciones de reparto o transporte).</li>
+    <li><b>Facturas emitidas</b>, cruzadas con la fecha real de cobro.</li>
+    <li><b>Cobros en efectivo</b>, si los tienes: aquí vale una reconstrucción honesta a partir de tu agenda de trabajos.</li>
+  </ul>
+
+  <div class="caja alerta">
+    <p class="etiqueta">Atención</p>
+    <p><b>Registra montos brutos y separa lo extraordinario.</b> Anota lo que cobraste antes de pagar impuestos y gastos del trabajo; los descuentos los harás en el paso siguiente. Si en el año hubo un ingreso excepcional que no se repetirá —la venta de un equipo, una indemnización, una herencia, un contrato único fuera de lo normal—, anótalo aparte. Mezclarlo con tus ingresos habituales inflaría todos los cálculos.</p>
+  </div>
+
+  <h3>¿Y si cobras en más de una moneda?</h3>
+  <p>Elige una moneda de referencia (la moneda en la que cobras la mayor parte, o una moneda estable si vives en un país con inflación alta) y convierte cada cobro al tipo de cambio del día en que lo recibiste. Si tus registros no permiten tanta precisión, usa el tipo de cambio promedio de cada mes. Lo importante es aplicar siempre el mismo criterio.</p>
+
+  <h3>¿Y si tienes menos de doce meses de historia?</h3>
+  <p>Usa todos los meses que tengas, aunque sean cuatro o cinco, y trata los resultados como provisionales: en el capítulo 7 verás que, ante la duda, conviene suponer variabilidad alta. Si estás empezando y todavía no tienes historia, haz una estimación prudente de tus próximos meses a partir de los trabajos confirmados (no de los que esperas conseguir) y recalcula todo a los tres meses.</p>
+
+  <h2>Paso 2. Del ingreso bruto al ingreso disponible</h2>
+  <p>El ingreso bruto no es dinero para vivir. Antes hay que descontar dos cosas que no son tuyas en sentido estricto:</p>
+  <ul>
+    <li><b>Los impuestos y aportes obligatorios</b> que genera ese ingreso. Por ahora usa una estimación; en el capítulo 5 calcularás tu porcentaje con precisión.</li>
+    <li><b>Los gastos de tu actividad</b>: software, herramientas, equipos, comisiones de plataformas, honorarios del contador, transporte de trabajo, publicidad. Si no los tienes discriminados, haz un promedio mensual aproximado.</li>
+  </ul>
+
+  <div class="caja formula">
+    <p class="etiqueta">Fórmula</p>
+    <p class="eq">Ingreso disponible = Ingreso bruto − Reserva de impuestos − Gastos de la actividad</p>
+    <p>Es el dinero que, en ese mes, quedó realmente disponible para tu vida personal y tus ahorros.</p>
+  </div>
+
+  <div class="caja caso">
+    <p class="etiqueta">Caso hipotético · El historial de Valeria</p>
+    <p>Valeria estima que el 20 % de lo que cobra se va en impuestos y aportes (en su país real podría ser muy distinto; lo revisaremos en el capítulo 5), y sus gastos de trabajo promedian USD 200 por mes: software de diseño, una parte de internet, la reserva para renovar su computadora y los honorarios de su contador.</p>
+    <table class="compacta">
+      <thead><tr><th>Mes</th><th class="n">Ingreso bruto</th><th class="n">Impuestos (20 %)</th><th class="n">Gastos de trabajo</th><th class="n">Ingreso disponible</th></tr></thead>
+      <tbody>
+        <tr><td>Enero</td><td class="n">2.900</td><td class="n">580</td><td class="n">200</td><td class="n">2.120</td></tr>
+        <tr><td>Febrero</td><td class="n">1.800</td><td class="n">360</td><td class="n">200</td><td class="n">1.240</td></tr>
+        <tr><td>Marzo</td><td class="n">4.200</td><td class="n">840</td><td class="n">200</td><td class="n">3.160</td></tr>
+        <tr><td>Abril</td><td class="n">2.400</td><td class="n">480</td><td class="n">200</td><td class="n">1.720</td></tr>
+        <tr><td>Mayo</td><td class="n">3.600</td><td class="n">720</td><td class="n">200</td><td class="n">2.680</td></tr>
+        <tr><td>Junio</td><td class="n">1.500</td><td class="n">300</td><td class="n">200</td><td class="n">1.000</td></tr>
+        <tr><td>Julio</td><td class="n">2.700</td><td class="n">540</td><td class="n">200</td><td class="n">1.960</td></tr>
+        <tr><td>Agosto</td><td class="n">3.900</td><td class="n">780</td><td class="n">200</td><td class="n">2.920</td></tr>
+        <tr><td>Septiembre</td><td class="n">2.100</td><td class="n">420</td><td class="n">200</td><td class="n">1.480</td></tr>
+        <tr><td>Octubre</td><td class="n">5.200</td><td class="n">1.040</td><td class="n">200</td><td class="n">3.960</td></tr>
+        <tr><td>Noviembre</td><td class="n">2.600</td><td class="n">520</td><td class="n">200</td><td class="n">1.880</td></tr>
+        <tr><td>Diciembre</td><td class="n">1.900</td><td class="n">380</td><td class="n">200</td><td class="n">1.320</td></tr>
+        <tr class="total"><td>Total anual</td><td class="n">34.800</td><td class="n">6.960</td><td class="n">2.400</td><td class="n">25.440</td></tr>
+      </tbody>
+    </table>
+    <p>Valeria facturó USD 34.800, pero el dinero realmente disponible para su vida fue de USD 25.440: un 27 % menos. Esa diferencia es la que suele «desaparecer» cuando todo sale de la misma cuenta.</p>
+  </div>
+
+  <h2>Paso 3. Los cinco números de tu radiografía</h2>
+  <p>Con la columna de ingreso disponible, calcula estos cinco valores. Cada uno responde una pregunta distinta y tiene un uso concreto dentro del método:</p>
+
+  <table>
+    <thead><tr><th style="width:18%">Número</th><th style="width:34%">Cómo se calcula</th><th>Para qué sirve</th><th class="n" style="width:13%">Valeria</th></tr></thead>
+    <tbody>
+      <tr><td><b>Promedio</b></td><td>Suma de los 12 meses ÷ 12.</td><td>Mide tu capacidad anual. Se usa para comprobar si tu sueldo es sostenible (capítulo 6).</td><td class="n">2.120</td></tr>
+      <tr><td><b>Mediana</b></td><td>Ordena los 12 valores de menor a mayor y promedia el 6.º y el 7.º.</td><td>Describe un mes «típico» mejor que el promedio, porque no la inflan los picos.</td><td class="n">1.920</td></tr>
+      <tr><td><b>Mínimo</b></td><td>El valor más bajo del año.</td><td>Muestra el peor escenario reciente; sirve para calibrar los protocolos de mes malo.</td><td class="n">1.000</td></tr>
+      <tr><td><b>Piso</b></td><td>Promedio de los 3 meses más bajos.</td><td>Es tu número conservador: base del sueldo de arranque (capítulo 6).</td><td class="n">1.187</td></tr>
+      <tr><td><b>Máximo</b></td><td>El valor más alto del año.</td><td>Sirve sobre todo como advertencia: es el número con el que <i>no</i> debes planificar.</td><td class="n">3.960</td></tr>
+    </tbody>
+  </table>
+
+  <p>Observa la distancia entre el promedio (2.120) y la mediana (1.920) de Valeria. Cuando el promedio supera claramente a la mediana, significa que unos pocos meses muy buenos están tirando hacia arriba. Es la trampa del promedio que vimos en el capítulo anterior, ahora medida.</p>
+
+  <figure>
+    <div class="leyenda"><span><i style="background:#1a7fb5"></i>Ingreso disponible mensual</span><span><i class="linea" style="border-color:#c8650f"></i>Promedio</span><span><i class="linea" style="border-color:#3d4d55"></i>Piso (promedio de los 3 peores meses)</span></div>
+    <!--SVG:valeria-disponible-->
+    <figcaption><b>Figura 2.1.</b> Ingreso disponible de Valeria (caso hipotético), en USD. El promedio queda por encima del ingreso de 7 de los 12 meses; el piso es el número conservador sobre el que se construye su sueldo de arranque.</figcaption>
+  </figure>
+
+  <h2>Paso 4. Mide tu variabilidad</h2>
+  <p>Dos personas pueden tener el mismo promedio y vidas financieras completamente distintas. Si una cobra USD 2.000 todos los meses y otra alterna entre USD 500 y USD 3.500, la segunda necesita un colchón mucho mayor. Para medir esa diferencia usaremos el <b>coeficiente de variación</b> (CV): el desvío estándar de tus ingresos dividido por su promedio. Expresa, en porcentaje, cuánto se alejan tus meses de su promedio en un año típico.</p>
+
+  <div class="caja formula">
+    <p class="etiqueta">Fórmula</p>
+    <p class="eq">Coeficiente de variación (CV) = Desvío estándar de los 12 meses ÷ Promedio de los 12 meses</p>
+    <p>Calcúlalo sobre el <b>ingreso bruto</b> mensual. En una hoja de cálculo con tus 12 meses en las celdas B2 a B13:<br>
+    Excel en español: <span class="mono">=DESVESTP(B2:B13)/PROMEDIO(B2:B13)</span><br>
+    Excel en inglés o Google Sheets: <span class="mono">=STDEVP(B2:B13)/AVERAGE(B2:B13)</span><br>
+    La plantilla que acompaña al libro lo calcula automáticamente.</p>
+  </div>
+
+  <p>Para traducir el CV en decisiones, este método usa cuatro rangos orientativos. No son una clasificación oficial ni universal: son umbrales prácticos que se usan en los capítulos siguientes para fijar el tamaño del colchón.</p>
+
+  <table>
+    <thead><tr><th style="width:22%">CV</th><th style="width:22%">Variabilidad</th><th>Cómo suele verse en la práctica</th></tr></thead>
+    <tbody>
+      <tr><td>Menos de 15 %</td><td><b>Baja</b></td><td>Ingresos casi regulares: acuerdos mensuales fijos, pocos clientes estables.</td></tr>
+      <tr><td>15 % a 30 %</td><td><b>Moderada</b></td><td>Base estable con meses mejores y peores, sin caídas bruscas.</td></tr>
+      <tr><td>30 % a 50 %</td><td><b>Alta</b></td><td>Trabajo por proyectos; meses que duplican a otros.</td></tr>
+      <tr><td>Más de 50 %</td><td><b>Muy alta</b></td><td>Actividades estacionales o con meses cercanos a cero.</td></tr>
+    </tbody>
+  </table>
+
+  <p>El ingreso bruto de Valeria tiene un desvío estándar de unos USD 1.067 sobre un promedio de USD 2.900, lo que da un <b>CV de aproximadamente 37 %: variabilidad alta</b>. No es una mala noticia ni un juicio sobre su negocio; es un dato que define cuánto colchón necesita.</p>
+
+  <div class="caja clave">
+    <p class="etiqueta">Atajo sin hoja de cálculo</p>
+    <p>Si no quieres calcular el desvío estándar, divide tu <b>piso</b> (promedio de los 3 peores meses, en bruto) por tu <b>promedio</b> bruto. Si el resultado es mayor a 0,80, tu variabilidad probablemente es baja o moderada; entre 0,55 y 0,80, alta; por debajo de 0,55, muy alta. Es menos preciso que el CV, pero apunta en la misma dirección. En el caso de Valeria: 1.733 ÷ 2.900 = 0,60, variabilidad alta.</p>
+  </div>
+
+  <h2>Paso 5. Los tres riesgos que el promedio esconde</h2>
+
+  <h3>Estacionalidad</h3>
+  <p>Mira tus doce meses en orden: ¿los meses flojos se agrupan? Si en tu actividad hay una temporada baja previsible (verano, fin de año, el período sin eventos, el cierre del año fiscal de tus clientes), lo que necesitas no es solo un colchón general, sino uno que llegue lleno al comienzo de esa temporada. Con un solo año de datos es difícil distinguir estacionalidad de casualidad; si tienes dos o tres años, compáralos. En el capítulo 7 verás cómo calcular una meta específica para temporadas bajas.</p>
+
+  <h3>Concentración de clientes</h3>
+  <p>Calcula qué porcentaje de tu ingreso anual vino de tu cliente más grande y de tus tres clientes más grandes. Cuanto más concentrado está tu ingreso, más brusca puede ser una caída: perder un cliente que representa la mitad de tu facturación no es un mes malo, es un cambio de situación. Como referencia práctica, este método considera una señal de alerta que un solo cliente supere el 40 % de tus ingresos, o que tres clientes superen el 80 %. Si estás en esa situación, tu meta de colchón será mayor (capítulo 7) y te convendrá trabajar la diversificación (capítulo 11).</p>
+
+  <table class="compacta">
+    <caption>Concentración de clientes de Valeria (caso hipotético)</caption>
+    <thead><tr><th>Cliente</th><th class="n">Cobrado en el año (USD)</th><th class="n">% del total</th></tr></thead>
+    <tbody>
+      <tr><td>Cliente A (agencia, contrato por proyectos)</td><td class="n">13.224</td><td class="n">38 %</td></tr>
+      <tr><td>Cliente B (empresa de software)</td><td class="n">7.656</td><td class="n">22 %</td></tr>
+      <tr><td>Cliente C (consultora)</td><td class="n">5.220</td><td class="n">15 %</td></tr>
+      <tr><td>Otros 6 clientes</td><td class="n">8.700</td><td class="n">25 %</td></tr>
+      <tr class="total"><td>Total</td><td class="n">34.800</td><td class="n">100 %</td></tr>
+    </tbody>
+  </table>
+  <p>Su cliente principal representa el 38 % (cerca del umbral de alerta) y sus tres principales, el 75 %. Valeria no está en zona roja, pero perder al cliente A tendría un impacto fuerte. Lo tendremos en cuenta.</p>
+
+  <h3>Plazos de cobro</h3>
+  <p>Por último, estima cuántos días pasan en promedio entre que terminas un trabajo (o emites la factura) y el dinero llega a tu cuenta. Si tus clientes pagan a 30, 45 o 60 días, siempre vas a estar financiando tu propio trabajo durante ese tiempo. Ese desfase es otra razón para tener un colchón y, como verás en el capítulo 11, una de las palancas más fáciles de mejorar: anticipos, plazos más cortos y recordatorios sistemáticos.</p>
+
+  <div class="caja ejercicio">
+    <p class="etiqueta">Ejercicio 2.1 · Tu historial de doce meses</p>
+    <p>Completa la tabla con tus datos (también está en el Anexo A y en la plantilla de cálculo). Si todavía no conoces tu porcentaje de impuestos, usa una estimación provisional.</p>
+    <table class="hoja compacta">
+      <thead><tr><th style="width:16%">Mes</th><th class="n">Ingreso bruto</th><th class="n">Impuestos estimados</th><th class="n">Gastos de la actividad</th><th class="n">Ingreso disponible</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td></td><td></td><td></td><td></td></tr><tr><td>2</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>3</td><td></td><td></td><td></td><td></td></tr><tr><td>4</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>5</td><td></td><td></td><td></td><td></td></tr><tr><td>6</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>7</td><td></td><td></td><td></td><td></td></tr><tr><td>8</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>9</td><td></td><td></td><td></td><td></td></tr><tr><td>10</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>11</td><td></td><td></td><td></td><td></td></tr><tr><td>12</td><td></td><td></td><td></td><td></td></tr>
+        <tr class="total"><td>Total</td><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja ejercicio">
+    <p class="etiqueta">Ejercicio 2.2 · Tu radiografía en una ficha</p>
+    <table class="hoja compacta">
+      <tbody>
+        <tr><td class="rotulo">Promedio mensual disponible</td><td></td><td class="rotulo">Mínimo disponible</td><td></td></tr>
+        <tr><td class="rotulo">Mediana mensual disponible</td><td></td><td class="rotulo">Máximo disponible</td><td></td></tr>
+        <tr><td class="rotulo">Piso (promedio de los 3 peores meses)</td><td></td><td class="rotulo">CV del ingreso bruto (%)</td><td></td></tr>
+        <tr><td class="rotulo">Variabilidad (baja / moderada / alta / muy alta)</td><td></td><td class="rotulo">% del cliente principal</td><td></td></tr>
+        <tr><td class="rotulo">% de los 3 clientes principales</td><td></td><td class="rotulo">Días promedio de cobro</td><td></td></tr>
+        <tr><td class="rotulo">¿Hay temporada baja? ¿Qué meses?</td><td colspan="3"></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Resumen del capítulo</h2>
+  <ul>
+    <li>Registra lo que efectivamente cobraste en cada uno de los últimos 12 meses, en bruto y en una sola moneda de referencia; separa los ingresos extraordinarios.</li>
+    <li>El ingreso disponible —bruto menos impuestos menos gastos de la actividad— es el único que sirve para planificar tu vida.</li>
+    <li>Promedio, mediana, mínimo, piso y máximo responden preguntas distintas. El piso es la base conservadora del sistema; el máximo, el número con el que nunca planificas.</li>
+    <li>El coeficiente de variación resume tu variabilidad en un solo porcentaje y define el tamaño del colchón que necesitas.</li>
+    <li>Estacionalidad, concentración de clientes y plazos de cobro son riesgos que el promedio no muestra y que el método tiene en cuenta.</li>
+  </ul>
+</section>

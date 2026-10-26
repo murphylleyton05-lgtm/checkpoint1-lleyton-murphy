@@ -1,0 +1,152 @@
+<section class="capitulo" id="cap-16" data-marca="Parte IV · Implementación 16 Tres casos completos, de principio a fin" data-titulo="16. Tres casos completos" data-nivel="1">
+  <header class="apertura">
+    <p class="parte">Parte IV · Implementación</p>
+    <p class="num">16</p>
+    <h1>Tres casos completos, de principio a fin</h1>
+    <p class="bajada">Una diseñadora que cobra del exterior, un fotógrafo con temporadas muy marcadas y una consultora con IVA y retenciones. Más una variante para quien cobra cada semana.</p>
+  </header>
+
+  <div class="resumen-cap">
+    <p class="etiqueta">En este capítulo</p>
+    <ul>
+      <li>La ficha completa del sistema de Valeria, el caso que acompañó todo el libro.</li>
+      <li>Martín: cómo aplicar el método con temporada baja, cuota fija e inflación.</li>
+      <li>Lucía: cómo tratar el IVA, las retenciones y una prueba del 80 % que no se cumple.</li>
+      <li>Andrés: la variante semanal para quien cobra a través de plataformas.</li>
+    </ul>
+  </div>
+
+  <div class="caja alerta">
+    <p class="etiqueta">Recordatorio</p>
+    <p>Las cuatro personas de este capítulo son hipotéticas. Sus cifras están construidas para ilustrar decisiones del método y no representan resultados reales ni típicos. Las referencias a regímenes fiscales son generales y simplificadas: en cada caso, los porcentajes de reserva los habría definido un profesional con los datos reales.</p>
+  </div>
+
+  <h2>Caso 1 · Valeria: la ficha completa</h2>
+  <p>Valeria, diseñadora de experiencia de usuario, factura a clientes de varios países y cobra en dólares. Recorrimos su caso capítulo a capítulo; así queda su sistema resumido en una sola ficha, la misma que encontrarás en blanco en el Anexo A:</p>
+
+  <table class="compacta">
+    <thead><tr><th style="width:50%">Elemento</th><th>Valor</th></tr></thead>
+    <tbody>
+      <tr><td>Ingreso bruto promedio / CV / variabilidad</td><td>USD 2.900 / 37 % / alta</td></tr>
+      <tr><td>Ingreso disponible promedio / piso</td><td>USD 2.120 / USD 1.187</td></tr>
+      <tr><td>Reserva de impuestos</td><td>20 % de cada cobro</td></tr>
+      <tr><td>Gastos de la actividad / colchón operativo</td><td>USD 200 por mes / USD 200</td></tr>
+      <tr><td>Costo de vida normal / modo ajuste / supervivencia</td><td>USD 1.595 / 1.450 / 1.160</td></tr>
+      <tr><td>Sueldo meta / sueldo de arranque</td><td>USD 1.600 / USD 1.200</td></tr>
+      <tr><td>Prueba del 80 %</td><td>1.600 ≤ 1.696: cumple</td></tr>
+      <tr><td>Meta del embalse</td><td>6 sueldos = USD 9.600</td></tr>
+      <tr><td>Límites del semáforo (después de pagarse)</td><td>Verde ≥ 4.800 · Amarillo 1.600–4.800 · Naranja 800–1.600 · Rojo &lt; 800</td></tr>
+      <tr><td>Aporte a previsiones / capital semilla</td><td>USD 145 por mes / USD 310</td></tr>
+      <tr><td>Día de barrido / día de pago</td><td>Viernes / día 1</td></tr>
+      <tr><td>Tarifa mínima / objetivo</td><td>USD 32 / USD 37 por hora</td></tr>
+      <tr><td>Cascada (nivel 2)</td><td>Computadora de mayor gama, USD 2.400, para fin del año próximo</td></tr>
+    </tbody>
+  </table>
+  <p><b>La lección de Valeria:</b> nunca tuvo un problema de ingresos, sino de distribución. Su promedio cubría con holgura su vida; sus peores meses, no. El método no le exigió ganar más ni recortar de forma drástica: le exigió dejar de vivir al ritmo de cada cobro. Su siguiente paso está del lado de los ingresos: completar con acuerdos mensuales una base recurrente que cubra su número de supervivencia.</p>
+
+  <h2>Caso 2 · Martín: temporadas, cuota fija e inflación</h2>
+  <p>Martín es fotógrafo de bodas y eventos sociales en Argentina. Su temporada alta va de octubre a abril; de mayo a agosto casi no hay eventos. Está inscripto en un régimen de cuota fija mensual y cobra en pesos, en un contexto de inflación alta, por lo que lleva sus cuentas en dólares como moneda de referencia: cada cobro lo convierte al tipo de cambio del día para registrarlo.</p>
+
+  <h3>Sus números</h3>
+  <table class="compacta">
+    <thead><tr><th>Mes</th><th class="n">Ene</th><th class="n">Feb</th><th class="n">Mar</th><th class="n">Abr</th><th class="n">May</th><th class="n">Jun</th><th class="n">Jul</th><th class="n">Ago</th><th class="n">Sep</th><th class="n">Oct</th><th class="n">Nov</th><th class="n">Dic</th></tr></thead>
+    <tbody>
+      <tr><td>Bruto</td><td class="n">1.400</td><td class="n">1.100</td><td class="n">2.600</td><td class="n">2.300</td><td class="n">900</td><td class="n">400</td><td class="n">350</td><td class="n">600</td><td class="n">1.500</td><td class="n">2.800</td><td class="n">3.200</td><td class="n">3.000</td></tr>
+      <tr><td>Disponible</td><td class="n">1.092</td><td class="n">798</td><td class="n">2.268</td><td class="n">1.974</td><td class="n">602</td><td class="n">112</td><td class="n">63</td><td class="n">308</td><td class="n">1.190</td><td class="n">2.464</td><td class="n">2.856</td><td class="n">2.660</td></tr>
+    </tbody>
+  </table>
+  <ul>
+    <li><b>Facturación anual:</b> USD 20.150 (promedio de USD 1.679 por mes). <b>CV: 60 %, variabilidad muy alta.</b> Su piso bruto es apenas el 27 % de su promedio.</li>
+    <li><b>Impuestos:</b> como su cuota es fija, la paga cada mes desde la cuenta de Entrada como un gasto fijo más (el equivalente a unos USD 60) y, además, separa un 2 % de cada cobro en la cuenta de Impuestos como margen para una posible recategorización y para impuestos locales que se pagan aparte.</li>
+    <li><b>Gastos de la actividad:</b> USD 220 por mes, de los cuales USD 100 son la reserva para renovar cámara y lentes (unos USD 3.600 cada tres años).</li>
+    <li><b>Ingreso disponible:</b> promedio de USD 1.366; piso de apenas USD 161.</li>
+    <li><b>Gastos personales:</b> esenciales USD 755; importantes 100; flexibles 75; previsiones 60. Costo de vida normal: USD 990.</li>
+    <li><b>Sueldos:</b> meta de USD 1.000 (pasa la prueba: 1.000 ≤ 1.092) y de arranque de USD 800 (su piso es tan bajo que manda el número de supervivencia, redondeado).</li>
+    <li><b>Metas del embalse:</b> de temporada, USD 5.180 a fines de abril (capítulo 7); general, 10 sueldos (base 9 por variabilidad muy alta, +1 por temporada baja): USD 10.000.</li>
+  </ul>
+
+  <h3>La regla del piso, en una actividad estacional</h3>
+  <p>Los compromisos fijos de Martín (alquiler, servicios, cobertura de salud y teléfono) suman unos USD 455, muy por encima de su piso de USD 161. En una actividad tan estacional, la regla del piso no puede cumplirse con el ingreso de los peores meses: se cumple con el embalse. Por eso, para Martín, la meta de temporada no es opcional; es la condición para sostener sus compromisos fijos.</p>
+
+  <h3>Cuándo empezar: el inicio de la temporada alta</h3>
+  <p>Martín empieza a aplicar el método el 1 de octubre, con el embalse vacío. Así se ve su primer año:</p>
+  <table class="compacta larga">
+    <thead><tr><th>Día de pago</th><th class="n">Embalse antes</th><th class="n">Sueldo</th><th class="n">Embalse después</th><th class="n">Sueldos meta</th><th>Zona</th></tr></thead>
+    <tbody>
+      <tr><td>1 de noviembre</td><td class="n">2.464</td><td class="n">1.000</td><td class="n">1.464</td><td class="n">1,5</td><td><span class="estado amarillo">Amarillo</span></td></tr>
+      <tr><td>1 de diciembre</td><td class="n">4.320</td><td class="n">1.000</td><td class="n">3.320</td><td class="n">3,3</td><td><span class="estado verde">Verde</span></td></tr>
+      <tr><td>1 de enero</td><td class="n">5.980</td><td class="n">1.000</td><td class="n">4.980</td><td class="n">5,0</td><td><span class="estado verde">Verde</span></td></tr>
+      <tr><td>1 de febrero</td><td class="n">6.072</td><td class="n">1.000</td><td class="n">5.072</td><td class="n">5,1</td><td><span class="estado verde">Verde</span></td></tr>
+      <tr><td>1 de marzo</td><td class="n">5.870</td><td class="n">1.000</td><td class="n">4.870</td><td class="n">4,9</td><td><span class="estado verde">Verde</span></td></tr>
+      <tr><td>1 de abril</td><td class="n">7.138</td><td class="n">1.000</td><td class="n">6.138</td><td class="n">6,1</td><td><span class="estado verde">Verde</span></td></tr>
+      <tr class="destacada"><td>1 de mayo</td><td class="n">8.112</td><td class="n">1.000</td><td class="n">7.112</td><td class="n">7,1</td><td><span class="estado verde">Verde</span></td></tr>
+      <tr><td>1 de junio</td><td class="n">7.714</td><td class="n">1.000</td><td class="n">6.714</td><td class="n">6,7</td><td><span class="estado verde">Verde</span></td></tr>
+      <tr><td>1 de julio</td><td class="n">6.826</td><td class="n">1.000</td><td class="n">5.826</td><td class="n">5,8</td><td><span class="estado verde">Verde</span></td></tr>
+      <tr><td>1 de agosto</td><td class="n">5.889</td><td class="n">1.000</td><td class="n">4.889</td><td class="n">4,9</td><td><span class="estado verde">Verde</span></td></tr>
+      <tr><td>1 de septiembre</td><td class="n">5.197</td><td class="n">1.000</td><td class="n">4.197</td><td class="n">4,2</td><td><span class="estado verde">Verde</span></td></tr>
+      <tr><td>1 de octubre</td><td class="n">5.387</td><td class="n">1.000</td><td class="n">4.387</td><td class="n">4,4</td><td><span class="estado verde">Verde</span></td></tr>
+    </tbody>
+  </table>
+  <p>Como el primer cobro de temporada alta ya superaba el umbral de transición (2 sueldos meta), Martín pudo pagarse el sueldo meta desde el primer día de pago. A fines de abril tenía USD 8.112, por encima de su meta de temporada, y atravesó el invierno sin bajar nunca de cuatro sueldos de reserva. Durante esos meses su vida no cambió: cobró USD 1.000 cada mes, aunque en julio facturó USD 350.</p>
+
+  <div class="caja clave">
+    <p class="etiqueta">La lección de Martín</p>
+    <p>En actividades estacionales, <b>cuándo</b> empiezas importa casi tanto como cómo. El mejor momento es el inicio de la temporada alta. Si empiezas en plena temporada baja, tu primer objetivo es atravesarla con tu número de supervivencia y los ahorros que tengas, y construir el embalse en cuanto llegue la temporada alta.</p>
+  </div>
+
+  <h3>Cómo maneja la inflación</h3>
+  <p>Martín fija su sueldo en pesos, equivalente a su costo de vida normal, y lo actualiza cada trimestre según cómo evolucionan sus gastos reales. Mantiene el embalse en una cuenta en dólares de su banco y, el día de pago, convierte solo lo necesario para pagarse el sueldo del mes. Así, el embalse conserva su valor y el sueldo sigue a sus gastos. Registra todas las conversiones y las revisa con su contador.</p>
+
+  <h2>Caso 3 · Lucía: IVA, retenciones y una prueba que no se cumple</h2>
+  <p>Lucía es consultora de marketing autónoma en Valencia, España. El 60 % de su facturación es a empresas españolas que le retienen un porcentaje de IRPF en cada factura; el resto, a clientes de otros países, a los que, según el caso, no factura IVA español (su gestora le indica cómo facturar en cada situación). Paga una cuota mensual de autónomos y presenta declaraciones trimestrales de IRPF e IVA.</p>
+
+  <h3>Sus números</h3>
+  <ul>
+    <li><b>Facturación anual (base sin IVA):</b> EUR 45.600, promedio de EUR 3.800 por mes, con meses entre EUR 2.200 y EUR 6.000. <b>CV: 30 %, variabilidad alta</b> (justo en el límite con moderada).</li>
+    <li><b>Impuestos:</b> su gestora estimó que pagará unos EUR 7.700 de IRPF en el año y que sus clientes españoles ya retendrán unos EUR 4.100. Le faltan unos EUR 3.600, alrededor del 8 % de su facturación. Con margen, <b>reserva el 10 % de la base de cada cobro, más el 100 % del IVA cobrado</b>, que va directo a la cuenta de Impuestos.</li>
+    <li><b>Gastos de la actividad:</b> EUR 600 por mes, incluida su cuota de autónomos, que trata como un gasto fijo de la actividad.</li>
+    <li><b>Ingreso disponible:</b> promedio de EUR 2.478; piso de EUR 1.344.</li>
+    <li><b>Gastos personales:</b> esenciales EUR 1.470; importantes 180; flexibles 150; previsiones 150. Costo de vida normal: EUR 1.950.</li>
+  </ul>
+
+  <h3>La prueba del 80 % no se cumple</h3>
+  <p>Con un costo de vida normal de EUR 1.950, su sueldo meta sería de EUR 2.000. Pero el 80 % de su ingreso disponible promedio es EUR 1.982: <b>no pasa la prueba</b>. Lucía recorre los tres caminos del capítulo 6:</p>
+  <ol>
+    <li><b>Costo de vida:</b> reduce sus flexibles en EUR 50 por mes (cancela dos suscripciones que no usaba y espacia las cenas fuera). Su costo de vida normal baja a EUR 1.900, y su sueldo meta queda en <b>EUR 1.900</b>, que sí pasa la prueba (1.900 ≤ 1.982).</li>
+    <li><b>Ingresos:</b> calcula su tarifa mínima viable y descubre que dos de sus clientes pagan por debajo de ella. Planifica una actualización de tarifas para el trimestre siguiente.</li>
+    <li><b>Sueldo de arranque:</b> como su número de supervivencia (EUR 1.470) supera a su piso, su sueldo de arranque es de <b>EUR 1.500</b>. Pasará al sueldo meta cuando el embalse tenga EUR 3.800 el día de pago.</li>
+  </ol>
+
+  <h3>Su ficha</h3>
+  <table class="compacta">
+    <tbody>
+      <tr><td style="width:50%">Reserva de impuestos</td><td>10 % de la base + 100 % del IVA</td></tr>
+      <tr><td>Meses de impuestos</td><td>Abril, julio, octubre y enero (trimestrales) + declaración anual</td></tr>
+      <tr><td>Sueldo meta / de arranque</td><td>EUR 1.900 / EUR 1.500</td></tr>
+      <tr><td>Meta del embalse</td><td>6 sueldos (variabilidad alta, sin ajustes) = EUR 11.400</td></tr>
+      <tr><td>Primera mejora de ingresos</td><td>Actualizar la tarifa de dos clientes por debajo de su mínimo</td></tr>
+    </tbody>
+  </table>
+
+  <p><b>La lección de Lucía:</b> el IVA es la trampa de impuestos fantasma más grande que existe, porque infla cada cobro con dinero que nunca fue tuyo. Separarlo completo, en el momento, hace que su saldo de Entrada refleje por fin lo que realmente gana. Y cuando la prueba del 80 % no se cumple, el método no la obliga a elegir entre vivir peor o arriesgarse: le muestra con números qué ajustar primero.</p>
+
+  <h2>Variante · Andrés: cobros semanales</h2>
+  <p>Andrés trabaja en Houston, Estados Unidos, como conductor para aplicaciones de transporte y reparto. Recibe pagos cada semana, de entre USD 350 y USD 900, y tiene gastos de operación altos: combustible, mantenimiento y neumáticos. Su preparador de impuestos le recomendó reservar el 20 % de cada pago para sus pagos estimados trimestrales.</p>
+  <p>Su versión del método funciona así:</p>
+  <ul>
+    <li><b>Cada lunes,</b> cuando llega el pago semanal a su cuenta de Entrada, separa el 20 % para Impuestos y paga desde Entrada el combustible de la semana.</li>
+    <li><b>Mantiene en Entrada</b> una reserva semanal para mantenimiento del vehículo (cambios de aceite, frenos, neumáticos), calculada a partir de lo que gastó el año anterior, como previsión de la actividad.</li>
+    <li><b>Hace el barrido</b> al Embalse el mismo lunes.</li>
+    <li><b>Se paga cada quince días</b> (los días 1 y 15) la mitad de su sueldo meta. Dejó de vivir con el saldo de cada semana, que antes lo llevaba a gastar de más en las buenas y a usar la tarjeta en las malas.</li>
+    <li><b>En su calendario fiscal</b> tiene marcados los cuatro pagos estimados del año, que hace desde la cuenta de Impuestos.<sup class="ref"><a href="#ref-12">12</a></sup></li>
+  </ul>
+  <p>Para calcular su sueldo meta y la meta de su embalse, Andrés agrupa sus pagos semanales por mes calendario y sigue exactamente los mismos pasos que Valeria.</p>
+
+  <h2>Resumen del capítulo</h2>
+  <ul>
+    <li>Valeria muestra el caso base: un problema de distribución, no de ingresos, resuelto con el sistema completo.</li>
+    <li>Martín muestra que, en actividades estacionales, la meta de temporada sostiene los compromisos fijos y que conviene empezar al inicio de la temporada alta; con inflación, presupuesta en pesos y ahorra en la forma más estable disponible.</li>
+    <li>Lucía muestra cómo tratar el IVA y las retenciones, y qué hacer cuando la prueba del 80 % no se cumple.</li>
+    <li>Andrés muestra que el método funciona igual con pagos semanales: barrido semanal y sueldo quincenal.</li>
+  </ul>
+</section>

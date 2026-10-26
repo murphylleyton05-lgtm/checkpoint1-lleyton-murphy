@@ -1,0 +1,82 @@
+<section class="capitulo" id="anexo-d" data-marca="Anexo D Cómo usar la plantilla de cálculo" data-titulo="D. Cómo usar la plantilla de cálculo" data-nivel="1">
+  <header class="apertura">
+    <p class="parte">Anexo D</p>
+    <h1>Cómo usar la plantilla de cálculo</h1>
+    <p class="bajada">La plantilla automatiza todos los cálculos del libro. Funciona en Excel y en Google Sheets, e incluye una versión de ejemplo con el caso de Valeria.</p>
+  </header>
+
+  <p>Con el libro recibes dos archivos:</p>
+  <ul>
+    <li><b>Plantilla-Metodo-Embalse.xlsx</b>: la versión en blanco, para tus datos.</li>
+    <li><b>Plantilla-Metodo-Embalse-EJEMPLO.xlsx</b>: la misma plantilla completa con los datos hipotéticos de Valeria. Te sirve para ver cómo debería verse cada hoja y para comprobar que entiendes los cálculos.</li>
+  </ul>
+  <p>En todas las hojas, las <b>celdas amarillas</b> son las que completas tú y las <b>celdas celestes</b> se calculan solas. Para usarla en Google Sheets, súbela a tu Drive y ábrela con Hojas de cálculo de Google (o usa Archivo &gt; Importar). Las fórmulas son compatibles con ambas aplicaciones.</p>
+
+  <table>
+    <thead><tr><th style="width:20%">Hoja</th><th style="width:44%">Qué completas</th><th>Qué obtienes</th></tr></thead>
+    <tbody>
+      <tr><td><b>Inicio</b></td><td>Nada. Lee las instrucciones.</td><td>El orden recomendado y la leyenda de colores.</td></tr>
+      <tr><td><b>1 Ingresos</b></td><td>Tus cobros brutos de 12 meses y lo cobrado a cada cliente en el año.</td><td>Ingreso disponible mensual, los cinco números, el CV, la variabilidad, el atajo piso ÷ promedio y la concentración de clientes con alertas.</td></tr>
+      <tr><td><b>2 Gastos</b></td><td>Cada gasto personal, su categoría (desde una lista desplegable), su monto y si es compromiso fijo.</td><td>Costo de vida normal, modo ajuste, número de supervivencia y la regla del piso.</td></tr>
+      <tr><td><b>3 Sistema</b></td><td>Moneda, porcentaje de impuestos, días de barrido y de pago, gastos de la actividad y tres preguntas para la meta del embalse.</td><td>La ficha completa: sueldo meta y de arranque, prueba del 80 %, umbral de transición, meta del embalse, límites del semáforo, previsiones y tarifa.</td></tr>
+      <tr><td><b>4 Cobros</b></td><td>Fecha, cliente, monto bruto e IVA de cada cobro.</td><td>Cuánto va a Impuestos y cuánto queda en Entrada, el mes de cada cobro y los cobros sin barrido.</td></tr>
+      <tr><td><b>5 Embalse</b></td><td>El día de pago, el saldo del embalse antes de pagarte (y el sueldo que te pagaste, si fue distinto del sugerido).</td><td>Fase (arranque o normal), sueldo sugerido según los protocolos, saldo después, zona del semáforo con color y reparto de la cascada.</td></tr>
+      <tr><td><b>6 Previsiones</b></td><td>Cada gasto irregular, el mes en que llega y su monto, y el mes en que empiezas.</td><td>Aporte mensual, simulación del saldo de 12 meses y capital semilla.</td></tr>
+      <tr><td><b>7 Tarifa</b></td><td>Metas anuales, semanas de vacaciones, horas y porcentaje facturable, tu tarifa actual.</td><td>Tarifa mínima viable, tarifa objetivo y diferencia con tu tarifa actual.</td></tr>
+      <tr><td><b>8 Cartera 90 días</b></td><td>Trabajos esperados, monto, mes (1, 2 o 3) y estado.</td><td>Ingreso disponible esperado por mes comparado con tu sueldo meta, con alerta de meses flojos.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Cómo usarla en el tiempo</h3>
+  <ul>
+    <li><b>Una vez (plan de 30 días):</b> hojas 1, 2, 3, 6 y 7.</li>
+    <li><b>Cada semana:</b> hoja 4.</li>
+    <li><b>Cada mes:</b> hojas 5 y 8, y agregar el mes que terminó en la hoja 1 (borra el mes más antiguo para mantener siempre los últimos 12).</li>
+    <li><b>Cada trimestre:</b> revisa la hoja 3 completa; si cambió algo en tus impuestos o gastos, actualiza las hojas 2 y 3.</li>
+  </ul>
+
+  <div class="caja alerta">
+    <p class="etiqueta">Atención</p>
+    <p>La plantilla hace cálculos con los datos que le das; no conoce tu situación fiscal. El porcentaje de impuestos que ingreses debe estar confirmado (capítulo 5). Los rangos de variabilidad, la tabla de meses del embalse y la regla del 80 % son referencias propias de este método, no normas oficiales.</p>
+  </div>
+</section>
+
+<section class="capitulo" id="anexo-e" data-marca="Anexo E Glosario" data-titulo="E. Glosario" data-nivel="1">
+  <header class="apertura">
+    <p class="parte">Anexo E</p>
+    <h1>Glosario</h1>
+  </header>
+
+  <table class="compacta larga">
+    <tbody>
+      <tr><td style="width:28%"><b>Barrido</b></td><td>Transferencia semanal desde la cuenta de Entrada hacia el Embalse de todo lo que excede el colchón operativo, después de separar impuestos.</td></tr>
+      <tr><td><b>Capital semilla</b></td><td>Monto inicial que necesita la cuenta de Previsiones en el primer año para que nunca quede en negativo. Es el saldo más negativo de la simulación mes a mes.</td></tr>
+      <tr><td><b>Cascada</b></td><td>Orden de destino del excedente cuando el Embalse supera su meta: 10 % de disfrute y 90 % a deudas caras, metas de mediano plazo y retiro, en ese orden.</td></tr>
+      <tr><td><b>Coeficiente de variación (CV)</b></td><td>Desvío estándar de tus ingresos mensuales dividido por su promedio. Mide qué tan variable es tu ingreso.</td></tr>
+      <tr><td><b>Colchón operativo</b></td><td>Saldo que permanece en la cuenta de Entrada: un mes de gastos de la actividad más sus previsiones.</td></tr>
+      <tr><td><b>Compromiso fijo</b></td><td>Pago que no puedes pausar en un mes malo sin penalidad: alquiler, cuotas, préstamos, contratos con permanencia, seguros.</td></tr>
+      <tr><td><b>Costo de vida normal</b></td><td>Suma de gastos esenciales, importantes, flexibles y previsiones mensualizadas. Base del sueldo meta.</td></tr>
+      <tr><td><b>Criterio de caja</b></td><td>Registrar un ingreso en el mes en que el dinero llega efectivamente a tu cuenta, no cuando se factura.</td></tr>
+      <tr><td><b>Embalse</b></td><td>Cuenta que acumula los ingresos disponibles y de la que sale tu sueldo fijo. Suaviza la variabilidad y te protege en las sequías.</td></tr>
+      <tr><td><b>Entrada</b></td><td>Cuenta de tu actividad que recibe todos los cobros y paga los gastos de la actividad.</td></tr>
+      <tr><td><b>Gasto de la actividad</b></td><td>Gasto necesario para generar tus ingresos. No es lo mismo que gasto deducible.</td></tr>
+      <tr><td><b>Gasto mixto</b></td><td>Gasto que sirve a la vez a tu actividad y a tu vida personal; se divide con una proporción fija.</td></tr>
+      <tr><td><b>Ingreso bruto</b></td><td>Lo que cobras antes de impuestos y gastos de la actividad.</td></tr>
+      <tr><td><b>Ingreso disponible</b></td><td>Ingreso bruto menos reserva de impuestos menos gastos de la actividad.</td></tr>
+      <tr><td><b>Ingreso extraordinario</b></td><td>Ingreso que no proviene de tu actividad habitual y no se repetirá. Se registra aparte.</td></tr>
+      <tr><td><b>Meta de temporada</b></td><td>Monto que debe tener el Embalse al inicio de una temporada baja previsible: déficit acumulado de la temporada más tres meses de supervivencia.</td></tr>
+      <tr><td><b>Meta del embalse</b></td><td>M sueldos meta, donde M depende de tu variabilidad y tus riesgos (entre 3 y 12).</td></tr>
+      <tr><td><b>Modo ajuste</b></td><td>Nivel de gasto sin flexibles. Es tu sueldo en zona naranja.</td></tr>
+      <tr><td><b>Número de supervivencia</b></td><td>Suma de tus gastos esenciales. Es tu sueldo en zona roja.</td></tr>
+      <tr><td><b>Piso</b></td><td>Promedio de tus tres peores meses de ingreso disponible en los últimos 12.</td></tr>
+      <tr><td><b>Previsiones</b></td><td>Subcuenta para los gastos previsibles que no son mensuales, alimentada con un aporte fijo.</td></tr>
+      <tr><td><b>Prueba del 80 %</b></td><td>Comprobación de que tu sueldo meta no supera el 80 % de tu ingreso disponible promedio.</td></tr>
+      <tr><td><b>Regla del piso</b></td><td>Tus compromisos fijos deberían caber dentro de tu piso.</td></tr>
+      <tr><td><b>Semáforo</b></td><td>Cuatro zonas (verde, amarillo, naranja, rojo) según los sueldos meta que quedan en el Embalse después de pagarte.</td></tr>
+      <tr><td><b>Sueldo de arranque</b></td><td>Sueldo reducido que te pagas mientras el Embalse se llena: el mayor entre tu número de supervivencia y tu piso.</td></tr>
+      <tr><td><b>Sueldo meta</b></td><td>Monto fijo que te pagas en régimen normal, basado en tu costo de vida normal.</td></tr>
+      <tr><td><b>Tarifa mínima viable</b></td><td>Ingreso bruto necesario por año dividido por tus horas facturables reales.</td></tr>
+      <tr><td><b>Umbral de transición</b></td><td>Dos sueldos meta en el Embalse el día de pago, antes de pagarte. Al alcanzarlo, pasas del sueldo de arranque al sueldo meta.</td></tr>
+    </tbody>
+  </table>
+</section>
