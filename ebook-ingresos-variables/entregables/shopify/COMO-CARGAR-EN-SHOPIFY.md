@@ -3,9 +3,9 @@
 ## 1. Importar los productos
 1. Admin de Shopify → **Productos → Importar** → subí `productos-shopify.csv`.
 2. Se crean dos productos en estado **borrador**:
-   - **Sistema completo** — USD 29 (el principal).
-   - **Solo ebook** — USD 17 (oculto; activalo en el mes 2).
-3. Precio de lanzamiento: en el Sistema completo, poné precio **19** y precio comparado **29** durante 7 días; después volvé a 29 sin precio comparado.
+   - **Sistema completo** — ARS 19.900 con ARS 29.900 tachado (precio de lanzamiento).
+   - **Solo ebook** — ARS 17.900 (oculto; activalo en el mes 2).
+3. A los 7 días de abrir la tienda, pasá el Sistema completo a **ARS 29.900** sin precio comparado.
 
 ## 2. Imágenes
 Subí en este orden desde `entregables/imagenes/`: `02-mockup-principal.png`, `03-que-incluye.png`, `04-interior.png`, `05-plantilla.png`, `01-portada.png`. Los textos alternativos están en la sección 6 del kit.
