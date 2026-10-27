@@ -1,0 +1,13 @@
+{
+  "importe_neto_gravado": 100000.0,
+  "importe_no_gravado": null,
+  "importe_exento": null,
+  "iva": [
+    {"alicuota": 21, "importe": 21000.0}
+  ],
+  "otros_tributos": 3000.0,
+  "importe_total": 124000.0,
+  "items": [
+    {"descripcion": "Abono mensual", "subtotal": 100000.0}
+  ]
+}
